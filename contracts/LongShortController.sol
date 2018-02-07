@@ -6,7 +6,11 @@ pragma solidity ^0.4.18;
  * OrdersManager.
  */
 contract LongShortController {
-    uint public parameterSignature;
+    string public ebin;
+    function LongShortController() public {
+        ebin = "ebin";
+    }
+    /* uint public parameterSignature;
     uint private startingDate;
     uint private expirationDate;
     uint private startingPrice;
@@ -32,5 +36,5 @@ contract LongShortController {
         leverage = lvrg;
         longOrders = l;
         shortOrders = s;
-    }
+    } */
 }
