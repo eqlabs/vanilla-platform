@@ -26,8 +26,6 @@ contract ProxyWallet is Ownable {
   /**
    * Simple payment endpoint, that
    * accumulates funds in the contract.
-   *
-   * @fires PaymentReceived
    */
   function() public payable {
     balance += msg.value;
@@ -36,8 +34,6 @@ contract ProxyWallet is Ownable {
 
   /**
    * Getter for the balance of the proxy wallet
-   *
-   * @returns uint balance – the total balance of the contract in Wei
    */
   function getBalance() public returns (uint) {
     return balance;
@@ -45,9 +41,6 @@ contract ProxyWallet is Ownable {
 
   /**
    * Refund the user
-   *
-   * @param address paymentAddress
-   * @fires UserRefunded
    */
   function refund(address paymentAddress) public onlyOwner {
     paymentAddress.transfer(balance);
@@ -61,8 +54,6 @@ contract ProxyWallet is Ownable {
    * Requires the contract balance to be 0
    * before destruction, so no user funds are
    * transfered to us.
-   *
-   * @fires ContractDestroyed
    */
   function destroy() public onlyOwner {
 
@@ -73,7 +64,7 @@ contract ProxyWallet is Ownable {
     ContractDestroyed(this);
 
     // Destroy the contract.
-    selfdestruct();
+    selfdestruct(owner);
 
   }
 }
