@@ -1,5 +1,4 @@
 pragma solidity ^0.4.18;
-import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /**
  * Proxy wallet, spawned and managed by our backend.
@@ -11,9 +10,26 @@ import "zeppelin-solidity/contracts/ownership/Ownable.sol";
  *
  * @author Nordic Venture Family Code Distillery
  */
-contract ProxyWallet is Ownable {
+contract ProxyWallet {
   // Balance of the contract in Wei
   uint256 private balance;
+  address public owner;
+  
+  /**
+   * Constructor, saving the owner
+   */
+  function ProxyWallet() public {
+    owner = msg.sender;
+  }
+  
+  /**
+   * Function modifier for preventing anyone else than the creator
+   * of the contract to call the function.
+   */
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+  }
 
   /**
    * Watchable events for the backend server to
@@ -35,7 +51,7 @@ contract ProxyWallet is Ownable {
   /**
    * Getter for the balance of the proxy wallet
    */
-  function getBalance() public returns (uint) {
+  function getBalance() public view returns (uint) {
     return balance;
   }
 
