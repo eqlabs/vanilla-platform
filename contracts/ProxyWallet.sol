@@ -26,6 +26,8 @@ contract ProxyWallet is Ownable {
   /**
    * Simple payment endpoint, that
    * accumulates funds in the contract.
+   *
+   * @fires PaymentReceived
    */
   function() public payable {
     balance += msg.value;
@@ -34,6 +36,7 @@ contract ProxyWallet is Ownable {
 
   /**
    * Getter for the balance of the proxy wallet
+   *
    * @returns uint balance – the total balance of the contract in Wei
    */
   function getBalance() public returns (uint) {
@@ -42,7 +45,9 @@ contract ProxyWallet is Ownable {
 
   /**
    * Refund the user
+   *
    * @param address paymentAddress
+   * @fires UserRefunded
    */
   function refund(address paymentAddress) public onlyOwner {
     paymentAddress.transfer(balance);
@@ -51,10 +56,24 @@ contract ProxyWallet is Ownable {
 
   /**
    * Destroys the proxy wallet,
-   * calling Solidity's selfdestruct()
+   * calling Solidity's selfdestruct().
+   *
+   * Requires the contract balance to be 0
+   * before destruction, so no user funds are
+   * transfered to us.
+   *
+   * @fires ContractDestroyed
    */
   function destroy() public onlyOwner {
+
+    // Require that the contract has been refunded before destroying it
+    require(balance == 0);
+
+    // Send the event of the destruction before it actually happening, because things
     ContractDestroyed(this);
+
+    // Destroy the contract.
     selfdestruct();
+
   }
 }
