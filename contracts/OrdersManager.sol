@@ -85,11 +85,11 @@ contract OrdersManager {
     }
     
     // Spawns a new option contract
-    function createController(Order[] longOrders, Order[] shortOrders) public {
+    /* function createController(Order[] longOrders, Order[] shortOrders) public {
         var initialOrder = longOrders[0];
         address newController = new LongShortController(initialOrder.parameterSignature, initialOrder.expirationDate, initialOrder.leverage, longOrders, shortOrders);
         controllers.push(newController);
-    }
+    } */
     
     function matchMaker() public {
         for (uint longOrderIndex = 0; longOrderIndex < openLongOrders.length; longOrderIndex++) {
