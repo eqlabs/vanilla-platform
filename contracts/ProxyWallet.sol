@@ -12,11 +12,16 @@ import "zeppelin-solidity/contracts/ownership/Ownable.sol";
  * @author Nordic Venture Family Code Distillery
  */
 contract ProxyWallet is Ownable {
-
-  // Balance of the contract
+  // Balance of the contract in Wei
   uint256 private balance;
 
-  // TODO: add events
+  /**
+   * Watchable events for the backend server to
+   * keep taps of things happening in the proxy wallets.
+   */
+  event PaymentReceived(address thisContract, uint updatedBalance);
+  event UserRefunded(address thisContract, address userAddress);
+  event ContractDestroyed(address thisContract);
 
   /**
    * Simple payment endpoint, that
@@ -24,21 +29,32 @@ contract ProxyWallet is Ownable {
    */
   function() public payable {
     balance += msg.value;
+    PaymentReceived(this, balance);
   }
 
   /**
    * Getter for the balance of the proxy wallet
+   * @returns uint balance – the total balance of the contract in Wei
    */
   function getBalance() public returns (uint) {
     return balance;
   }
 
   /**
-   * Destroys the proxy wallet, transferring the remaining balance
-   * to the user.
+   * Refund the user
+   * @param address paymentAddress
    */
-  function destroyProxyWallet(address paymentAddress) public onlyOwner {
+  function refund(address paymentAddress) public onlyOwner {
     paymentAddress.transfer(balance);
+    UserRefunded(this, paymentAddress);
+  }
+
+  /**
+   * Destroys the proxy wallet,
+   * calling Solidity's selfdestruct()
+   */
+  function destroy() public onlyOwner {
+    ContractDestroyed(this);
     selfdestruct();
   }
 }
