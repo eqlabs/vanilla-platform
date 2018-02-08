@@ -1,6 +1,9 @@
+// eslint-disable-next-line
 const ProxyWallet = artifacts.require("../contracts/ProxyWallet.sol");
+// eslint-disable-next-line
 const { should } = require("./helpers");
 
+// eslint-disable-next-line
 contract("ProxyWallet", accounts => {
   let instance;
 
@@ -21,11 +24,4 @@ contract("ProxyWallet", accounts => {
     const balance = await instance.getBalance.call();
     balance.should.be.bignumber.equal(5);
   });
-
-  /* it("Should refund", async () => {
-    await instance.sendTransaction({ value: 5, from: accounts[1] });
-    await instance.refund.call(accounts[1]);
-    const balance = await instance.getBalance.call();
-    balance.should.be.bignumber.equal(0);
-  }); */
 });
