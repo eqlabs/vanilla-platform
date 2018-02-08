@@ -12,7 +12,7 @@ pragma solidity ^0.4.18;
  */
 contract ProxyWallet {
   // Balance of the contract in Wei
-  uint256 private balance;
+  uint256 public balance;
   address public owner;
   
   /**
@@ -46,13 +46,6 @@ contract ProxyWallet {
   function() public payable {
     balance += msg.value;
     PaymentReceived(this, balance);
-  }
-
-  /**
-   * Getter for the balance of the proxy wallet
-   */
-  function getBalance() public view returns (uint) {
-    return balance;
   }
 
   /**

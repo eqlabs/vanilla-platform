@@ -21,7 +21,7 @@ contract("ProxyWallet", accounts => {
 
   it("Should put 5 wei in the contract", async () => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
-    const balance = await instance.getBalance.call();
+    const balance = await instance.balance.call();
     balance.should.be.bignumber.equal(5);
   });
 });
