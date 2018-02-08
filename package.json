@@ -5,19 +5,14 @@
   "author": "",
   "private": true,
   "lint-staged": {
-    "{,!(node_modules)/}**/*.{json,css}": [
-      "prettier-eslint --write"
-    ],
-    "{,!(node_modules)/}**/*.js": [
-      "prettier-eslint --write",
-      "eslint"
-    ]
+    "{,!(node_modules)/}**/*.{json,css}": ["prettier-eslint --write"],
+    "{,!(node_modules)/}**/*.js": ["prettier-eslint --write", "eslint"]
   },
   "scripts": {
     "compile": "truffle compile",
     "develop": "truffle develop",
     "migrate": "truffle migrate",
-    "precommit": "lint-staged && nsp check --threshold 10",
+    "precommit": "lint-staged && nsp check --threshold=10",
     "test": "truffle test"
   },
   "devDependencies": {
