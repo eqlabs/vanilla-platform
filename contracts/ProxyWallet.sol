@@ -53,6 +53,7 @@ contract ProxyWallet {
    */
   function refund(address paymentAddress) public onlyOwner {
     paymentAddress.transfer(balance);
+    balance = 0;
     UserRefunded(this, paymentAddress);
   }
 

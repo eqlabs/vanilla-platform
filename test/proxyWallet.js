@@ -24,4 +24,31 @@ contract("ProxyWallet", accounts => {
     const balance = await instance.balance.call();
     balance.should.be.bignumber.equal(5);
   });
+
+  it("Should refund the user", async () => {
+    await instance.sendTransaction({ value: 5, from: accounts[1] });
+    const initialBalance = await instance.balance.call();
+    initialBalance.should.be.bignumber.equal(5);
+    await instance.refund(accounts[1], { from: accounts[0] });
+    const updatedBalance = await instance.balance.call();
+    updatedBalance.should.be.bignumber.equal(0);
+  });
+
+  it("Should refuse to destroy when balance is over 0", async () => {
+    await instance.sendTransaction({ value: 5, from: accounts[1] });
+    try {
+      await instance.destroy({ from: accounts[0] });
+    } catch (e) {
+      return true;
+    }
+  });
+
+  it("Should be able to destroy when balance is 0", async () => {
+    try {
+      await instance.destroy({ from: accounts[0] });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  });
 });
