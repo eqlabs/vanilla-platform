@@ -20,7 +20,7 @@ contract OrdersManager {
     mapping(uint => uint) private shortAmountForParameters;
     
     // Address of the owner of this manager
-    address private owner;
+    address public owner;
     
     // Address of the fee wallet
     address private feeWallet;
