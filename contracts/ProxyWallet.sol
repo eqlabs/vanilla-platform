@@ -35,9 +35,9 @@ contract ProxyWallet {
    * Watchable events for the backend server to
    * keep taps of things happening in the proxy wallets.
    */
-  event PaymentReceived(address thisContract, uint updatedBalance);
-  event UserRefunded(address thisContract, address userAddress);
-  event ContractDestroyed(address thisContract);
+  event PaymentReceived(address proxyWalletAddress, uint updatedBalance);
+  event UserRefunded(address proxyWalletAddress, address userAddress);
+  event ContractDestroyed(address proxyWalletAddress);
 
   /**
    * Simple payment endpoint, that

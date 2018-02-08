@@ -12,6 +12,7 @@
   ],
   "rules": {
     "node/exports-style": ["error", "module.exports"],
+    "node/no-unsupported-features": "off",
     "mocha/no-exclusive-tests": "error"
   },
   "overrides": [
