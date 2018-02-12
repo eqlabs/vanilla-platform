@@ -18,17 +18,23 @@ contract OrdersManager is Ownable {
 
     // Secret for parameter matching
     string private signature = "mysaltisshitty";
-    
-    // List of all the controller contracts we have spawned
-    address[] private controllers;
+
+    // Address of the fee wallet
+    address private feeWallet;
+
+    // Address of the LongShortController
+    address private longShortControllerAddress;
     
     // List of all open orders
     bytes32[] private openOrderHashes;
     mapping(bytes32 => Order[]) private longs;
     mapping(bytes32 => Order[]) private shorts;
-    
-    // Address of the fee wallet
-    address private feeWallet;
+    mapping(bytes32 => uint256) private amountLongForHash;
+    mapping(bytes32 => uint256) private amountShortForHash;
+
+    // Minimum and maximum positions
+    uint256 public constant MINIMUM_POSITION = 0.01 ether;
+    uint256 public constant MAXIMUM_POSITION = 500 ether;
     
     // Constructor, defining the fee wallet address and the signature
     function OrdersManager(string signingSecret) public {
@@ -55,6 +61,29 @@ contract OrdersManager is Ownable {
      */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
+        longShortControllerAddress = new LongShortController();
+    }
+
+    /**
+     * Function for checking if there are orders
+     * with the same parameters open already
+     */
+    function similarOrdersExist(bytes32 parameterHash) internal view returns (bool) {
+        if (amountShortForHash[parameterHash] > 0 || amountLongForHash[parameterHash] > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Function for checking if there are open orders
+     * on both sides with enough funds.
+     */
+    function matchesExist(bytes32 parameterHash) internal view returns (bool) {
+        if (amountShortForHash[parameterHash] > MINIMUM_POSITION && amountLongForHash[parameterHash] > MINIMUM_POSITION) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -67,20 +96,43 @@ contract OrdersManager is Ownable {
      */
     function createOrder(uint closingDate, uint leverage, bool longPosition, address paymentAddress) public payable {
 
-        // Define minimum and maximum bets
-        //require(msg.value > 0.1 ether);
-        require(msg.value < 500 ether);
+        // Check minimum and maximum bets
+        require(msg.value > MINIMUM_POSITION);
+        require(msg.value < MAXIMUM_POSITION);
 
         // Calculate a hash of the parameters for matching
         bytes32 parameterHash = keccak256(closingDate, leverage, signature);
 
-        // Register position types into own arrays and maps
+        /* SAVE ORDER */
+
+        // If the order is long
         if (longPosition) {
-            openOrderHashes.push(parameterHash);
+
+            // Save new parameter hash to list
+            if (!similarOrdersExist(parameterHash)) {
+                openOrderHashes.push(parameterHash);
+            }
+
+            // Add the sent amount to previous amount of longs with the same parameters
+            amountLongForHash[parameterHash].add(msg.value);
+
+            // Add the order to list of open long orders
             longs[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
+
+        // If the order is short
         } else {
-            openOrderHashes.push(parameterHash);
+
+            // Save new parameter hash to list
+            if (!similarOrdersExist(parameterHash)) {
+                openOrderHashes.push(parameterHash);
+            }
+
+            // Add the sent amount to previous amount of shorts with the same parameters
+            amountShortForHash[parameterHash].add(msg.value);
+
+            // Add the order to list of open short orders
             shorts[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
+
         }
 
     }
@@ -98,43 +150,111 @@ contract OrdersManager is Ownable {
         require(openOrderHashes.length > 1);
 
         for (uint i = 0; i < openOrderHashes.length; i++) {
+
+            // Parameter hash of this iteration
+            var paramHash = openOrderHashes[i];
+
+            // Order arrays for these parameters
+            Order[] memory longsForHash = new Order[](longs[paramHash].length);
+            Order[] memory shortsForHash = new Order[](shorts[paramHash].length);
+
             // Check that both sides have open orders with same parameters
-            if (longs[paramHash].length > 0 && shorts[paramHash].length > 0) {
+            if (matchesExist(paramHash)) {
+                if (amountShortForHash[paramHash] < amountLongForHash[paramHash]) {
 
-                bytes32 paramHash = openOrderHashes[i];
-                uint256 amountLong = 0;
-                uint256 amountShort = 0;
+                    uint256 amountLong = 0;
+                    uint256 amountShort = amountShortForHash[paramHash];
 
-                // Calculate the amount of wei in long orders
-                for (uint j = 0; j < longs[paramHash].length; j++) {
-                    amountLong.add(longs[paramHash][j].balance);
-                }
+                    uint256 longShortDiff = amountLongForHash[paramHash].sub(amountShort);
 
-                // Calculate the amount of wei in short orders
-                for (uint k = 0; k < shorts[paramHash].length; k++) {
-                    if (amountShort < amountLong) {
-                        uint256 longShortDiff = amountShort.sub(amountLong);
-                        if (shorts[paramHash][k].balance > longShortDiff) {
-                            amountShort.add(shorts[paramHash][k].balance);
-                        } else {
-                            amountShort.add(shorts[paramHash][k].balance);
+                    // For the smaller position, it's easy: just add the orders to the batch.
+                    for (uint j = 0; j < shorts[paramHash].length; j++) {
+                        shortsForHash[j] = shorts[paramHash][j];
+                        amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
+                        delete shorts[paramHash][j];
+                    }
+
+                    // For the larger position, let's calculate a little
+                    for (j = 0; j < longs[paramHash].length; j++) {
+                        if (amountLong < amountShort) {
+
+                            if (longs[paramHash][j].balance < longShortDiff) {
+
+                                amountLong.add(longs[paramHash][j].balance);
+                                longsForHash[j] = longs[paramHash][j];
+                                amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
+                                delete longs[paramHash][j];
+
+                            } else {
+
+                                var remainingDiff = amountShort.sub(amountLong);
+
+                                Order memory partialOrder = longs[paramHash][j];
+                                partialOrder.balance = remainingDiff;
+
+                                longs[paramHash][j].balance.sub(remainingDiff);
+
+                                longsForHash[j] = partialOrder;
+                                amountLongForHash[paramHash].sub(remainingDiff);
+
+                                amountLong = amountShort;
+
+                            }
+
                         }
                     }
+
+                } else {
+
+                    amountLong = amountLongForHash[paramHash];
+                    amountShort = 0;
+
+                    var shortLongDiff = amountShortForHash[paramHash].sub(amountLong);
+
+                    // For the smaller position, it's easy: just add the orders to the batch.
+                    for (j = 0; j < longs[paramHash].length; j++) {
+                        longsForHash[j] = longs[paramHash][j];
+                        amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
+                        delete longs[paramHash][j];
+                    }
+
+                    // For the larger position, let's calculate a little
+                    for (j = 0; j < shorts[paramHash].length; j++) {
+                        if (amountShort < amountLong) {
+
+                            if (shorts[paramHash][j].balance < shortLongDiff) {
+
+                                amountShort.add(shorts[paramHash][j].balance);
+                                shortsForHash[j] = shorts[paramHash][j];
+                                amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
+                                delete shorts[paramHash][j];
+
+                            } else {
+
+                                remainingDiff = amountLong.sub(amountShort);
+
+                                partialOrder = shorts[paramHash][j];
+                                partialOrder.balance = remainingDiff;
+
+                                shorts[paramHash][j].balance.sub(remainingDiff);
+
+                                shortsForHash[j] = partialOrder;
+                                amountShortForHash[paramHash].sub(remainingDiff);
+                                
+                                amountShort = amountLong;
+
+                            }
+
+                        }
+                    }
+
                 }
-
                 uint256 amountForHash = amountLong.add(amountShort);
-                uint256 feeForHash = amountForHash.mul(uint256(3).div(uint256(10)));
-                amountForHash = amountForHash.sub(feeForHash);
+                amountForHash = amountForHash.sub(amountForHash.mul(uint256(3).div(uint256(10))));
 
-                feeWallet.transfer(feeForHash);
+                feeWallet.transfer(amountForHash.mul(uint256(3).div(uint256(10))));
+                longShortControllerAddress.transfer(amountForHash);
             }
         }
     }
-    
-    // Spawns a new option contract
-    /* function createController(Order[] longOrders, Order[] shortOrders) public {
-        var initialOrder = longOrders[0];
-        address newController = new LongShortController(initialOrder.parameterHash, initialOrder.closingDate, initialOrder.leverage, longOrders, shortOrders);
-        controllers.push(newController);
-    } */
 }
