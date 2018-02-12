@@ -135,30 +135,30 @@
       "type": "event"
     }
   ],
-  "bytecode": "0x6060604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610641806100536000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806383197ef0146100ec5780638da5cb5b14610101578063b69ef8a814610156578063f2fde38b1461017f578063fa89401a146101b8575b346001600082825401925050819055507f6ef95f06320e7a25a04a175ca677b7052bdd97131872c2192525a629f51be77030600154604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a1005b34156100f757600080fd5b6100ff6101f1565b005b341561010c57600080fd5b6101146102fa565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016157600080fd5b61016961031f565b6040518082815260200191505060405180910390f35b341561018a57600080fd5b6101b6600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610325565b005b34156101c357600080fd5b6101ef600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061047a565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024c57600080fd5b600060015414151561025d57600080fd5b7f3ab1d7915d663a46c292b8f01ac13567c748cff5213cb3652695882b5f9b2e0f30604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a16000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561038057600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103bc57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104d557600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561053157600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166108fc6001549081150290604051600060405180830381858888f19350505050151561057357600080fd5b60006001819055507f0561c3fb4eab22df290380ab50465012e355e01cbd856ab13aa07ec5355d8d843082604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1505600a165627a7a72305820234f03aa47f0359de658f9b4b16f9e3e85eb65b81b0bccd852295d7f9d09297c0029",
-  "deployedBytecode": "0x60606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806383197ef0146100ec5780638da5cb5b14610101578063b69ef8a814610156578063f2fde38b1461017f578063fa89401a146101b8575b346001600082825401925050819055507f6ef95f06320e7a25a04a175ca677b7052bdd97131872c2192525a629f51be77030600154604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a1005b34156100f757600080fd5b6100ff6101f1565b005b341561010c57600080fd5b6101146102fa565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016157600080fd5b61016961031f565b6040518082815260200191505060405180910390f35b341561018a57600080fd5b6101b6600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610325565b005b34156101c357600080fd5b6101ef600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061047a565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024c57600080fd5b600060015414151561025d57600080fd5b7f3ab1d7915d663a46c292b8f01ac13567c748cff5213cb3652695882b5f9b2e0f30604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a16000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561038057600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103bc57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104d557600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561053157600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166108fc6001549081150290604051600060405180830381858888f19350505050151561057357600080fd5b60006001819055507f0561c3fb4eab22df290380ab50465012e355e01cbd856ab13aa07ec5355d8d843082604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1505600a165627a7a72305820234f03aa47f0359de658f9b4b16f9e3e85eb65b81b0bccd852295d7f9d09297c0029",
-  "sourceMap": "438:1347:3:-;;;509:10:5;501:5;;:18;;;;;;;;;;;;;;;;;;438:1347:3;;;;;;",
-  "deployedSourceMap": "438:1347:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;985:9;974:7;;:20;;;;;;;;;;;1000:30;1016:4;1022:7;;1000:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;438:1347;1470:313;;;;;;;;;;;;;;238:20:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;510:22:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;832:169:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;1072:193:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;1470:313;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1604:1:3;1593:7;;:12;1585:21;;;;;;;;1699:23;1717:4;1699:23;;;;;;;;;;;;;;;;;;;;;;1771:5;;;;;;;;;;;1758:19;;;238:20:5;;;;;;;;;;;;;:::o;510:22:3:-;;;;:::o;832:169:5:-;653:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;928:1;908:22;;:8;:22;;;;900:31;;;;;;;;965:8;937:37;;958:5;;;;;;;;;;;937:37;;;;;;;;;;;;988:8;980:5;;:16;;;;;;;;;;;;;;;;;;832:169;:::o;1072:193:3:-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1159:5:3;;;;;;;;;;;1143:21;;:14;:21;;;;1135:30;;;;;;;;1171:14;:23;;:32;1195:7;;1171:32;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1219:1;1209:7;:11;;;;1226:34;1239:4;1245:14;1226:34;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1072:193;:::o",
-  "source": "pragma solidity ^0.4.18;\nimport \"../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol\";\n\n/**\n * Proxy wallet, spawned and managed by our backend.\n * The order parameters are saved to our backend.\n * This only stores the balance for the user.\n *\n * When enough funds are transferred, the backend sends the funds\n * with the parameters to the OrdersManager.sol contract.\n *\n * @author Nordic Venture Family Code Distillery\n */\ncontract ProxyWallet is Ownable {\n  // Balance of the contract in Wei\n  uint256 public balance;\n\n  /**\n   * Watchable events for the backend server to\n   * keep taps of things happening in the proxy wallets.\n   */\n  event PaymentReceived(address proxyWalletAddress, uint updatedBalance);\n  event UserRefunded(address proxyWalletAddress, address userAddress);\n  event ContractDestroyed(address proxyWalletAddress);\n\n  /**\n   * Simple payment endpoint, that\n   * accumulates funds in the contract.\n   */\n  function() public payable {\n    balance += msg.value;\n    PaymentReceived(this, balance);\n  }\n\n  /**\n   * Refund the user\n   */\n  function refund(address paymentAddress) public onlyOwner {\n    require(paymentAddress!=owner);\n    paymentAddress.transfer(balance);\n    balance = 0;\n    UserRefunded(this, paymentAddress);\n  }\n\n  /**\n   * Destroys the proxy wallet,\n   * calling Solidity's selfdestruct().\n   *\n   * Requires the contract balance to be 0\n   * before destruction, so no user funds are\n   * transfered to us.\n   */\n  function destroy() public onlyOwner {\n\n    // Require that the contract has been refunded before destroying it\n    require(balance == 0);\n\n    // Send the event of the destruction before it actually happening, because things\n    ContractDestroyed(this);\n\n    // Destroy the contract.\n    selfdestruct(owner);\n\n  }\n}\n",
-  "sourcePath": "/home/jani/dev/blockchain/vanilla-platform/contracts/ProxyWallet.sol",
+  "bytecode":
+    "0x6060604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610641806100536000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806383197ef0146100ec5780638da5cb5b14610101578063b69ef8a814610156578063f2fde38b1461017f578063fa89401a146101b8575b346001600082825401925050819055507f6ef95f06320e7a25a04a175ca677b7052bdd97131872c2192525a629f51be77030600154604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a1005b34156100f757600080fd5b6100ff6101f1565b005b341561010c57600080fd5b6101146102fa565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016157600080fd5b61016961031f565b6040518082815260200191505060405180910390f35b341561018a57600080fd5b6101b6600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610325565b005b34156101c357600080fd5b6101ef600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061047a565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024c57600080fd5b600060015414151561025d57600080fd5b7f3ab1d7915d663a46c292b8f01ac13567c748cff5213cb3652695882b5f9b2e0f30604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a16000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561038057600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103bc57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104d557600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561053157600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166108fc6001549081150290604051600060405180830381858888f19350505050151561057357600080fd5b60006001819055507f0561c3fb4eab22df290380ab50465012e355e01cbd856ab13aa07ec5355d8d843082604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1505600a165627a7a72305820234f03aa47f0359de658f9b4b16f9e3e85eb65b81b0bccd852295d7f9d09297c0029",
+  "deployedBytecode":
+    "0x60606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806383197ef0146100ec5780638da5cb5b14610101578063b69ef8a814610156578063f2fde38b1461017f578063fa89401a146101b8575b346001600082825401925050819055507f6ef95f06320e7a25a04a175ca677b7052bdd97131872c2192525a629f51be77030600154604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a1005b34156100f757600080fd5b6100ff6101f1565b005b341561010c57600080fd5b6101146102fa565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016157600080fd5b61016961031f565b6040518082815260200191505060405180910390f35b341561018a57600080fd5b6101b6600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610325565b005b34156101c357600080fd5b6101ef600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061047a565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561024c57600080fd5b600060015414151561025d57600080fd5b7f3ab1d7915d663a46c292b8f01ac13567c748cff5213cb3652695882b5f9b2e0f30604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a16000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561038057600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103bc57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104d557600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561053157600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166108fc6001549081150290604051600060405180830381858888f19350505050151561057357600080fd5b60006001819055507f0561c3fb4eab22df290380ab50465012e355e01cbd856ab13aa07ec5355d8d843082604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1505600a165627a7a72305820234f03aa47f0359de658f9b4b16f9e3e85eb65b81b0bccd852295d7f9d09297c0029",
+  "sourceMap":
+    "438:1347:3:-;;;509:10:5;501:5;;:18;;;;;;;;;;;;;;;;;;438:1347:3;;;;;;",
+  "deployedSourceMap":
+    "438:1347:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;985:9;974:7;;:20;;;;;;;;;;;1000:30;1016:4;1022:7;;1000:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;438:1347;1470:313;;;;;;;;;;;;;;238:20:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;510:22:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;832:169:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;1072:193:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;1470:313;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1604:1:3;1593:7;;:12;1585:21;;;;;;;;1699:23;1717:4;1699:23;;;;;;;;;;;;;;;;;;;;;;1771:5;;;;;;;;;;;1758:19;;;238:20:5;;;;;;;;;;;;;:::o;510:22:3:-;;;;:::o;832:169:5:-;653:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;928:1;908:22;;:8;:22;;;;900:31;;;;;;;;965:8;937:37;;958:5;;;;;;;;;;;937:37;;;;;;;;;;;;988:8;980:5;;:16;;;;;;;;;;;;;;;;;;832:169;:::o;1072:193:3:-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1159:5:3;;;;;;;;;;;1143:21;;:14;:21;;;;1135:30;;;;;;;;1171:14;:23;;:32;1195:7;;1171:32;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1219:1;1209:7;:11;;;;1226:34;1239:4;1245:14;1226:34;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1072:193;:::o",
+  "source":
+    "pragma solidity ^0.4.18;\nimport \"../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol\";\n\n/**\n * Proxy wallet, spawned and managed by our backend.\n * The order parameters are saved to our backend.\n * This only stores the balance for the user.\n *\n * When enough funds are transferred, the backend sends the funds\n * with the parameters to the OrdersManager.sol contract.\n *\n * @author Nordic Venture Family Code Distillery\n */\ncontract ProxyWallet is Ownable {\n  // Balance of the contract in Wei\n  uint256 public balance;\n\n  /**\n   * Watchable events for the backend server to\n   * keep taps of things happening in the proxy wallets.\n   */\n  event PaymentReceived(address proxyWalletAddress, uint updatedBalance);\n  event UserRefunded(address proxyWalletAddress, address userAddress);\n  event ContractDestroyed(address proxyWalletAddress);\n\n  /**\n   * Simple payment endpoint, that\n   * accumulates funds in the contract.\n   */\n  function() public payable {\n    balance += msg.value;\n    PaymentReceived(this, balance);\n  }\n\n  /**\n   * Refund the user\n   */\n  function refund(address paymentAddress) public onlyOwner {\n    require(paymentAddress!=owner);\n    paymentAddress.transfer(balance);\n    balance = 0;\n    UserRefunded(this, paymentAddress);\n  }\n\n  /**\n   * Destroys the proxy wallet,\n   * calling Solidity's selfdestruct().\n   *\n   * Requires the contract balance to be 0\n   * before destruction, so no user funds are\n   * transfered to us.\n   */\n  function destroy() public onlyOwner {\n\n    // Require that the contract has been refunded before destroying it\n    require(balance == 0);\n\n    // Send the event of the destruction before it actually happening, because things\n    ContractDestroyed(this);\n\n    // Destroy the contract.\n    selfdestruct(owner);\n\n  }\n}\n",
+  "sourcePath":
+    "/home/jani/dev/blockchain/vanilla-platform/contracts/ProxyWallet.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/home/jani/dev/blockchain/vanilla-platform/contracts/ProxyWallet.sol",
+      "absolutePath":
+        "/home/jani/dev/blockchain/vanilla-platform/contracts/ProxyWallet.sol",
       "exportedSymbols": {
-        "ProxyWallet": [
-          426
-        ]
+        "ProxyWallet": [426]
       }
     },
     "children": [
       {
         "attributes": {
-          "literals": [
-            "solidity",
-            "^",
-            "0.4",
-            ".18"
-          ]
+          "literals": ["solidity", "^", "0.4", ".18"]
         },
         "id": 341,
         "name": "PragmaDirective",
@@ -167,12 +167,12 @@
       {
         "attributes": {
           "SourceUnit": 532,
-          "absolutePath": "/home/jani/dev/blockchain/vanilla-platform/node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol",
-          "file": "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol",
+          "absolutePath":
+            "/home/jani/dev/blockchain/vanilla-platform/node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol",
+          "file":
+            "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol",
           "scope": 427,
-          "symbolAliases": [
-            null
-          ],
+          "symbolAliases": [null],
           "unitAlias": ""
         },
         "id": 342,
@@ -181,25 +181,19 @@
       },
       {
         "attributes": {
-          "contractDependencies": [
-            531
-          ],
+          "contractDependencies": [531],
           "contractKind": "contract",
-          "documentation": "Proxy wallet, spawned and managed by our backend.\nThe order parameters are saved to our backend.\nThis only stores the balance for the user.\n * When enough funds are transferred, the backend sends the funds\nwith the parameters to the OrdersManager.sol contract.\n * @author Nordic Venture Family Code Distillery",
+          "documentation":
+            "Proxy wallet, spawned and managed by our backend.\nThe order parameters are saved to our backend.\nThis only stores the balance for the user.\n * When enough funds are transferred, the backend sends the funds\nwith the parameters to the OrdersManager.sol contract.\n * @author Nordic Venture Family Code Distillery",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [
-            426,
-            531
-          ],
+          "linearizedBaseContracts": [426, 531],
           "name": "ProxyWallet",
           "scope": 427
         },
         "children": [
           {
             "attributes": {
-              "arguments": [
-                null
-              ]
+              "arguments": [null]
             },
             "children": [
               {
@@ -438,9 +432,7 @@
               "constant": false,
               "implemented": true,
               "isConstructor": false,
-              "modifiers": [
-                null
-              ],
+              "modifiers": [null],
               "name": "",
               "payable": true,
               "scope": 426,
@@ -451,9 +443,7 @@
             "children": [
               {
                 "attributes": {
-                  "parameters": [
-                    null
-                  ]
+                  "parameters": [null]
                 },
                 "children": [],
                 "id": 363,
@@ -462,9 +452,7 @@
               },
               {
                 "attributes": {
-                  "parameters": [
-                    null
-                  ]
+                  "parameters": [null]
                 },
                 "children": [],
                 "id": 364,
@@ -489,9 +477,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 346,
                               "type": "uint256",
                               "value": "balance"
@@ -515,9 +501,7 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
+                                  "overloadedDeclarations": [null],
                                   "referencedDeclaration": 599,
                                   "type": "msg",
                                   "value": "msg"
@@ -551,9 +535,7 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
+                          "names": [null],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -562,7 +544,8 @@
                             "attributes": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_ProxyWallet_$426",
+                                  "typeIdentifier":
+                                    "t_contract$_ProxyWallet_$426",
                                   "typeString": "contract ProxyWallet"
                                 },
                                 {
@@ -570,9 +553,7 @@
                                   "typeString": "uint256"
                                 }
                               ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 352,
                               "type": "function (address,uint256)",
                               "value": "PaymentReceived"
@@ -584,9 +565,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 622,
                               "type": "contract ProxyWallet",
                               "value": "this"
@@ -598,9 +577,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 346,
                               "type": "uint256",
                               "value": "balance"
@@ -677,9 +654,7 @@
               },
               {
                 "attributes": {
-                  "parameters": [
-                    null
-                  ]
+                  "parameters": [null]
                 },
                 "children": [],
                 "id": 382,
@@ -688,17 +663,13 @@
               },
               {
                 "attributes": {
-                  "arguments": [
-                    null
-                  ]
+                  "arguments": [null]
                 },
                 "children": [
                   {
                     "attributes": {
                       "argumentTypes": null,
-                      "overloadedDeclarations": [
-                        null
-                      ],
+                      "overloadedDeclarations": [null],
                       "referencedDeclaration": 505,
                       "type": "modifier ()",
                       "value": "onlyOwner"
@@ -724,9 +695,7 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
+                          "names": [null],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -739,9 +708,7 @@
                                   "typeString": "bool"
                                 }
                               ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 602,
                               "type": "function (bool) pure",
                               "value": "require"
@@ -768,9 +735,7 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
+                                  "overloadedDeclarations": [null],
                                   "referencedDeclaration": 378,
                                   "type": "address",
                                   "value": "paymentAddress"
@@ -782,9 +747,7 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
+                                  "overloadedDeclarations": [null],
                                   "referencedDeclaration": 479,
                                   "type": "address",
                                   "value": "owner"
@@ -818,9 +781,7 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
+                          "names": [null],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -845,9 +806,7 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
+                                  "overloadedDeclarations": [null],
                                   "referencedDeclaration": 378,
                                   "type": "address",
                                   "value": "paymentAddress"
@@ -864,9 +823,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 346,
                               "type": "uint256",
                               "value": "balance"
@@ -901,9 +858,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 346,
                               "type": "uint256",
                               "value": "balance"
@@ -949,9 +904,7 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
+                          "names": [null],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -960,7 +913,8 @@
                             "attributes": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_ProxyWallet_$426",
+                                  "typeIdentifier":
+                                    "t_contract$_ProxyWallet_$426",
                                   "typeString": "contract ProxyWallet"
                                 },
                                 {
@@ -968,9 +922,7 @@
                                   "typeString": "address"
                                 }
                               ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 358,
                               "type": "function (address,address)",
                               "value": "UserRefunded"
@@ -982,9 +934,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 622,
                               "type": "contract ProxyWallet",
                               "value": "this"
@@ -996,9 +946,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 378,
                               "type": "address",
                               "value": "paymentAddress"
@@ -1042,9 +990,7 @@
             "children": [
               {
                 "attributes": {
-                  "parameters": [
-                    null
-                  ]
+                  "parameters": [null]
                 },
                 "children": [],
                 "id": 406,
@@ -1053,9 +999,7 @@
               },
               {
                 "attributes": {
-                  "parameters": [
-                    null
-                  ]
+                  "parameters": [null]
                 },
                 "children": [],
                 "id": 409,
@@ -1064,17 +1008,13 @@
               },
               {
                 "attributes": {
-                  "arguments": [
-                    null
-                  ]
+                  "arguments": [null]
                 },
                 "children": [
                   {
                     "attributes": {
                       "argumentTypes": null,
-                      "overloadedDeclarations": [
-                        null
-                      ],
+                      "overloadedDeclarations": [null],
                       "referencedDeclaration": 505,
                       "type": "modifier ()",
                       "value": "onlyOwner"
@@ -1100,9 +1040,7 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
+                          "names": [null],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -1115,9 +1053,7 @@
                                   "typeString": "bool"
                                 }
                               ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 602,
                               "type": "function (bool) pure",
                               "value": "require"
@@ -1144,9 +1080,7 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
+                                  "overloadedDeclarations": [null],
                                   "referencedDeclaration": 346,
                                   "type": "uint256",
                                   "value": "balance"
@@ -1197,9 +1131,7 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
+                          "names": [null],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -1208,13 +1140,12 @@
                             "attributes": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_ProxyWallet_$426",
+                                  "typeIdentifier":
+                                    "t_contract$_ProxyWallet_$426",
                                   "typeString": "contract ProxyWallet"
                                 }
                               ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 362,
                               "type": "function (address)",
                               "value": "ContractDestroyed"
@@ -1226,9 +1157,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 622,
                               "type": "contract ProxyWallet",
                               "value": "this"
@@ -1257,9 +1186,7 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
+                          "names": [null],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -1272,9 +1199,7 @@
                                   "typeString": "address"
                                 }
                               ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 605,
                               "type": "function (address)",
                               "value": "selfdestruct"
@@ -1286,9 +1211,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 479,
                               "type": "address",
                               "value": "owner"
