@@ -2,3 +2,6 @@
 * text=auto
 
 *.js    text eol=lf
+
+# Solidity language support for GitHub
+*.sol linguist-language=Solidity
