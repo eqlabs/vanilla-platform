@@ -70,7 +70,42 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     balance.should.be.bignumber.equal(transactionValue);
   });
 
+  it("Should refuse matching when there's no orders", async () => {
+    try {
+      await instance.matchMaker();
+      return false;
+    } catch (e) {
+      return true;
+    }
+  });
+
+  it("Should refuse matching when there's no orders on both sides", async () => {
+    try {
+      await instance.createOrder(
+        Math.round(new Date().getTime() / 1000),
+        2,
+        true,
+        user,
+        {
+          from: user,
+          value: transactionValue
+        }
+      );
+      await instance.matchMaker();
+      return false;
+    } catch (e) {
+      return true;
+    }
+  });
+
   it("Should be able to match orders and pay fees", async () => {
+    // Set fee wallet address
+    await instance.setFeeWallet(feeWallet, { from: owner });
+
+    // Get initial fee wallet balance
+    const initBalance = await web3.eth.getBalance(feeWallet);
+
+    // Create a short order
     await instance.createOrder(
       Math.round(new Date().getTime() / 1000),
       2,
@@ -81,6 +116,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         value: transactionValue
       }
     );
+
+    // Create a long order
     await instance.createOrder(
       Math.round(new Date().getTime() / 1000),
       2,
@@ -91,8 +128,22 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         value: transactionValue
       }
     );
+
+    // Check balance
     //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
     balance.should.be.bignumber.equal(transactionValue * 2);
+
+    // Run matchmaker
+    await instance.matchMaker({
+      from: user
+    });
+
+    // Get fee balance
+    //eslint-disable-next-line
+    const feeBalance = await web3.eth.getBalance(feeWallet);
+    feeBalance.should.be.bignumber.equal(
+      initBalance + transactionValue * 2 * 0.3
+    );
   });
 });
