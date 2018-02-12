@@ -72,7 +72,9 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
   it("Should refuse matching when there's no orders", async () => {
     try {
-      await instance.matchMaker();
+      await instance.matchMaker({
+        from: owner
+      });
       return false;
     } catch (e) {
       return true;
@@ -81,6 +83,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
   it("Should refuse matching when there's no orders on both sides", async () => {
     try {
+      // Create a long order
       await instance.createOrder(
         Math.round(new Date().getTime() / 1000),
         2,
@@ -91,7 +94,10 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
           value: transactionValue
         }
       );
-      await instance.matchMaker();
+      // Try to run matchmaker
+      await instance.matchMaker({
+        from: owner
+      });
       return false;
     } catch (e) {
       return true;
@@ -103,6 +109,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     await instance.setFeeWallet(feeWallet, { from: owner });
 
     // Get initial fee wallet balance
+    //eslint-disable-next-line
     const initBalance = await web3.eth.getBalance(feeWallet);
 
     // Create a short order
