@@ -9,7 +9,7 @@ import "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
  * When enough funds are transferred, the backend sends the funds
  * with the parameters to the OrdersManager.sol contract.
  *
- * @author Nordic Venture Family Code Distillery
+ * @author Convoluted Labs
  */
 contract ProxyWallet is Ownable {
   // Balance of the contract in Wei
