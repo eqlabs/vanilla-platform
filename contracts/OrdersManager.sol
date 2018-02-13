@@ -36,11 +36,6 @@ contract OrdersManager is Ownable {
     uint256 public constant MINIMUM_POSITION = 0.01 ether;
     uint256 public constant MAXIMUM_POSITION = 500 ether;
     
-    // Constructor, defining the fee wallet address and the signature
-    function OrdersManager(string signingSecret) public {
-        signature = signingSecret;
-    }
-    
     /**
      * Order struct
      * Constructed in createOrder() with user parameters
@@ -62,6 +57,13 @@ contract OrdersManager is Ownable {
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
         longShortControllerAddress = new LongShortController();
+    }
+
+    /**
+     * Setter for the contract signature
+     */
+    function setSignature(string signingSecret) public onlyOwner {
+        signature = signingSecret;
     }
 
     /**

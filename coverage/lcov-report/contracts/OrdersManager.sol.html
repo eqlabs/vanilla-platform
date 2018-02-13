@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/OrdersManager.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> OrdersManager.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">9.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.14% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.76% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/74</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity ^0.4.18;
+import "zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "zeppelin-solidity/contracts/math/SafeMath.sol";
+import "./LongShortController.sol";
+import "./Verify.sol";
+&nbsp;
+/**
+ * Handles opening and bundling of orders into active LongShort contracts.
+ * New orders' parameters are grouped by a hash of the parameters,
+ * with which a matchMaker function bundles open orders and closes ones that have expired.
+ *
+ * @author Convoluted Labs
+ */
+contract OrdersManager is Ownable {
+    
+    // Use Zeppelin's SafeMath library for calculations
+    using SafeMath for uint256;
+&nbsp;
+    // Secret for parameter matching
+    string private signature = "mysaltisshitty";
+&nbsp;
+    // Address of the fee wallet
+    address private feeWallet;
+&nbsp;
+    // Address of the LongShortController
+    address private longShortControllerAddress;
+    
+    // List of all open orders
+    bytes32[] private openOrderHashes;
+    mapping(bytes32 =&gt; Order[]) private longs;
+    mapping(bytes32 =&gt; Order[]) private shorts;
+    mapping(bytes32 =&gt; uint256) private amountLongForHash;
+    mapping(bytes32 =&gt; uint256) private amountShortForHash;
+&nbsp;
+    // Minimum and maximum positions
+    uint256 public constant MINIMUM_POSITION = 0.01 ether;
+    uint256 public constant MAXIMUM_POSITION = 500 ether;
+    
+    // Constructor, defining the fee wallet address and the signature
+    function OrdersManager(string signingSecret) public {
+        signature = signingSecret;
+    }
+    
+    /**
+     * Order struct
+     * Constructed in createOrder() with user parameters
+     */
+    struct Order {
+        bytes32 parameterHash;
+        uint closingDate;
+        uint leverage;
+        //bytes32 closingSignature;
+        address originAddress;
+        address paymentAddress;
+        uint256 balance;
+    }
+    
+    /**
+     * Setter for Vanilla's fee wallet address
+     * Only callable by the owner.
+     */
+    function setFeeWallet(address feeWalletAddress) public onlyOwner {
+        feeWallet = feeWalletAddress;
+        longShortControllerAddress = new LongShortController();
+    }
+&nbsp;
+    /**
+     * Function for checking if there are orders
+     * with the same parameters open already
+     */
+<span class="fstat-no" title="function not covered" >    function similarOrdersExist(bytes32 parameterHash) internal view returns (bool</span>) {
+<span class="cstat-no" title="statement not covered" >        if (amountShortForHash[parameterHash] &gt; 0 || amountLongForHash[parameterHash] &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+&nbsp;
+    /**
+     * Function for checking if there are open orders
+     * on both sides with enough funds.
+     */
+<span class="fstat-no" title="function not covered" >    function matchesExist(bytes32 parameterHash) internal view returns (bool</span>) {
+<span class="cstat-no" title="statement not covered" >        if (amountShortForHash[parameterHash] &gt; MINIMUM_POSITION &amp;&amp; amountLongForHash[parameterHash] &gt; MINIMUM_POSITION) {</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+&nbsp;
+    /**
+     * Open order creation, the main endpoint for Vanilla platform.
+     *
+     * Mainly called by Vanilla's own backend, but open for
+     * everyone who knows how to use the smart contract on its own.
+     *
+     * Receives a singular payment with parameters to open an order with.
+     */
+    function createOrder(uint closingDate, uint leverage, bool longPosition, address paymentAddress) public payable {
+&nbsp;
+        // Check minimum and maximum bets
+        <span class="missing-if-branch" title="if path not taken" >I</span>require(msg.value &gt; MINIMUM_POSITION);
+<span class="cstat-no" title="statement not covered" >        require(msg.value &lt; MAXIMUM_POSITION)</span>;
+&nbsp;
+        // Calculate a hash of the parameters for matching
+<span class="cstat-no" title="statement not covered" >        bytes32 parameterHash = keccak256(closingDate, leverage, signature)</span>;
+&nbsp;
+        /* SAVE ORDER */
+&nbsp;
+        // If the order is long
+<span class="cstat-no" title="statement not covered" >        if (longPosition) {</span>
+&nbsp;
+            // Save new parameter hash to list
+<span class="cstat-no" title="statement not covered" >            if (!similarOrdersExist(parameterHash)) {</span>
+                openOrderHashes.push(parameterHash);
+            }
+&nbsp;
+            // Add the sent amount to previous amount of longs with the same parameters
+            amountLongForHash[parameterHash].add(msg.value);
+&nbsp;
+            // Add the order to list of open long orders
+            longs[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
+&nbsp;
+        // If the order is short
+        } else {
+&nbsp;
+            // Save new parameter hash to list
+<span class="cstat-no" title="statement not covered" >            if (!similarOrdersExist(parameterHash)) {</span>
+                openOrderHashes.push(parameterHash);
+            }
+&nbsp;
+            // Add the sent amount to previous amount of shorts with the same parameters
+            amountShortForHash[parameterHash].add(msg.value);
+&nbsp;
+            // Add the order to list of open short orders
+            shorts[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
+&nbsp;
+        }
+&nbsp;
+    }
+&nbsp;
+    /**
+     * Public callable matchmaker function, which has the logic
+     * for creating new active LongShorts from open orders
+     * 
+     * Accessible by everyone on the Ethereum blockchain, so that
+     * nobody's funds are freezed in any situation.
+     */
+    function matchMaker() public {
+&nbsp;
+        // Fail the call if there's no more than 1 open order
+        <span class="missing-if-branch" title="if path not taken" >I</span>require(openOrderHashes.length &gt; 1);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        for (uint i = 0; i &lt; openOrderHashes.length; i++) {</span>
+&nbsp;
+            // Parameter hash of this iteration
+<span class="cstat-no" title="statement not covered" >            var paramHash = openOrderHashes[i];</span>
+&nbsp;
+            // Order arrays for these parameters
+<span class="cstat-no" title="statement not covered" >            Order[] memory longsForHash = new Order[](longs[paramHash].length)</span>;
+<span class="cstat-no" title="statement not covered" >            Order[] memory shortsForHash = new Order[](shorts[paramHash].length)</span>;
+&nbsp;
+            // Check that both sides have open orders with same parameters
+<span class="cstat-no" title="statement not covered" >            if (matchesExist(paramHash)) {</span>
+<span class="cstat-no" title="statement not covered" >                if (amountShortForHash[paramHash] &lt; amountLongForHash[paramHash]) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    uint256 amountLong = 0</span>;
+<span class="cstat-no" title="statement not covered" >                    uint256 amountShort = amountShortForHash[paramHash]</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    uint256 longShortDiff = amountLongForHash[paramHash].sub(amountShort)</span>;
+&nbsp;
+                    // For the smaller position, it's easy: just add the orders to the batch.
+<span class="cstat-no" title="statement not covered" >                    for (uint j = 0; j &lt; shorts[paramHash].length; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                        shortsForHash[j] = shorts[paramHash][j]</span>;
+                        amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
+                        delete shorts[paramHash][j];
+                    }
+&nbsp;
+                    // For the larger position, let's calculate a little
+<span class="cstat-no" title="statement not covered" >                    for (j = 0; j &lt; longs[paramHash].length; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (amountLong &lt; amountShort) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (longs[paramHash][j].balance &lt; longShortDiff) {</span>
+&nbsp;
+                                amountLong.add(longs[paramHash][j].balance);
+<span class="cstat-no" title="statement not covered" >                                longsForHash[j] = longs[paramHash][j]</span>;
+                                amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
+                                delete longs[paramHash][j];
+&nbsp;
+                            } else {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                var remainingDiff = amountShort.sub(amountLong);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                Order memory partialOrder = longs[paramHash][j]</span>;
+<span class="cstat-no" title="statement not covered" >                                partialOrder.balance = remainingDiff</span>;
+&nbsp;
+                                longs[paramHash][j].balance.sub(remainingDiff);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                longsForHash[j] = partialOrder</span>;
+                                amountLongForHash[paramHash].sub(remainingDiff);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                amountLong = amountShort</span>;
+&nbsp;
+                            }
+&nbsp;
+                        }
+                    }
+&nbsp;
+                } else {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    amountLong = amountLongForHash[paramHash]</span>;
+<span class="cstat-no" title="statement not covered" >                    amountShort = 0</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var shortLongDiff = amountShortForHash[paramHash].sub(amountLong);</span>
+&nbsp;
+                    // For the smaller position, it's easy: just add the orders to the batch.
+<span class="cstat-no" title="statement not covered" >                    for (j = 0; j &lt; longs[paramHash].length; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                        longsForHash[j] = longs[paramHash][j]</span>;
+                        amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
+                        delete longs[paramHash][j];
+                    }
+&nbsp;
+                    // For the larger position, let's calculate a little
+<span class="cstat-no" title="statement not covered" >                    for (j = 0; j &lt; shorts[paramHash].length; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (amountShort &lt; amountLong) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (shorts[paramHash][j].balance &lt; shortLongDiff) {</span>
+&nbsp;
+                                amountShort.add(shorts[paramHash][j].balance);
+<span class="cstat-no" title="statement not covered" >                                shortsForHash[j] = shorts[paramHash][j]</span>;
+                                amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
+                                delete shorts[paramHash][j];
+&nbsp;
+                            } else {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                remainingDiff = amountLong.sub(amountShort)</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                partialOrder = shorts[paramHash][j]</span>;
+<span class="cstat-no" title="statement not covered" >                                partialOrder.balance = remainingDiff</span>;
+&nbsp;
+                                shorts[paramHash][j].balance.sub(remainingDiff);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                shortsForHash[j] = partialOrder</span>;
+                                amountShortForHash[paramHash].sub(remainingDiff);
+                                
+<span class="cstat-no" title="statement not covered" >                                amountShort = amountLong</span>;
+&nbsp;
+                            }
+&nbsp;
+                        }
+                    }
+&nbsp;
+                }
+<span class="cstat-no" title="statement not covered" >                uint256 amountForHash = amountLong.add(amountShort)</span>;
+<span class="cstat-no" title="statement not covered" >                amountForHash = amountForHash.sub(amountForHash.mul(uint256(3).div(uint256(10))))</span>;
+&nbsp;
+                feeWallet.transfer(amountForHash.mul(uint256(3).div(uint256(10))));
+                longShortControllerAddress.transfer(amountForHash);
+            }
+        }
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 13 2018 09:49:49 GMT+0200 (EET)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

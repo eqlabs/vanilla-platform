@@ -12,14 +12,15 @@
     "compile": "truffle compile",
     "develop": "truffle develop",
     "migrate": "truffle migrate",
+    "test": "truffle test",
     "precommit": "lint-staged && nsp check --threshold=10",
-    "test": "truffle test"
+    "coverage": "./node_modules/.bin/solidity-coverage"
   },
   "devDependencies": {
+    "@tislaamo/eslint-config": "^1.0.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
-    "@tislaamo/eslint-config": "^1.0.3",
     "eslint": "^4.16.0",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-node": "^5.2.1",
@@ -29,7 +30,8 @@
     "nsp": "^3.1.0",
     "prettier": "^1.10.2",
     "prettier-eslint": "^8.8.1",
-    "prettier-eslint-cli": "^4.7.0"
+    "prettier-eslint-cli": "^4.7.0",
+    "solidity-coverage": "^0.4.9"
   },
   "dependencies": {
     "truffle": "^4.0.6",

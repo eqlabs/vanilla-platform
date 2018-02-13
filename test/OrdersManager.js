@@ -7,6 +7,7 @@ const { should } = require("./helpers");
 contract("OrdersManager", ([owner, user, feeWallet]) => {
   let instance;
   const transactionValue = 20000000;
+  const gasLimit = 3000000;
 
   beforeEach(
     "Start a new instance of the contract for each test",
@@ -22,7 +23,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
   it("Should be able to set the fee wallet as the owner", async () => {
     try {
-      await instance.setFeeWallet(feeWallet, { from: owner });
+      await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
       return true;
     } catch (e) {
       return false;
@@ -31,7 +32,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
   it("Should not be able to set the fee wallet by anyone but the owner", async () => {
     try {
-      await instance.setFeeWallet(feeWallet, { from: owner });
+      await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
       return false;
     } catch (e) {
       return true;
@@ -46,7 +47,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       user,
       {
         from: user,
-        value: transactionValue
+        value: transactionValue,
+        gas: gasLimit
       }
     );
     //eslint-disable-next-line
@@ -62,7 +64,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       user,
       {
         from: user,
-        value: transactionValue
+        value: transactionValue,
+        gas: gasLimit
       }
     );
     //eslint-disable-next-line
@@ -73,7 +76,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should refuse matching when there's no orders", async () => {
     try {
       await instance.matchMaker({
-        from: owner
+        from: owner,
+        gas: gasLimit
       });
       return false;
     } catch (e) {
@@ -91,12 +95,14 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         user,
         {
           from: user,
-          value: transactionValue
+          value: transactionValue,
+          gas: gasLimit
         }
       );
       // Try to run matchmaker
       await instance.matchMaker({
-        from: owner
+        from: owner,
+        gas: gasLimit
       });
       return false;
     } catch (e) {
@@ -106,7 +112,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
   it("Should be able to match orders and pay fees", async () => {
     // Set fee wallet address
-    await instance.setFeeWallet(feeWallet, { from: owner });
+    await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
 
     // Get initial fee wallet balance
     //eslint-disable-next-line
@@ -120,7 +126,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       user,
       {
         from: user,
-        value: transactionValue
+        value: transactionValue,
+        gas: gasLimit
       }
     );
 
@@ -132,7 +139,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       owner,
       {
         from: owner,
-        value: transactionValue
+        value: transactionValue,
+        gas: gasLimit
       }
     );
 
@@ -143,7 +151,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
     // Run matchmaker
     await instance.matchMaker({
-      from: user
+      from: user,
+      gas: gasLimit
     });
 
     // Get fee balance
