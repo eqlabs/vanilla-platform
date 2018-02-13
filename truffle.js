@@ -9,7 +9,8 @@ module.exports = {
     coverage: {
       host: "ganache-cli",
       port: 8545,
-      network_id: "*"
+      network_id: "*",
+      gasPrice: 0x01
     }
   }
 };

@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 import "./LongShortController.sol";
-import "./Verify.sol";
+//import "./Verify.sol";
 
 /**
  * Handles opening and bundling of orders into active LongShort contracts.

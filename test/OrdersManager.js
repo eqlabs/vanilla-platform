@@ -98,6 +98,38 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     balance.should.be.bignumber.equal(minimumPosition);
   });
 
+  it("Should not be able to create a new long order with under minimum position", async () => {
+    try {
+      await createLongOrder(
+        instance,
+        Math.round(new Date().getTime() / 1000),
+        2,
+        user,
+        minimumPosition - 1,
+        gasLimit
+      );
+      return false;
+    } catch (e) {
+      return true;
+    }
+  });
+
+  it("Should not be able to create a new short order with under minimum position", async () => {
+    try {
+      await createShortOrder(
+        instance,
+        Math.round(new Date().getTime() / 1000),
+        2,
+        user,
+        minimumPosition - 1,
+        gasLimit
+      );
+      return false;
+    } catch (e) {
+      return true;
+    }
+  });
+
   it("Should not be able to create a new long order with over maximum position", async () => {
     try {
       await createLongOrder(
@@ -216,7 +248,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     //eslint-disable-next-line
     const feeBalance = await web3.eth.getBalance(feeWallet);
     /* feeBalance.should.be.bignumber.equal(
-      initBalance + transactionValue * 2 * 0.3
+      initBalance + minimumPosition * 2 * 0.3
     ); */
   });
 });

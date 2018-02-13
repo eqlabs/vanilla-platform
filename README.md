@@ -26,16 +26,10 @@ OR
 yarn test
 ```
 
-## Checking test coverage
+## Checking test coverage (IS BROKEN)
 
 ```bash
 make coverage
-```
-
-OR (if something breaks, as it seems to break quite often now...)
-
-```bash
-./node_modules/.bin/solidity-coverage
 ```
 
 ## Exploring the generated Istanbul coverage documentation
