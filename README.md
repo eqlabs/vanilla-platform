@@ -41,7 +41,7 @@ OR (if something breaks, as it seems to break quite often now...)
 ## Exploring the generated Istanbul coverage documentation
 
 ```bash
-make coverage
+make coverage-explorer
 ```
 
 And visit `localhost:8080` with your browser.
