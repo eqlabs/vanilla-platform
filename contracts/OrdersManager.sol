@@ -21,6 +21,7 @@ contract OrdersManager is Ownable {
 
     // Address of the fee wallet
     address private feeWallet;
+    uint256 public cumulatedFee;
 
     // Address of the LongShortController
     address private longShortControllerAddress;
@@ -64,6 +65,12 @@ contract OrdersManager is Ownable {
      */
     function setSignature(string signingSecret) public onlyOwner {
         signature = signingSecret;
+    }
+
+    function withdrawFee() public onlyOwner {
+        require(cumulatedFee > 0 wei);
+        feeWallet.transfer(cumulatedFee);
+        cumulatedFee = 0;
     }
 
     /**
@@ -251,11 +258,12 @@ contract OrdersManager is Ownable {
                     }
 
                 }
+
                 uint256 amountForHash = amountLong.add(amountShort);
                 amountForHash = amountForHash.sub(amountForHash.mul(uint256(3).div(uint256(10))));
 
-                feeWallet.transfer(amountForHash.mul(uint256(3).div(uint256(10))));
-                longShortControllerAddress.transfer(amountForHash);
+                cumulatedFee.add(amountForHash.mul(uint256(3).div(uint256(10))));
+                //longShortControllerAddress.transfer(amountForHash);
             }
         }
     }

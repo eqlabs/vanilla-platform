@@ -235,11 +235,17 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       gas: gasLimit
     });
 
-    // Get fee balance
-    //eslint-disable-next-line
-    const feeBalance = await web3.eth.getBalance(feeWallet);
-    /* feeBalance.should.be.bignumber.equal(
+    const feeBalance = await instance.cumulatedFee.call({
+      from: owner
+    });
+    feeBalance.should.be.bignumber.equal(
       initBalance + minimumPosition * 2 * 0.3
-    ); */
+    );
+
+    // Pay fees to fee wallet
+    await instance.withdrawFee({
+      from: owner,
+      gas: gasLimit
+    });
   });
 });
