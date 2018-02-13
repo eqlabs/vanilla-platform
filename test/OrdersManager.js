@@ -177,16 +177,13 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should refuse matching when there's no orders on both sides", async () => {
     try {
       // Create a long order
-      await instance.createOrder(
+      await createLongOrder(
+        instance,
         Math.round(new Date().getTime() / 1000),
         2,
-        true,
         user,
-        {
-          from: user,
-          value: minimumPosition,
-          gas: gasLimit
-        }
+        minimumPosition,
+        gasLimit
       );
       // Try to run matchmaker
       await instance.matchMaker({
@@ -208,29 +205,23 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     const initBalance = await web3.eth.getBalance(feeWallet);
 
     // Create a short order
-    await instance.createOrder(
+    await createShortOrder(
+      instance,
       Math.round(new Date().getTime() / 1000),
       2,
-      false,
       user,
-      {
-        from: user,
-        value: minimumPosition,
-        gas: gasLimit
-      }
+      minimumPosition,
+      gasLimit
     );
 
     // Create a long order
-    await instance.createOrder(
+    await createLongOrder(
+      instance,
       Math.round(new Date().getTime() / 1000),
       2,
-      true,
       owner,
-      {
-        from: owner,
-        value: minimumPosition,
-        gas: gasLimit
-      }
+      minimumPosition,
+      gasLimit
     );
 
     // Check balance
