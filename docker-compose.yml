@@ -40,4 +40,4 @@ services:
       service: base-dev
     ports:
       - "8080:8080"
-    command: http-server coverage/
+    command: yarn coverage-explorer

@@ -14,7 +14,8 @@
     "migrate": "truffle migrate",
     "test": "truffle test",
     "precommit": "lint-staged && nsp check --threshold=10",
-    "coverage": "./node_modules/.bin/solidity-coverage"
+    "coverage": "./node_modules/.bin/solidity-coverage",
+    "coverage-explorer": "./node_modules/.bin/http-server coverage/"
   },
   "devDependencies": {
     "@tislaamo/eslint-config": "^1.0.3",
