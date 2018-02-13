@@ -99,8 +99,8 @@ contract OrdersManager is Ownable {
     function createOrder(uint closingDate, uint leverage, bool longPosition, address paymentAddress) public payable {
 
         // Check minimum and maximum bets
-        require(msg.value > MINIMUM_POSITION);
-        require(msg.value < MAXIMUM_POSITION);
+        require(msg.value >= MINIMUM_POSITION);
+        require(msg.value <= MAXIMUM_POSITION);
 
         // Calculate a hash of the parameters for matching
         bytes32 parameterHash = keccak256(closingDate, leverage, signature);
