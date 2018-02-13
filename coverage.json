@@ -1,1 +1,780 @@
-{"contracts/LongShortController.sol":{"l":{"11":3},"path":"/home/jani/dev/blockchain/vanilla-platform/contracts/LongShortController.sol","s":{"1":3},"b":{},"f":{"1":3},"fnMap":{"1":{"name":"LongShortController","line":10,"loc":{"start":{"line":10,"column":4},"end":{"line":10,"column":39}}}},"statementMap":{"1":{"start":{"line":11,"column":8},"end":{"line":11,"column":20}}},"branchMap":{}},"contracts/OrdersManager.sol":{"l":{"41":8,"63":3,"64":3,"72":0,"73":0,"75":0,"83":0,"84":0,"86":0,"100":4,"101":0,"104":0,"109":0,"112":0,"113":0,"117":0,"120":0,"126":0,"127":0,"131":0,"134":0,"150":1,"152":0,"155":0,"158":0,"159":0,"162":0,"163":0,"165":0,"166":0,"168":0,"171":0,"172":0,"173":0,"174":0,"178":0,"179":0,"181":0,"183":0,"184":0,"185":0,"186":0,"190":0,"192":0,"193":0,"195":0,"197":0,"198":0,"200":0,"209":0,"210":0,"212":0,"215":0,"216":0,"217":0,"218":0,"222":0,"223":0,"225":0,"227":0,"228":0,"229":0,"230":0,"234":0,"236":0,"237":0,"239":0,"241":0,"242":0,"244":0,"252":0,"253":0,"255":0,"256":0},"path":"/home/jani/dev/blockchain/vanilla-platform/contracts/OrdersManager.sol","s":{"1":8,"2":3,"3":3,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":4,"11":0,"12":0,"13":0,"14":0,"15":0,"16":1,"17":0,"18":0,"19":0,"20":0,"21":0,"22":0,"23":0,"24":0,"25":0,"26":0,"27":0,"28":0,"29":0,"30":0,"31":0,"32":0,"33":0,"34":0,"35":0,"36":0,"37":0,"38":0,"39":0,"40":0,"41":0,"42":0,"43":0,"44":0,"45":0,"46":0,"47":0,"48":0,"49":0,"50":0,"51":0,"52":0},"b":{"1":[0,0],"2":[0,0],"3":[0,4],"4":[0,0],"5":[0,0],"6":[0,0],"7":[0,0],"8":[0,1],"9":[0,0],"10":[0,0],"11":[0,0],"12":[0,0],"13":[0,0],"14":[0,0]},"f":{"1":8,"2":3,"3":0,"4":0,"5":4,"6":1},"fnMap":{"1":{"name":"OrdersManager","line":40,"loc":{"start":{"line":40,"column":4},"end":{"line":40,"column":53}}},"2":{"name":"setFeeWallet","line":62,"loc":{"start":{"line":62,"column":4},"end":{"line":62,"column":66}}},"3":{"name":"similarOrdersExist","line":71,"loc":{"start":{"line":71,"column":4},"end":{"line":71,"column":81}}},"4":{"name":"matchesExist","line":82,"loc":{"start":{"line":82,"column":4},"end":{"line":82,"column":75}}},"5":{"name":"createOrder","line":97,"loc":{"start":{"line":97,"column":4},"end":{"line":97,"column":113}}},"6":{"name":"matchMaker","line":147,"loc":{"start":{"line":147,"column":4},"end":{"line":147,"column":30}}}},"statementMap":{"1":{"start":{"line":41,"column":8},"end":{"line":41,"column":32}},"2":{"start":{"line":63,"column":8},"end":{"line":63,"column":35}},"3":{"start":{"line":64,"column":8},"end":{"line":64,"column":61}},"4":{"start":{"line":72,"column":8},"end":{"line":72,"column":2285}},"5":{"start":{"line":73,"column":12},"end":{"line":73,"column":23}},"6":{"start":{"line":75,"column":8},"end":{"line":75,"column":20}},"7":{"start":{"line":83,"column":8},"end":{"line":83,"column":2632}},"8":{"start":{"line":84,"column":12},"end":{"line":84,"column":23}},"9":{"start":{"line":86,"column":8},"end":{"line":86,"column":20}},"10":{"start":{"line":100,"column":8},"end":{"line":100,"column":44}},"11":{"start":{"line":101,"column":8},"end":{"line":101,"column":44}},"12":{"start":{"line":104,"column":8},"end":{"line":104,"column":74}},"13":{"start":{"line":109,"column":8},"end":{"line":109,"column":3570}},"14":{"start":{"line":112,"column":12},"end":{"line":112,"column":3654}},"15":{"start":{"line":126,"column":12},"end":{"line":126,"column":4205}},"16":{"start":{"line":150,"column":8},"end":{"line":150,"column":42}},"17":{"start":{"line":152,"column":8},"end":{"line":152,"column":5081}},"18":{"start":{"line":155,"column":12},"end":{"line":155,"column":46}},"19":{"start":{"line":158,"column":12},"end":{"line":158,"column":77}},"20":{"start":{"line":159,"column":12},"end":{"line":159,"column":79}},"21":{"start":{"line":162,"column":12},"end":{"line":162,"column":5534}},"22":{"start":{"line":163,"column":16},"end":{"line":163,"column":5585}},"23":{"start":{"line":165,"column":20},"end":{"line":165,"column":41}},"24":{"start":{"line":166,"column":20},"end":{"line":166,"column":70}},"25":{"start":{"line":168,"column":20},"end":{"line":168,"column":88}},"26":{"start":{"line":171,"column":20},"end":{"line":171,"column":5982}},"27":{"start":{"line":172,"column":24},"end":{"line":172,"column":62}},"28":{"start":{"line":178,"column":20},"end":{"line":178,"column":6359}},"29":{"start":{"line":179,"column":24},"end":{"line":179,"column":6435}},"30":{"start":{"line":181,"column":28},"end":{"line":181,"column":6500}},"31":{"start":{"line":184,"column":32},"end":{"line":184,"column":68}},"32":{"start":{"line":190,"column":32},"end":{"line":190,"column":79}},"33":{"start":{"line":192,"column":32},"end":{"line":192,"column":78}},"34":{"start":{"line":193,"column":32},"end":{"line":193,"column":67}},"35":{"start":{"line":197,"column":32},"end":{"line":197,"column":61}},"36":{"start":{"line":200,"column":32},"end":{"line":200,"column":55}},"37":{"start":{"line":209,"column":20},"end":{"line":209,"column":60}},"38":{"start":{"line":210,"column":20},"end":{"line":210,"column":34}},"39":{"start":{"line":212,"column":20},"end":{"line":212,"column":85}},"40":{"start":{"line":215,"column":20},"end":{"line":215,"column":7815}},"41":{"start":{"line":216,"column":24},"end":{"line":216,"column":60}},"42":{"start":{"line":222,"column":20},"end":{"line":222,"column":8181}},"43":{"start":{"line":223,"column":24},"end":{"line":223,"column":8258}},"44":{"start":{"line":225,"column":28},"end":{"line":225,"column":8323}},"45":{"start":{"line":228,"column":32},"end":{"line":228,"column":70}},"46":{"start":{"line":234,"column":32},"end":{"line":234,"column":74}},"47":{"start":{"line":236,"column":32},"end":{"line":236,"column":66}},"48":{"start":{"line":237,"column":32},"end":{"line":237,"column":67}},"49":{"start":{"line":241,"column":32},"end":{"line":241,"column":62}},"50":{"start":{"line":244,"column":32},"end":{"line":244,"column":55}},"51":{"start":{"line":252,"column":16},"end":{"line":252,"column":66}},"52":{"start":{"line":253,"column":16},"end":{"line":253,"column":96}}},"branchMap":{"1":{"line":72,"type":"if","locations":[{"start":{"line":72,"column":8},"end":{"line":72,"column":8}},{"start":{"line":72,"column":8},"end":{"line":72,"column":8}}]},"2":{"line":83,"type":"if","locations":[{"start":{"line":83,"column":8},"end":{"line":83,"column":8}},{"start":{"line":83,"column":8},"end":{"line":83,"column":8}}]},"3":{"line":100,"type":"if","locations":[{"start":{"line":100,"column":8},"end":{"line":100,"column":8}},{"start":{"line":100,"column":8},"end":{"line":100,"column":8}}]},"4":{"line":101,"type":"if","locations":[{"start":{"line":101,"column":8},"end":{"line":101,"column":8}},{"start":{"line":101,"column":8},"end":{"line":101,"column":8}}]},"5":{"line":109,"type":"if","locations":[{"start":{"line":109,"column":8},"end":{"line":109,"column":8}},{"start":{"line":109,"column":8},"end":{"line":109,"column":8}}]},"6":{"line":112,"type":"if","locations":[{"start":{"line":112,"column":12},"end":{"line":112,"column":12}},{"start":{"line":112,"column":12},"end":{"line":112,"column":12}}]},"7":{"line":126,"type":"if","locations":[{"start":{"line":126,"column":12},"end":{"line":126,"column":12}},{"start":{"line":126,"column":12},"end":{"line":126,"column":12}}]},"8":{"line":150,"type":"if","locations":[{"start":{"line":150,"column":8},"end":{"line":150,"column":8}},{"start":{"line":150,"column":8},"end":{"line":150,"column":8}}]},"9":{"line":162,"type":"if","locations":[{"start":{"line":162,"column":12},"end":{"line":162,"column":12}},{"start":{"line":162,"column":12},"end":{"line":162,"column":12}}]},"10":{"line":163,"type":"if","locations":[{"start":{"line":163,"column":16},"end":{"line":163,"column":16}},{"start":{"line":163,"column":16},"end":{"line":163,"column":16}}]},"11":{"line":179,"type":"if","locations":[{"start":{"line":179,"column":24},"end":{"line":179,"column":24}},{"start":{"line":179,"column":24},"end":{"line":179,"column":24}}]},"12":{"line":181,"type":"if","locations":[{"start":{"line":181,"column":28},"end":{"line":181,"column":28}},{"start":{"line":181,"column":28},"end":{"line":181,"column":28}}]},"13":{"line":223,"type":"if","locations":[{"start":{"line":223,"column":24},"end":{"line":223,"column":24}},{"start":{"line":223,"column":24},"end":{"line":223,"column":24}}]},"14":{"line":225,"type":"if","locations":[{"start":{"line":225,"column":28},"end":{"line":225,"column":28}},{"start":{"line":225,"column":28},"end":{"line":225,"column":28}}]}}},"contracts/ProxyWallet.sol":{"l":{"31":5,"32":5,"39":2,"40":1,"41":1,"42":1,"56":2,"59":1,"62":1},"path":"/home/jani/dev/blockchain/vanilla-platform/contracts/ProxyWallet.sol","s":{"1":5,"2":5,"3":2,"4":1,"5":1,"6":2,"7":1,"8":1},"b":{"1":[1,1],"2":[1,1]},"f":{"1":5,"2":2,"3":2},"fnMap":{"1":{"name":null,"line":30,"loc":{"start":{"line":30,"column":2},"end":{"line":30,"column":27}}},"2":{"name":"refund","line":38,"loc":{"start":{"line":38,"column":2},"end":{"line":38,"column":58}}},"3":{"name":"destroy","line":53,"loc":{"start":{"line":53,"column":2},"end":{"line":53,"column":37}}}},"statementMap":{"1":{"start":{"line":31,"column":4},"end":{"line":31,"column":23}},"2":{"start":{"line":32,"column":4},"end":{"line":32,"column":33}},"3":{"start":{"line":39,"column":4},"end":{"line":39,"column":33}},"4":{"start":{"line":41,"column":4},"end":{"line":41,"column":14}},"5":{"start":{"line":42,"column":4},"end":{"line":42,"column":37}},"6":{"start":{"line":56,"column":4},"end":{"line":56,"column":24}},"7":{"start":{"line":59,"column":4},"end":{"line":59,"column":26}},"8":{"start":{"line":62,"column":4},"end":{"line":62,"column":22}}},"branchMap":{"1":{"line":39,"type":"if","locations":[{"start":{"line":39,"column":4},"end":{"line":39,"column":4}},{"start":{"line":39,"column":4},"end":{"line":39,"column":4}}]},"2":{"line":56,"type":"if","locations":[{"start":{"line":56,"column":4},"end":{"line":56,"column":4}},{"start":{"line":56,"column":4},"end":{"line":56,"column":4}}]}}},"contracts/Verify.sol":{"l":{"5":0,"9":0},"path":"/home/jani/dev/blockchain/vanilla-platform/contracts/Verify.sol","s":{"1":0,"2":0},"b":{},"f":{"1":0,"2":0},"fnMap":{"1":{"name":"recoverAddr","line":4,"loc":{"start":{"line":4,"column":2},"end":{"line":4,"column":100}}},"2":{"name":"isSigned","line":8,"loc":{"start":{"line":8,"column":2},"end":{"line":8,"column":109}}}},"statementMap":{"1":{"start":{"line":5,"column":4},"end":{"line":5,"column":38}},"2":{"start":{"line":9,"column":4},"end":{"line":9,"column":47}}},"branchMap":{}}}
+{
+  "contracts/LongShortController.sol": {
+    "l": { "11": 3 },
+    "path":
+      "/home/jani/dev/blockchain/vanilla-platform/contracts/LongShortController.sol",
+    "s": { "1": 3 },
+    "b": {},
+    "f": { "1": 3 },
+    "fnMap": {
+      "1": {
+        "name": "LongShortController",
+        "line": 10,
+        "loc": {
+          "start": { "line": 10, "column": 4 },
+          "end": { "line": 10, "column": 39 }
+        }
+      }
+    },
+    "statementMap": {
+      "1": {
+        "start": { "line": 11, "column": 8 },
+        "end": { "line": 11, "column": 20 }
+      }
+    },
+    "branchMap": {}
+  },
+  "contracts/OrdersManager.sol": {
+    "l": {
+      "41": 8,
+      "63": 3,
+      "64": 3,
+      "72": 0,
+      "73": 0,
+      "75": 0,
+      "83": 0,
+      "84": 0,
+      "86": 0,
+      "100": 4,
+      "101": 0,
+      "104": 0,
+      "109": 0,
+      "112": 0,
+      "113": 0,
+      "117": 0,
+      "120": 0,
+      "126": 0,
+      "127": 0,
+      "131": 0,
+      "134": 0,
+      "150": 1,
+      "152": 0,
+      "155": 0,
+      "158": 0,
+      "159": 0,
+      "162": 0,
+      "163": 0,
+      "165": 0,
+      "166": 0,
+      "168": 0,
+      "171": 0,
+      "172": 0,
+      "173": 0,
+      "174": 0,
+      "178": 0,
+      "179": 0,
+      "181": 0,
+      "183": 0,
+      "184": 0,
+      "185": 0,
+      "186": 0,
+      "190": 0,
+      "192": 0,
+      "193": 0,
+      "195": 0,
+      "197": 0,
+      "198": 0,
+      "200": 0,
+      "209": 0,
+      "210": 0,
+      "212": 0,
+      "215": 0,
+      "216": 0,
+      "217": 0,
+      "218": 0,
+      "222": 0,
+      "223": 0,
+      "225": 0,
+      "227": 0,
+      "228": 0,
+      "229": 0,
+      "230": 0,
+      "234": 0,
+      "236": 0,
+      "237": 0,
+      "239": 0,
+      "241": 0,
+      "242": 0,
+      "244": 0,
+      "252": 0,
+      "253": 0,
+      "255": 0,
+      "256": 0
+    },
+    "path":
+      "/home/jani/dev/blockchain/vanilla-platform/contracts/OrdersManager.sol",
+    "s": {
+      "1": 8,
+      "2": 3,
+      "3": 3,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 4,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 1,
+      "17": 0,
+      "18": 0,
+      "19": 0,
+      "20": 0,
+      "21": 0,
+      "22": 0,
+      "23": 0,
+      "24": 0,
+      "25": 0,
+      "26": 0,
+      "27": 0,
+      "28": 0,
+      "29": 0,
+      "30": 0,
+      "31": 0,
+      "32": 0,
+      "33": 0,
+      "34": 0,
+      "35": 0,
+      "36": 0,
+      "37": 0,
+      "38": 0,
+      "39": 0,
+      "40": 0,
+      "41": 0,
+      "42": 0,
+      "43": 0,
+      "44": 0,
+      "45": 0,
+      "46": 0,
+      "47": 0,
+      "48": 0,
+      "49": 0,
+      "50": 0,
+      "51": 0,
+      "52": 0
+    },
+    "b": {
+      "1": [0, 0],
+      "2": [0, 0],
+      "3": [0, 4],
+      "4": [0, 0],
+      "5": [0, 0],
+      "6": [0, 0],
+      "7": [0, 0],
+      "8": [0, 1],
+      "9": [0, 0],
+      "10": [0, 0],
+      "11": [0, 0],
+      "12": [0, 0],
+      "13": [0, 0],
+      "14": [0, 0]
+    },
+    "f": { "1": 8, "2": 3, "3": 0, "4": 0, "5": 4, "6": 1 },
+    "fnMap": {
+      "1": {
+        "name": "OrdersManager",
+        "line": 40,
+        "loc": {
+          "start": { "line": 40, "column": 4 },
+          "end": { "line": 40, "column": 53 }
+        }
+      },
+      "2": {
+        "name": "setFeeWallet",
+        "line": 62,
+        "loc": {
+          "start": { "line": 62, "column": 4 },
+          "end": { "line": 62, "column": 66 }
+        }
+      },
+      "3": {
+        "name": "similarOrdersExist",
+        "line": 71,
+        "loc": {
+          "start": { "line": 71, "column": 4 },
+          "end": { "line": 71, "column": 81 }
+        }
+      },
+      "4": {
+        "name": "matchesExist",
+        "line": 82,
+        "loc": {
+          "start": { "line": 82, "column": 4 },
+          "end": { "line": 82, "column": 75 }
+        }
+      },
+      "5": {
+        "name": "createOrder",
+        "line": 97,
+        "loc": {
+          "start": { "line": 97, "column": 4 },
+          "end": { "line": 97, "column": 113 }
+        }
+      },
+      "6": {
+        "name": "matchMaker",
+        "line": 147,
+        "loc": {
+          "start": { "line": 147, "column": 4 },
+          "end": { "line": 147, "column": 30 }
+        }
+      }
+    },
+    "statementMap": {
+      "1": {
+        "start": { "line": 41, "column": 8 },
+        "end": { "line": 41, "column": 32 }
+      },
+      "2": {
+        "start": { "line": 63, "column": 8 },
+        "end": { "line": 63, "column": 35 }
+      },
+      "3": {
+        "start": { "line": 64, "column": 8 },
+        "end": { "line": 64, "column": 61 }
+      },
+      "4": {
+        "start": { "line": 72, "column": 8 },
+        "end": { "line": 72, "column": 2285 }
+      },
+      "5": {
+        "start": { "line": 73, "column": 12 },
+        "end": { "line": 73, "column": 23 }
+      },
+      "6": {
+        "start": { "line": 75, "column": 8 },
+        "end": { "line": 75, "column": 20 }
+      },
+      "7": {
+        "start": { "line": 83, "column": 8 },
+        "end": { "line": 83, "column": 2632 }
+      },
+      "8": {
+        "start": { "line": 84, "column": 12 },
+        "end": { "line": 84, "column": 23 }
+      },
+      "9": {
+        "start": { "line": 86, "column": 8 },
+        "end": { "line": 86, "column": 20 }
+      },
+      "10": {
+        "start": { "line": 100, "column": 8 },
+        "end": { "line": 100, "column": 44 }
+      },
+      "11": {
+        "start": { "line": 101, "column": 8 },
+        "end": { "line": 101, "column": 44 }
+      },
+      "12": {
+        "start": { "line": 104, "column": 8 },
+        "end": { "line": 104, "column": 74 }
+      },
+      "13": {
+        "start": { "line": 109, "column": 8 },
+        "end": { "line": 109, "column": 3570 }
+      },
+      "14": {
+        "start": { "line": 112, "column": 12 },
+        "end": { "line": 112, "column": 3654 }
+      },
+      "15": {
+        "start": { "line": 126, "column": 12 },
+        "end": { "line": 126, "column": 4205 }
+      },
+      "16": {
+        "start": { "line": 150, "column": 8 },
+        "end": { "line": 150, "column": 42 }
+      },
+      "17": {
+        "start": { "line": 152, "column": 8 },
+        "end": { "line": 152, "column": 5081 }
+      },
+      "18": {
+        "start": { "line": 155, "column": 12 },
+        "end": { "line": 155, "column": 46 }
+      },
+      "19": {
+        "start": { "line": 158, "column": 12 },
+        "end": { "line": 158, "column": 77 }
+      },
+      "20": {
+        "start": { "line": 159, "column": 12 },
+        "end": { "line": 159, "column": 79 }
+      },
+      "21": {
+        "start": { "line": 162, "column": 12 },
+        "end": { "line": 162, "column": 5534 }
+      },
+      "22": {
+        "start": { "line": 163, "column": 16 },
+        "end": { "line": 163, "column": 5585 }
+      },
+      "23": {
+        "start": { "line": 165, "column": 20 },
+        "end": { "line": 165, "column": 41 }
+      },
+      "24": {
+        "start": { "line": 166, "column": 20 },
+        "end": { "line": 166, "column": 70 }
+      },
+      "25": {
+        "start": { "line": 168, "column": 20 },
+        "end": { "line": 168, "column": 88 }
+      },
+      "26": {
+        "start": { "line": 171, "column": 20 },
+        "end": { "line": 171, "column": 5982 }
+      },
+      "27": {
+        "start": { "line": 172, "column": 24 },
+        "end": { "line": 172, "column": 62 }
+      },
+      "28": {
+        "start": { "line": 178, "column": 20 },
+        "end": { "line": 178, "column": 6359 }
+      },
+      "29": {
+        "start": { "line": 179, "column": 24 },
+        "end": { "line": 179, "column": 6435 }
+      },
+      "30": {
+        "start": { "line": 181, "column": 28 },
+        "end": { "line": 181, "column": 6500 }
+      },
+      "31": {
+        "start": { "line": 184, "column": 32 },
+        "end": { "line": 184, "column": 68 }
+      },
+      "32": {
+        "start": { "line": 190, "column": 32 },
+        "end": { "line": 190, "column": 79 }
+      },
+      "33": {
+        "start": { "line": 192, "column": 32 },
+        "end": { "line": 192, "column": 78 }
+      },
+      "34": {
+        "start": { "line": 193, "column": 32 },
+        "end": { "line": 193, "column": 67 }
+      },
+      "35": {
+        "start": { "line": 197, "column": 32 },
+        "end": { "line": 197, "column": 61 }
+      },
+      "36": {
+        "start": { "line": 200, "column": 32 },
+        "end": { "line": 200, "column": 55 }
+      },
+      "37": {
+        "start": { "line": 209, "column": 20 },
+        "end": { "line": 209, "column": 60 }
+      },
+      "38": {
+        "start": { "line": 210, "column": 20 },
+        "end": { "line": 210, "column": 34 }
+      },
+      "39": {
+        "start": { "line": 212, "column": 20 },
+        "end": { "line": 212, "column": 85 }
+      },
+      "40": {
+        "start": { "line": 215, "column": 20 },
+        "end": { "line": 215, "column": 7815 }
+      },
+      "41": {
+        "start": { "line": 216, "column": 24 },
+        "end": { "line": 216, "column": 60 }
+      },
+      "42": {
+        "start": { "line": 222, "column": 20 },
+        "end": { "line": 222, "column": 8181 }
+      },
+      "43": {
+        "start": { "line": 223, "column": 24 },
+        "end": { "line": 223, "column": 8258 }
+      },
+      "44": {
+        "start": { "line": 225, "column": 28 },
+        "end": { "line": 225, "column": 8323 }
+      },
+      "45": {
+        "start": { "line": 228, "column": 32 },
+        "end": { "line": 228, "column": 70 }
+      },
+      "46": {
+        "start": { "line": 234, "column": 32 },
+        "end": { "line": 234, "column": 74 }
+      },
+      "47": {
+        "start": { "line": 236, "column": 32 },
+        "end": { "line": 236, "column": 66 }
+      },
+      "48": {
+        "start": { "line": 237, "column": 32 },
+        "end": { "line": 237, "column": 67 }
+      },
+      "49": {
+        "start": { "line": 241, "column": 32 },
+        "end": { "line": 241, "column": 62 }
+      },
+      "50": {
+        "start": { "line": 244, "column": 32 },
+        "end": { "line": 244, "column": 55 }
+      },
+      "51": {
+        "start": { "line": 252, "column": 16 },
+        "end": { "line": 252, "column": 66 }
+      },
+      "52": {
+        "start": { "line": 253, "column": 16 },
+        "end": { "line": 253, "column": 96 }
+      }
+    },
+    "branchMap": {
+      "1": {
+        "line": 72,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 72, "column": 8 },
+            "end": { "line": 72, "column": 8 }
+          },
+          {
+            "start": { "line": 72, "column": 8 },
+            "end": { "line": 72, "column": 8 }
+          }
+        ]
+      },
+      "2": {
+        "line": 83,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 83, "column": 8 },
+            "end": { "line": 83, "column": 8 }
+          },
+          {
+            "start": { "line": 83, "column": 8 },
+            "end": { "line": 83, "column": 8 }
+          }
+        ]
+      },
+      "3": {
+        "line": 100,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 100, "column": 8 },
+            "end": { "line": 100, "column": 8 }
+          },
+          {
+            "start": { "line": 100, "column": 8 },
+            "end": { "line": 100, "column": 8 }
+          }
+        ]
+      },
+      "4": {
+        "line": 101,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 101, "column": 8 },
+            "end": { "line": 101, "column": 8 }
+          },
+          {
+            "start": { "line": 101, "column": 8 },
+            "end": { "line": 101, "column": 8 }
+          }
+        ]
+      },
+      "5": {
+        "line": 109,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 109, "column": 8 },
+            "end": { "line": 109, "column": 8 }
+          },
+          {
+            "start": { "line": 109, "column": 8 },
+            "end": { "line": 109, "column": 8 }
+          }
+        ]
+      },
+      "6": {
+        "line": 112,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 112, "column": 12 },
+            "end": { "line": 112, "column": 12 }
+          },
+          {
+            "start": { "line": 112, "column": 12 },
+            "end": { "line": 112, "column": 12 }
+          }
+        ]
+      },
+      "7": {
+        "line": 126,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 126, "column": 12 },
+            "end": { "line": 126, "column": 12 }
+          },
+          {
+            "start": { "line": 126, "column": 12 },
+            "end": { "line": 126, "column": 12 }
+          }
+        ]
+      },
+      "8": {
+        "line": 150,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 150, "column": 8 },
+            "end": { "line": 150, "column": 8 }
+          },
+          {
+            "start": { "line": 150, "column": 8 },
+            "end": { "line": 150, "column": 8 }
+          }
+        ]
+      },
+      "9": {
+        "line": 162,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 162, "column": 12 },
+            "end": { "line": 162, "column": 12 }
+          },
+          {
+            "start": { "line": 162, "column": 12 },
+            "end": { "line": 162, "column": 12 }
+          }
+        ]
+      },
+      "10": {
+        "line": 163,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 163, "column": 16 },
+            "end": { "line": 163, "column": 16 }
+          },
+          {
+            "start": { "line": 163, "column": 16 },
+            "end": { "line": 163, "column": 16 }
+          }
+        ]
+      },
+      "11": {
+        "line": 179,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 179, "column": 24 },
+            "end": { "line": 179, "column": 24 }
+          },
+          {
+            "start": { "line": 179, "column": 24 },
+            "end": { "line": 179, "column": 24 }
+          }
+        ]
+      },
+      "12": {
+        "line": 181,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 181, "column": 28 },
+            "end": { "line": 181, "column": 28 }
+          },
+          {
+            "start": { "line": 181, "column": 28 },
+            "end": { "line": 181, "column": 28 }
+          }
+        ]
+      },
+      "13": {
+        "line": 223,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 223, "column": 24 },
+            "end": { "line": 223, "column": 24 }
+          },
+          {
+            "start": { "line": 223, "column": 24 },
+            "end": { "line": 223, "column": 24 }
+          }
+        ]
+      },
+      "14": {
+        "line": 225,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 225, "column": 28 },
+            "end": { "line": 225, "column": 28 }
+          },
+          {
+            "start": { "line": 225, "column": 28 },
+            "end": { "line": 225, "column": 28 }
+          }
+        ]
+      }
+    }
+  },
+  "contracts/ProxyWallet.sol": {
+    "l": {
+      "31": 5,
+      "32": 5,
+      "39": 2,
+      "40": 1,
+      "41": 1,
+      "42": 1,
+      "56": 2,
+      "59": 1,
+      "62": 1
+    },
+    "path":
+      "/home/jani/dev/blockchain/vanilla-platform/contracts/ProxyWallet.sol",
+    "s": { "1": 5, "2": 5, "3": 2, "4": 1, "5": 1, "6": 2, "7": 1, "8": 1 },
+    "b": { "1": [1, 1], "2": [1, 1] },
+    "f": { "1": 5, "2": 2, "3": 2 },
+    "fnMap": {
+      "1": {
+        "name": null,
+        "line": 30,
+        "loc": {
+          "start": { "line": 30, "column": 2 },
+          "end": { "line": 30, "column": 27 }
+        }
+      },
+      "2": {
+        "name": "refund",
+        "line": 38,
+        "loc": {
+          "start": { "line": 38, "column": 2 },
+          "end": { "line": 38, "column": 58 }
+        }
+      },
+      "3": {
+        "name": "destroy",
+        "line": 53,
+        "loc": {
+          "start": { "line": 53, "column": 2 },
+          "end": { "line": 53, "column": 37 }
+        }
+      }
+    },
+    "statementMap": {
+      "1": {
+        "start": { "line": 31, "column": 4 },
+        "end": { "line": 31, "column": 23 }
+      },
+      "2": {
+        "start": { "line": 32, "column": 4 },
+        "end": { "line": 32, "column": 33 }
+      },
+      "3": {
+        "start": { "line": 39, "column": 4 },
+        "end": { "line": 39, "column": 33 }
+      },
+      "4": {
+        "start": { "line": 41, "column": 4 },
+        "end": { "line": 41, "column": 14 }
+      },
+      "5": {
+        "start": { "line": 42, "column": 4 },
+        "end": { "line": 42, "column": 37 }
+      },
+      "6": {
+        "start": { "line": 56, "column": 4 },
+        "end": { "line": 56, "column": 24 }
+      },
+      "7": {
+        "start": { "line": 59, "column": 4 },
+        "end": { "line": 59, "column": 26 }
+      },
+      "8": {
+        "start": { "line": 62, "column": 4 },
+        "end": { "line": 62, "column": 22 }
+      }
+    },
+    "branchMap": {
+      "1": {
+        "line": 39,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 39, "column": 4 },
+            "end": { "line": 39, "column": 4 }
+          },
+          {
+            "start": { "line": 39, "column": 4 },
+            "end": { "line": 39, "column": 4 }
+          }
+        ]
+      },
+      "2": {
+        "line": 56,
+        "type": "if",
+        "locations": [
+          {
+            "start": { "line": 56, "column": 4 },
+            "end": { "line": 56, "column": 4 }
+          },
+          {
+            "start": { "line": 56, "column": 4 },
+            "end": { "line": 56, "column": 4 }
+          }
+        ]
+      }
+    }
+  },
+  "contracts/Verify.sol": {
+    "l": { "5": 0, "9": 0 },
+    "path": "/home/jani/dev/blockchain/vanilla-platform/contracts/Verify.sol",
+    "s": { "1": 0, "2": 0 },
+    "b": {},
+    "f": { "1": 0, "2": 0 },
+    "fnMap": {
+      "1": {
+        "name": "recoverAddr",
+        "line": 4,
+        "loc": {
+          "start": { "line": 4, "column": 2 },
+          "end": { "line": 4, "column": 100 }
+        }
+      },
+      "2": {
+        "name": "isSigned",
+        "line": 8,
+        "loc": {
+          "start": { "line": 8, "column": 2 },
+          "end": { "line": 8, "column": 109 }
+        }
+      }
+    },
+    "statementMap": {
+      "1": {
+        "start": { "line": 5, "column": 4 },
+        "end": { "line": 5, "column": 38 }
+      },
+      "2": {
+        "start": { "line": 9, "column": 4 },
+        "end": { "line": 9, "column": 47 }
+      }
+    },
+    "branchMap": {}
+  }
+}
