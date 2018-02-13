@@ -1,14 +1,14 @@
 Arguments: 
-  /usr/local/bin/node /opt/yarn/bin/yarn.js install
+  /usr/bin/node /usr/local/bin/yarn add http-server
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  /home/jani/.cargo/bin:/home/jani/dev/s3git:/home/jani/.cargo/bin:/home/jani/dev/s3git:/home/jani/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 Yarn version: 
-  0.24.6
+  1.1.0
 
 Node version: 
-  8.1.3
+  8.9.4
 
 Platform: 
   linux x64
@@ -28,8 +28,9 @@ npm manifest:
       "compile": "truffle compile",
       "develop": "truffle develop",
       "migrate": "truffle migrate",
+      "test": "truffle test",
       "precommit": "lint-staged && nsp check --threshold=10",
-      "test": "./node_modules/.bin/solidity-coverage"
+      "coverage": "./node_modules/.bin/solidity-coverage"
     },
     "devDependencies": {
       "@tislaamo/eslint-config": "^1.0.3",
@@ -2123,7 +2124,7 @@ Lockfile:
       yargs-parser "^7.0.0"
 
 Trace: 
-  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com:443
-      at Object.exports._errnoException (util.js:1022:11)
-      at errnoException (dns.js:55:15)
-      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:91:26)
+  Error: connect ECONNREFUSED 192.168.100.30:4873
+      at Object._errnoException (util.js:1022:11)
+      at _exceptionWithHostPort (util.js:1044:20)
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1182:14)

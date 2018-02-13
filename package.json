@@ -5,8 +5,13 @@
   "author": "",
   "private": true,
   "lint-staged": {
-    "{,!(node_modules)/}**/*.{json,css}": ["prettier-eslint --write"],
-    "{,!(node_modules)/}**/*.js": ["prettier-eslint --write", "eslint"]
+    "{,!(node_modules)/}**/*.{json,css}": [
+      "prettier-eslint --write"
+    ],
+    "{,!(node_modules)/}**/*.js": [
+      "prettier-eslint --write",
+      "eslint"
+    ]
   },
   "scripts": {
     "compile": "truffle compile",
@@ -34,6 +39,7 @@
     "solidity-coverage": "^0.4.9"
   },
   "dependencies": {
+    "http-server": "^0.11.1",
     "truffle": "^4.0.6",
     "zeppelin-solidity": "1.6.0"
   }
