@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
-import "zeppelin-solidity/contracts/ownership/Ownable.sol";
-import "zeppelin-solidity/contracts/math/SafeMath.sol";
+import "./Ownable.sol";
+import "./Debuggable.sol";
+import "./SafeMath.sol";
 import "./LongShortController.sol";
 //import "./Verify.sol";
 
@@ -11,7 +12,7 @@ import "./LongShortController.sol";
  *
  * @author Convoluted Labs
  */
-contract OrdersManager is Ownable {
+contract OrdersManager is Ownable, Debuggable {
     
     // Use Zeppelin's SafeMath library for calculations
     using SafeMath for uint256;
@@ -158,6 +159,8 @@ contract OrdersManager is Ownable {
         // Fail the call if there's no more than 1 open order
         require(openOrderHashes.length > 1);
 
+        debug("There are more than 1 open orders");
+
         for (uint i = 0; i < openOrderHashes.length; i++) {
 
             // Parameter hash of this iteration
@@ -167,8 +170,11 @@ contract OrdersManager is Ownable {
             Order[] memory longsForHash = new Order[](longs[paramHash].length);
             Order[] memory shortsForHash = new Order[](shorts[paramHash].length);
 
+            debug("Checking an order hash");
+
             // Check that both sides have open orders with same parameters
             if (matchesExist(paramHash)) {
+                debug("Matches exist.");
                 if (amountShortForHash[paramHash] < amountLongForHash[paramHash]) {
 
                     uint256 amountLong = 0;
