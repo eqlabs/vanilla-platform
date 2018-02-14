@@ -59,6 +59,7 @@ contract OrdersManager is Ownable, Debuggable {
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
         longShortControllerAddress = new LongShortController();
+        debug("Fee wallet set.");
     }
 
     /**
@@ -66,22 +67,30 @@ contract OrdersManager is Ownable, Debuggable {
      */
     function setSignature(string signingSecret) public onlyOwner {
         signature = signingSecret;
+        debug("Signature set.");
     }
 
     function withdrawFee() public onlyOwner {
         require(cumulatedFee > 0 wei);
         feeWallet.transfer(cumulatedFee);
         cumulatedFee = 0;
+        debug("Fees withdrawn.");
     }
 
     /**
      * Function for checking if there are orders
      * with the same parameters open already
      */
-    function similarOrdersExist(bytes32 parameterHash) internal view returns (bool) {
-        if (amountShortForHash[parameterHash] > 0 || amountLongForHash[parameterHash] > 0) {
+    function similarOrdersExist(bytes32 parameterHash) internal returns (bool) {
+        if (amountShortForHash[parameterHash] > 0) {
+            debug("Similar orders exist.");
             return true;
         }
+        if (amountLongForHash[parameterHash] > 0) {
+            debug("Similar orders exist.");
+            return true;
+        }
+        debug("No similar orders exist.");
         return false;
     }
 
@@ -89,10 +98,14 @@ contract OrdersManager is Ownable, Debuggable {
      * Function for checking if there are open orders
      * on both sides with enough funds.
      */
-    function matchesExist(bytes32 parameterHash) internal view returns (bool) {
-        if (amountShortForHash[parameterHash] > MINIMUM_POSITION && amountLongForHash[parameterHash] > MINIMUM_POSITION) {
-            return true;
+    function matchesExist(bytes32 parameterHash) internal returns (bool) {
+        if (amountShortForHash[parameterHash] >= MINIMUM_POSITION) {
+            if (amountLongForHash[parameterHash] >= MINIMUM_POSITION) {
+                debug("Matches exist.");
+                return true;
+            }
         }
+        debug("No matches exist.");
         return false;
     }
 
@@ -129,6 +142,8 @@ contract OrdersManager is Ownable, Debuggable {
             // Add the order to list of open long orders
             longs[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
 
+            debug("New long position received and saved.");
+
         // If the order is short
         } else {
 
@@ -142,6 +157,8 @@ contract OrdersManager is Ownable, Debuggable {
 
             // Add the order to list of open short orders
             shorts[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
+
+            debug("New short position received and saved.");
 
         }
 
@@ -159,7 +176,7 @@ contract OrdersManager is Ownable, Debuggable {
         // Fail the call if there's no more than 1 open order
         require(openOrderHashes.length > 1);
 
-        debug("There are more than 1 open orders");
+        debug("There are more than 1 open orders.");
 
         for (uint i = 0; i < openOrderHashes.length; i++) {
 
@@ -170,11 +187,10 @@ contract OrdersManager is Ownable, Debuggable {
             Order[] memory longsForHash = new Order[](longs[paramHash].length);
             Order[] memory shortsForHash = new Order[](shorts[paramHash].length);
 
-            debug("Checking an order hash");
+            debug("Checking an order hash.");
 
             // Check that both sides have open orders with same parameters
             if (matchesExist(paramHash)) {
-                debug("Matches exist.");
                 if (amountShortForHash[paramHash] < amountLongForHash[paramHash]) {
 
                     uint256 amountLong = 0;
@@ -264,6 +280,8 @@ contract OrdersManager is Ownable, Debuggable {
                     }
 
                 }
+
+                debug("Calculating payments.");
 
                 uint256 amountForHash = amountLong.add(amountShort);
                 amountForHash = amountForHash.sub(amountForHash.mul(uint256(3).div(uint256(10))));

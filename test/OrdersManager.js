@@ -204,13 +204,15 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     //eslint-disable-next-line
     const initBalance = await web3.eth.getBalance(feeWallet);
 
+    const position = minimumPosition + 4;
+
     // Create a short order
     await createShortOrder(
       instance,
       Math.round(new Date().getTime() / 1000),
       2,
       user,
-      minimumPosition,
+      position,
       gasLimit
     );
 
@@ -220,14 +222,14 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       Math.round(new Date().getTime() / 1000),
       2,
       owner,
-      minimumPosition,
+      position,
       gasLimit
     );
 
     // Check balance
     //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
-    //balance.should.be.bignumber.equal(minimumPosition * 2);
+    balance.should.be.bignumber.gte(position * 2);
 
     // Run matchmaker
     await instance.matchMaker({
@@ -238,9 +240,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     const feeBalance = await instance.cumulatedFee.call({
       from: owner
     });
-    /* feeBalance.should.be.bignumber.equal(
-      initBalance + minimumPosition * 2 * 0.3
-    ); */
+    feeBalance.should.be.bignumber.gte(initBalance + position * 2 * 0.3);
 
     // Pay fees to fee wallet
     await instance.withdrawFee({
