@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 const OrdersManager = artifacts.require("../contracts/OrdersManager.sol");
 // eslint-disable-next-line
-const { should } = require("./helpers");
+const { should, BigNumber } = require("./helpers");
 
 async function createLongOrder(
   instance,
@@ -43,7 +43,9 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     async function() {
       instance = await OrdersManager.new(owner);
       minimumPosition = await instance.MINIMUM_POSITION.call();
+      minimumPosition = new BigNumber(minimumPosition);
       maximumPosition = await instance.MAXIMUM_POSITION.call();
+      maximumPosition = new BigNumber(maximumPosition);
     }
   );
 
@@ -203,8 +205,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     // Get initial fee wallet balance
     //eslint-disable-next-line
     const initBalance = await web3.eth.getBalance(feeWallet);
-
-    const position = minimumPosition + 4;
+    const position = minimumPosition;
 
     // Create a short order
     await createShortOrder(
@@ -229,7 +230,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     // Check balance
     //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
-    balance.should.be.bignumber.gte(position * 2);
+    balance.should.be.bignumber.gte(position.times(2));
 
     // Run matchmaker
     await instance.matchMaker({
@@ -240,7 +241,9 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     const feeBalance = await instance.cumulatedFee.call({
       from: owner
     });
-    feeBalance.should.be.bignumber.gte(initBalance + position * 2 * 0.3);
+    feeBalance.should.be.bignumber.gte(
+      initBalance.plus(position.times(2).times(0.3))
+    );
 
     // Pay fees to fee wallet
     await instance.withdrawFee({
