@@ -230,7 +230,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     // Check balance
     //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
-    balance.should.be.bignumber.gte(position.times(2).minus(1));
+    balance.should.be.bignumber.equal(position.times(2));
 
     // Run matchmaker
     await instance.matchMaker({
@@ -242,7 +242,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
     //eslint-disable-next-line
     const feeBalance = await web3.eth.getBalance(feeWallet);
-    feeBalance.should.be.bignumber.gte(
+    feeBalance.should.be.bignumber.equal(
       initBalance.plus(position.times(2).times(0.3))
     );
   });

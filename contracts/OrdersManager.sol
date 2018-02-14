@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 import "./Ownable.sol";
 import "./Debuggable.sol";
 import "./SafeMath.sol";
-//import "./LongShortController.sol";
+import "./LongShortController.sol";
 //import "./Verify.sol";
 
 /**
@@ -30,11 +30,11 @@ contract OrdersManager is Ownable, Debuggable {
     // List of all open order types
     bytes32[] private openOrderHashes;
 
-    // Orders mapped by parameter pair
+    // Orders mapped by parameter group
     mapping(bytes32 => Order[]) private longs;
     mapping(bytes32 => Order[]) private shorts;
 
-    // Order balances mapped by parameter pair
+    // Order balances mapped by parameter group
     mapping(bytes32 => uint256) private amountLongForHash;
     mapping(bytes32 => uint256) private amountShortForHash;
 
@@ -62,7 +62,7 @@ contract OrdersManager is Ownable, Debuggable {
      */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
-        //longShortControllerAddress = new LongShortController();
+        longShortControllerAddress = new LongShortController();
         debug("Fee wallet set.");
     }
 
@@ -86,17 +86,28 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
+     * Getter for the LongShortController address
+     * 
+     * @return address address of the LongShortController
+     */
+    function getControllerAddress() public view onlyOwner returns (address) {
+        return longShortControllerAddress;
+    }
+
+    /**
      * Tool function for debugging. Could be used in the backend. For something.
      * 
      * @return bytes32[] array of open order types
      */
-    function returnOpenOrderHashes() public view onlyOwner returns (bytes32[]) {
+    function getOpenOrderHashes() public view onlyOwner returns (bytes32[]) {
         return openOrderHashes;
     }
 
     /**
      * Function for checking if there are orders
      * with the same parameters open already
+     * 
+     * @return bool
      */
     function similarOrdersExist(bytes32 parameterHash) private returns (bool) {
         if (amountShortForHash[parameterHash] > 0 wei || amountLongForHash[parameterHash] > 0 wei) {
@@ -110,6 +121,8 @@ contract OrdersManager is Ownable, Debuggable {
     /**
      * Function for checking if there are open orders
      * on both sides with enough funds.
+     * 
+     * @return bool
      */
     function matchesExist(bytes32 parameterHash) private returns (bool) {
         if (amountShortForHash[parameterHash] >= MINIMUM_POSITION && amountLongForHash[parameterHash] >= MINIMUM_POSITION) {
@@ -188,6 +201,7 @@ contract OrdersManager is Ownable, Debuggable {
 
         debug("There are more than 1 open orders.");
 
+        // Iterate over all parameter groups
         for (uint i = 0; i < openOrderHashes.length; i++) {
 
             // Parameter hash of this iteration
@@ -201,44 +215,79 @@ contract OrdersManager is Ownable, Debuggable {
 
             // Check that both sides have open orders with same parameters
             if (matchesExist(paramHash)) {
+
+                // If there's more ETH in long orders
                 if (amountShortForHash[paramHash] < amountLongForHash[paramHash]) {
                     debug("There's more ETH in long orders.");
 
+                    // Since there's more ETH in long, let's iterate over long orders
+                    // to enable partial matching
                     uint256 amountLong = 0;
+
+                    // Use the straight amount straight from the chain
                     uint256 amountShort = amountShortForHash[paramHash];
 
+                    // Calculate the difference of amounts in long and short orders
                     uint256 longShortDiff = amountLongForHash[paramHash].sub(amountShort);
 
                     // For the smaller position, it's easy: just add the orders to the batch.
                     for (uint j = 0; j < shorts[paramHash].length; j++) {
+
+                        // Add the order straight in the bundle
                         shortsForHash[j] = shorts[paramHash][j];
+
+                        // Subtract the order balance from manager balances
                         amountShortForHash[paramHash] = amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
+
+                        // Remove the completely matched order from manager's order book
                         delete shorts[paramHash][j];
+
                     }
 
                     // For the larger position, let's calculate a little
                     for (j = 0; j < longs[paramHash].length; j++) {
+
+                        // If there's still some ETH to match on the long side
                         if (amountLong < amountShort) {
 
+                            // Check if the balance in the current long order is less
+                            // than the difference between long and short orders
                             if (longs[paramHash][j].balance < longShortDiff) {
-
+                                
+                                // Add the order balance to amountLong
                                 amountLong = amountLong.add(longs[paramHash][j].balance);
+
+                                // Add the order straight in the bundle
                                 longsForHash[j] = longs[paramHash][j];
+
+                                // Subtract the order balance from manager balances
                                 amountLongForHash[paramHash] = amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
+
+                                // Remove the completely matched order from manager's order book
                                 delete longs[paramHash][j];
 
+                            // If the amount of ETH in the current order is more
+                            // than the difference between long and short orders
                             } else {
 
+                                // Calculate the remaining fillable balance
                                 var remainingDiff = amountShort.sub(amountLong);
-
+                                
+                                // Create a new partial order as a copy of the original in memory
                                 Order memory partialOrder = longs[paramHash][j];
+                                // Set the partial order balance as the remaining fillable balance
                                 partialOrder.balance = remainingDiff;
 
+                                // Subtract the partial order balance from the original order
                                 longs[paramHash][j].balance = longs[paramHash][j].balance.sub(remainingDiff);
 
+                                // Add the partial order in the bundle
                                 longsForHash[j] = partialOrder;
+
+                                // Subtract the partial order balance from manager balances
                                 amountLongForHash[paramHash] = amountLongForHash[paramHash].sub(remainingDiff);
 
+                                // Set amountLong as same as amountShort, filling the balance in the bundle
                                 amountLong = amountShort;
 
                             }
@@ -246,6 +295,7 @@ contract OrdersManager is Ownable, Debuggable {
                         }
                     }
 
+                // Same logic as before but with the roles changed
                 } else {
 
                     debug("There's more ETH in short orders.");
@@ -300,7 +350,7 @@ contract OrdersManager is Ownable, Debuggable {
                 uint256 amountForHash = amountLong.add(amountShort);
 
                 // Calculate the fee (30% of the active contract amount)
-                uint256 feeForHash = amountForHash.sub(amountForHash.mul(uint256(3)).div(uint256(10)));
+                uint256 feeForHash = amountForHash.mul(uint256(3)).div(uint256(10));
 
                 // Subtract the fee from the active contract amount
                 amountForHash = amountForHash.sub(feeForHash);
