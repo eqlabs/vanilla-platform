@@ -14,6 +14,11 @@ services:
       service: base-dev
     command: yarn install
 
+  dev:
+    extends:
+      service: base-dev
+    command: yarn develop
+
   ganache-cli:
     image: trufflesuite/ganache-cli:latest
     networks:

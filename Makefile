@@ -1,7 +1,10 @@
-.PHONY: install test coverage coverage-explorer
+.PHONY: install dev test coverage coverage-explorer
 
 install:
 	docker-compose run --rm --service-ports install
+
+dev:
+	docker-compose run --rm --service-ports dev
 
 test:
 	docker-compose run --rm --service-ports test && docker-compose down
