@@ -27,10 +27,14 @@ contract OrdersManager is Ownable, Debuggable {
     // Address of the LongShortController
     address private longShortControllerAddress;
     
-    // List of all open orders
+    // List of all open order types
     bytes32[] private openOrderHashes;
+
+    // Orders mapped by parameter pair
     mapping(bytes32 => Order[]) private longs;
     mapping(bytes32 => Order[]) private shorts;
+
+    // Order balances mapped by parameter pair
     mapping(bytes32 => uint256) private amountLongForHash;
     mapping(bytes32 => uint256) private amountShortForHash;
 
@@ -70,6 +74,10 @@ contract OrdersManager is Ownable, Debuggable {
         debug("Signature set.");
     }
 
+    /**
+     * Pull payment function for sending
+     * the accumulated fees to Vanilla's fee wallet
+     */
     function withdrawFee() public onlyOwner {
         require(cumulatedFee > 0 wei);
         feeWallet.transfer(cumulatedFee);
@@ -77,6 +85,11 @@ contract OrdersManager is Ownable, Debuggable {
         debug("Fees withdrawn.");
     }
 
+    /**
+     * Tool function for debugging. Could be used in the backend. For something.
+     * 
+     * @return bytes32[] array of open order types
+     */
     function returnOpenOrderHashes() public view onlyOwner returns (bytes32[]) {
         return openOrderHashes;
     }
@@ -283,10 +296,18 @@ contract OrdersManager is Ownable, Debuggable {
 
                 debug("Calculating payments.");
 
+                // Initialize the amount sent to the active contract
                 uint256 amountForHash = amountLong.add(amountShort);
+
+                // Calculate the fee (30% of the active contract amount)
                 uint256 feeForHash = amountForHash.sub(amountForHash.mul(uint256(3)).div(uint256(10)));
 
+                // Subtract the fee from the active contract amount
+                amountForHash = amountForHash.sub(feeForHash);
+
+                // Save the fee to the contract
                 cumulatedFee = cumulatedFee.add(feeForHash);
+
                 //longShortControllerAddress.transfer(amountForHash);
             }
         }
