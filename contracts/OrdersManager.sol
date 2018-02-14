@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 import "./Ownable.sol";
 import "./Debuggable.sol";
 import "./SafeMath.sol";
-import "./LongShortController.sol";
+//import "./LongShortController.sol";
 //import "./Verify.sol";
 
 /**
@@ -22,7 +22,7 @@ contract OrdersManager is Ownable, Debuggable {
 
     // Address of the fee wallet
     address private feeWallet;
-    uint256 public cumulatedFee;
+    uint256 private cumulatedFee;
 
     // Address of the LongShortController
     address private longShortControllerAddress;
@@ -58,7 +58,7 @@ contract OrdersManager is Ownable, Debuggable {
      */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
-        longShortControllerAddress = new LongShortController();
+        //longShortControllerAddress = new LongShortController();
         debug("Fee wallet set.");
     }
 
@@ -77,16 +77,16 @@ contract OrdersManager is Ownable, Debuggable {
         debug("Fees withdrawn.");
     }
 
+    function returnOpenOrderHashes() public view onlyOwner returns (bytes32[]) {
+        return openOrderHashes;
+    }
+
     /**
      * Function for checking if there are orders
      * with the same parameters open already
      */
-    function similarOrdersExist(bytes32 parameterHash) internal returns (bool) {
-        if (amountShortForHash[parameterHash] > 0) {
-            debug("Similar orders exist.");
-            return true;
-        }
-        if (amountLongForHash[parameterHash] > 0) {
+    function similarOrdersExist(bytes32 parameterHash) private returns (bool) {
+        if (amountShortForHash[parameterHash] > 0 wei || amountLongForHash[parameterHash] > 0 wei) {
             debug("Similar orders exist.");
             return true;
         }
@@ -98,12 +98,10 @@ contract OrdersManager is Ownable, Debuggable {
      * Function for checking if there are open orders
      * on both sides with enough funds.
      */
-    function matchesExist(bytes32 parameterHash) internal returns (bool) {
-        if (amountShortForHash[parameterHash] >= MINIMUM_POSITION) {
-            if (amountLongForHash[parameterHash] >= MINIMUM_POSITION) {
-                debug("Matches exist.");
-                return true;
-            }
+    function matchesExist(bytes32 parameterHash) private returns (bool) {
+        if (amountShortForHash[parameterHash] >= MINIMUM_POSITION && amountLongForHash[parameterHash] >= MINIMUM_POSITION) {
+            debug("Matches exist.");
+            return true;
         }
         debug("No matches exist.");
         return false;
@@ -120,8 +118,7 @@ contract OrdersManager is Ownable, Debuggable {
     function createOrder(uint closingDate, uint leverage, bool longPosition, address paymentAddress) public payable {
 
         // Check minimum and maximum bets
-        require(msg.value >= MINIMUM_POSITION);
-        require(msg.value <= MAXIMUM_POSITION);
+        require(msg.value >= MINIMUM_POSITION && msg.value <= MAXIMUM_POSITION);
 
         // Calculate a hash of the parameters for matching
         bytes32 parameterHash = keccak256(closingDate, leverage, signature);
@@ -137,7 +134,7 @@ contract OrdersManager is Ownable, Debuggable {
             }
 
             // Add the sent amount to previous amount of longs with the same parameters
-            amountLongForHash[parameterHash].add(msg.value);
+            amountLongForHash[parameterHash] = amountLongForHash[parameterHash].add(msg.value);
 
             // Add the order to list of open long orders
             longs[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
@@ -153,7 +150,7 @@ contract OrdersManager is Ownable, Debuggable {
             }
 
             // Add the sent amount to previous amount of shorts with the same parameters
-            amountShortForHash[parameterHash].add(msg.value);
+            amountShortForHash[parameterHash] = amountShortForHash[parameterHash].add(msg.value);
 
             // Add the order to list of open short orders
             shorts[parameterHash].push(Order(parameterHash, closingDate, leverage, msg.sender, paymentAddress, msg.value));
@@ -173,15 +170,15 @@ contract OrdersManager is Ownable, Debuggable {
      */
     function matchMaker() public {
 
-        // Fail the call if there's no more than 1 open order
-        require(openOrderHashes.length > 1);
+        // Fail the call if there's no open orders
+        require(openOrderHashes.length > 0);
 
         debug("There are more than 1 open orders.");
 
         for (uint i = 0; i < openOrderHashes.length; i++) {
 
             // Parameter hash of this iteration
-            var paramHash = openOrderHashes[i];
+            bytes32 paramHash = openOrderHashes[i];
 
             // Order arrays for these parameters
             Order[] memory longsForHash = new Order[](longs[paramHash].length);
@@ -192,6 +189,7 @@ contract OrdersManager is Ownable, Debuggable {
             // Check that both sides have open orders with same parameters
             if (matchesExist(paramHash)) {
                 if (amountShortForHash[paramHash] < amountLongForHash[paramHash]) {
+                    debug("There's more ETH in long orders.");
 
                     uint256 amountLong = 0;
                     uint256 amountShort = amountShortForHash[paramHash];
@@ -201,7 +199,7 @@ contract OrdersManager is Ownable, Debuggable {
                     // For the smaller position, it's easy: just add the orders to the batch.
                     for (uint j = 0; j < shorts[paramHash].length; j++) {
                         shortsForHash[j] = shorts[paramHash][j];
-                        amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
+                        amountShortForHash[paramHash] = amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
                         delete shorts[paramHash][j];
                     }
 
@@ -211,9 +209,9 @@ contract OrdersManager is Ownable, Debuggable {
 
                             if (longs[paramHash][j].balance < longShortDiff) {
 
-                                amountLong.add(longs[paramHash][j].balance);
+                                amountLong = amountLong.add(longs[paramHash][j].balance);
                                 longsForHash[j] = longs[paramHash][j];
-                                amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
+                                amountLongForHash[paramHash] = amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
                                 delete longs[paramHash][j];
 
                             } else {
@@ -223,10 +221,10 @@ contract OrdersManager is Ownable, Debuggable {
                                 Order memory partialOrder = longs[paramHash][j];
                                 partialOrder.balance = remainingDiff;
 
-                                longs[paramHash][j].balance.sub(remainingDiff);
+                                longs[paramHash][j].balance = longs[paramHash][j].balance.sub(remainingDiff);
 
                                 longsForHash[j] = partialOrder;
-                                amountLongForHash[paramHash].sub(remainingDiff);
+                                amountLongForHash[paramHash] = amountLongForHash[paramHash].sub(remainingDiff);
 
                                 amountLong = amountShort;
 
@@ -237,6 +235,8 @@ contract OrdersManager is Ownable, Debuggable {
 
                 } else {
 
+                    debug("There's more ETH in short orders.");
+
                     amountLong = amountLongForHash[paramHash];
                     amountShort = 0;
 
@@ -245,7 +245,7 @@ contract OrdersManager is Ownable, Debuggable {
                     // For the smaller position, it's easy: just add the orders to the batch.
                     for (j = 0; j < longs[paramHash].length; j++) {
                         longsForHash[j] = longs[paramHash][j];
-                        amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
+                        amountLongForHash[paramHash] = amountLongForHash[paramHash].sub(longs[paramHash][j].balance);
                         delete longs[paramHash][j];
                     }
 
@@ -255,9 +255,9 @@ contract OrdersManager is Ownable, Debuggable {
 
                             if (shorts[paramHash][j].balance < shortLongDiff) {
 
-                                amountShort.add(shorts[paramHash][j].balance);
+                                amountShort = amountShort.add(shorts[paramHash][j].balance);
                                 shortsForHash[j] = shorts[paramHash][j];
-                                amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
+                                amountShortForHash[paramHash] = amountShortForHash[paramHash].sub(shorts[paramHash][j].balance);
                                 delete shorts[paramHash][j];
 
                             } else {
@@ -267,10 +267,10 @@ contract OrdersManager is Ownable, Debuggable {
                                 partialOrder = shorts[paramHash][j];
                                 partialOrder.balance = remainingDiff;
 
-                                shorts[paramHash][j].balance.sub(remainingDiff);
+                                shorts[paramHash][j].balance = shorts[paramHash][j].balance.sub(remainingDiff);
 
                                 shortsForHash[j] = partialOrder;
-                                amountShortForHash[paramHash].sub(remainingDiff);
+                                amountShortForHash[paramHash] = amountShortForHash[paramHash].sub(remainingDiff);
                                 
                                 amountShort = amountLong;
 
@@ -284,9 +284,9 @@ contract OrdersManager is Ownable, Debuggable {
                 debug("Calculating payments.");
 
                 uint256 amountForHash = amountLong.add(amountShort);
-                amountForHash = amountForHash.sub(amountForHash.mul(uint256(3).div(uint256(10))));
+                uint256 feeForHash = amountForHash.sub(amountForHash.mul(uint256(3)).div(uint256(10)));
 
-                cumulatedFee.add(amountForHash.mul(uint256(3).div(uint256(10))));
+                cumulatedFee = cumulatedFee.add(feeForHash);
                 //longShortControllerAddress.transfer(amountForHash);
             }
         }
