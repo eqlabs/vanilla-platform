@@ -42,6 +42,9 @@ contract OrdersManager is Ownable, Debuggable {
     // Minimum and maximum positions
     uint256 public constant MINIMUM_POSITION = 0.01 ether;
     uint256 public constant MAXIMUM_POSITION = 500 ether;
+
+    // Fee percentage
+    uint8 private constant FEE_PERCENTAGE = 30;
     
     /**
      * Order struct
@@ -83,6 +86,13 @@ contract OrdersManager is Ownable, Debuggable {
     function setSignature(string signingSecret) public onlyOwner {
         signature = signingSecret;
         debug("Signature set.");
+    }
+
+    /**
+     * Fee calculation function
+     */
+    function calculateFee(uint256 amount) internal pure returns (uint256) {
+        return amount.mul(FEE_PERCENTAGE).div(100);
     }
 
     /**
@@ -361,7 +371,7 @@ contract OrdersManager is Ownable, Debuggable {
                 uint256 amountForHash = amountLong.add(amountShort);
 
                 // Calculate the fee (30% of the active contract amount)
-                uint256 feeForHash = amountForHash.mul(uint256(3)).div(uint256(10));
+                uint256 feeForHash = calculateFee(amountForHash);
 
                 // Subtract the fee from the active contract amount
                 amountForHash = amountForHash.sub(feeForHash);
