@@ -246,4 +246,10 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       initBalance.plus(position.times(2).times(0.3))
     );
   });
+
+  it("Should be able to communicate with LongShortController", async () => {
+    // Set fee wallet address
+    await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
+    await instance.setLongShortController();
+  });
 });

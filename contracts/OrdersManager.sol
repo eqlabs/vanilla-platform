@@ -26,6 +26,7 @@ contract OrdersManager is Ownable, Debuggable {
 
     // Address of the LongShortController
     address private longShortControllerAddress;
+    LongShortController private controller;
     
     // List of all open order types
     bytes32[] private openOrderHashes;
@@ -62,8 +63,18 @@ contract OrdersManager is Ownable, Debuggable {
      */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
-        longShortControllerAddress = new LongShortController();
         debug("Fee wallet set.");
+    }
+
+    /**
+     * Setter for Vanilla's LongShortController
+     */
+    function setLongShortController() public onlyOwner {
+        longShortControllerAddress = new LongShortController();
+        controller = LongShortController(longShortControllerAddress);
+        bytes32 check = controller.checkConstructor();
+        require(check == keccak256(this));
+        debug("Controller set.");
     }
 
     /**
