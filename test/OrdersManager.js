@@ -5,13 +5,14 @@ const { should, BigNumber } = require("./helpers");
 
 async function createLongOrder(
   instance,
+  orderID,
   closingDate,
   leverage,
   sender,
   position,
   gasLimit
 ) {
-  await instance.createOrder(closingDate, leverage, true, sender, {
+  await instance.createOrder(orderID, closingDate, leverage, true, sender, {
     from: sender,
     value: position,
     gasLimit: gasLimit
@@ -20,13 +21,14 @@ async function createLongOrder(
 
 async function createShortOrder(
   instance,
+  orderID,
   closingDate,
   leverage,
   sender,
   position,
   gasLimit
 ) {
-  await instance.createOrder(closingDate, leverage, false, sender, {
+  await instance.createOrder(orderID, closingDate, leverage, false, sender, {
     from: sender,
     value: position,
     gasLimit: gasLimit
@@ -83,6 +85,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should be able to create a new short order with minimum position", async () => {
     await createShortOrder(
       instance,
+      "ebin",
       Math.round(new Date().getTime() / 1000),
       2,
       user,
@@ -97,6 +100,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should be able to create a new long order with minimum position", async () => {
     await createLongOrder(
       instance,
+      "ebin",
       Math.round(new Date().getTime() / 1000),
       2,
       user,
@@ -112,6 +116,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createLongOrder(
         instance,
+        "ebin",
         Math.round(new Date().getTime() / 1000),
         2,
         user,
@@ -128,6 +133,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createShortOrder(
         instance,
+        "ebin",
         Math.round(new Date().getTime() / 1000),
         2,
         user,
@@ -144,6 +150,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createLongOrder(
         instance,
+        "ebin",
         Math.round(new Date().getTime() / 1000),
         2,
         user,
@@ -160,6 +167,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createShortOrder(
         instance,
+        "ebin",
         Math.round(new Date().getTime() / 1000),
         2,
         user,
