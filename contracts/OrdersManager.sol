@@ -25,7 +25,7 @@ contract OrdersManager is Ownable, Debuggable {
     uint256 private cumulatedFee;
     
     // List of all open order types
-    bytes32[] private openOrderHashes;
+    bytes32[] private openParameterHashes;
     // Order IDs mapped by parameter hash
     mapping(bytes32 => bytes32[]) private orderIDs;
     // Orders mapped by order ID
@@ -44,11 +44,9 @@ contract OrdersManager is Ownable, Debuggable {
      */
     struct Order {
         bool isLong;
-        bytes32 parameterHash;
-        uint closingDate;
+        uint duration;
         uint leverage;
         bytes32 ownerSignature;
-        address originAddress;
         address paymentAddress;
         uint256 balance;
     }
@@ -89,12 +87,12 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-     * Returns open order hashes
+     * Returns open parameter hashes
      * 
      * @return bytes32[] array of open order types
      */
-    function getOpenOrderHashes() public view onlyOwner returns (bytes32[]) {
-        return openOrderHashes;
+    function getOpenParameterHashes() public view onlyOwner returns (bytes32[]) {
+        return openParameterHashes;
     }
 
     /**
@@ -121,14 +119,12 @@ contract OrdersManager is Ownable, Debuggable {
      * 
      * @return bool
      */
-    function similarOrdersExist(bytes32 parameterHash) private returns (bool) {
-        for (uint8 i = 0; i < openOrderHashes.length; i++) {
-            if (openOrderHashes[i] == parameterHash) {
-                debug("Similar orders exist.");
-                return true;
-            }
+    function parameterHashExists(bytes32 parameterHash) private returns (bool) {
+        if (orderIDs[parameterHash].length > 0) {
+            debug("Parameter hash exists.");
+            return true;
         }
-        debug("No similar orders exist.");
+        debug("Parameter hash doesn't exist.");
         return false;
     }
 
@@ -140,24 +136,24 @@ contract OrdersManager is Ownable, Debuggable {
      *
      * Receives a singular payment with parameters to open an order with.
      */
-    function createOrder(string orderID, uint closingDate, uint leverage, bool isLong, address paymentAddress) public payable {
+    function createOrder(string orderID, uint duration, uint leverage, bool isLong, address paymentAddress) public payable {
         // Calculate a hash of the orderID to uniquely identify orders
         bytes32 orderHash = keccak256(orderID);
         
         // Require that there isn't an order with this ID yet
-        require(orders[orderHash].originAddress == 0);
+        require(orders[orderHash].paymentAddress == 0);
 
         // Check minimum and maximum bets
         require(msg.value >= MINIMUM_POSITION && msg.value <= MAXIMUM_POSITION);
 
         // Calculate a hash of the parameters for matching
-        bytes32 parameterHash = keccak256(closingDate, leverage, signature);
+        bytes32 parameterHash = keccak256(duration, leverage, signature);
 
         /* SAVE ORDER */
 
         // Save new parameter hash to list
-        if (!similarOrdersExist(parameterHash)) {
-            openOrderHashes.push(parameterHash);
+        if (!parameterHashExists(parameterHash)) {
+            openParameterHashes.push(parameterHash);
         }
 
         uint256 fee = calculateFee(msg.value);
@@ -168,9 +164,8 @@ contract OrdersManager is Ownable, Debuggable {
         // Map the orderHash to paramHash
         orderIDs[parameterHash].push(orderHash);
         // Map the order to the orderHash
-        orders[orderHash] = Order(isLong, parameterHash, closingDate, leverage, keccak256(msg.sender), msg.sender, paymentAddress, userBet);
+        orders[orderHash] = Order(isLong, duration, leverage, keccak256(msg.sender), paymentAddress, userBet);
 
         debug("New order received and saved.");
-
     }
 }
