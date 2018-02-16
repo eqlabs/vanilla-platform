@@ -5,13 +5,14 @@ const { should, BigNumber } = require("./helpers");
 
 async function createLongOrder(
   instance,
-  closingDate,
+  orderID,
+  duration,
   leverage,
   sender,
   position,
   gasLimit
 ) {
-  await instance.createOrder(closingDate, leverage, true, sender, {
+  await instance.createOrder(orderID, duration, leverage, true, sender, {
     from: sender,
     value: position,
     gasLimit: gasLimit
@@ -20,13 +21,14 @@ async function createLongOrder(
 
 async function createShortOrder(
   instance,
-  closingDate,
+  orderID,
+  duration,
   leverage,
   sender,
   position,
   gasLimit
 ) {
-  await instance.createOrder(closingDate, leverage, false, sender, {
+  await instance.createOrder(orderID, duration, leverage, false, sender, {
     from: sender,
     value: position,
     gasLimit: gasLimit
@@ -83,7 +85,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should be able to create a new short order with minimum position", async () => {
     await createShortOrder(
       instance,
-      Math.round(new Date().getTime() / 1000),
+      "ebin",
+      14,
       2,
       user,
       minimumPosition,
@@ -97,7 +100,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should be able to create a new long order with minimum position", async () => {
     await createLongOrder(
       instance,
-      Math.round(new Date().getTime() / 1000),
+      "ebin",
+      14,
       2,
       user,
       minimumPosition,
@@ -112,7 +116,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createLongOrder(
         instance,
-        Math.round(new Date().getTime() / 1000),
+        "ebin",
+        14,
         2,
         user,
         minimumPosition - 1,
@@ -128,7 +133,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createShortOrder(
         instance,
-        Math.round(new Date().getTime() / 1000),
+        "ebin",
+        14,
         2,
         user,
         minimumPosition - 1,
@@ -144,7 +150,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createLongOrder(
         instance,
-        Math.round(new Date().getTime() / 1000),
+        "ebin",
+        14,
         2,
         user,
         maximumPosition + 1,
@@ -160,7 +167,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     try {
       await createShortOrder(
         instance,
-        Math.round(new Date().getTime() / 1000),
+        "ebin",
+        14,
         2,
         user,
         maximumPosition + 1,
@@ -169,6 +177,32 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       return false;
     } catch (e) {
       return true;
+    }
+  });
+
+  it("Should not be able to create duplicate orders", async () => {
+    try {
+      await createShortOrder(
+        instance,
+        "ebin",
+        14,
+        2,
+        user,
+        minimumPosition,
+        gasLimit
+      );
+      await createShortOrder(
+        instance,
+        "ebin",
+        14,
+        2,
+        user,
+        minimumPosition,
+        gasLimit
+      );
+      return true;
+    } catch (e) {
+      return false;
     }
   });
 });
