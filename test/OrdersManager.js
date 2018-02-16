@@ -205,4 +205,26 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       return false;
     }
   });
+
+  it("Should be able to delete order", async () => {
+    /* let orderHash;
+    await createShortOrder(
+      instance,
+      "asdlol",
+      14,
+      2,
+      user,
+      minimumPosition,
+      gasLimit,
+      (error, response) => orderHash = response;
+    );
+    console.log(web3.toAscii(orderHash));
+    await instance.deleteOrder(web3.fromAscii(orderHash), {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    const order = await instance.getOrder(orderHash);
+    console.log(order);
+    order.balance.should.equal(1); */
+  });
 });

@@ -136,8 +136,8 @@ contract OrdersManager is Ownable, Debuggable {
      *
      * Receives a singular payment with parameters to open an order with.
      */
-    function createOrder(string orderID, uint duration, uint leverage, bool isLong, address paymentAddress) public payable {
-        // Calculate a hash of the orderID to uniquely identify orders
+    function createOrder(string orderID, uint duration, uint leverage, bool isLong, address paymentAddress) public payable returns (bytes32) {
+        // Calculate a hash of the order to uniquely identify orders
         bytes32 orderHash = keccak256(orderID);
         
         // Require that there isn't an order with this ID yet
@@ -167,5 +167,16 @@ contract OrdersManager is Ownable, Debuggable {
         orders[orderHash] = Order(isLong, duration, leverage, keccak256(msg.sender), paymentAddress, userBet);
 
         debug("New order received and saved.");
+        return orderHash;
+    }
+
+    function deleteOrder(bytes32 orderHash) public onlyOwner {
+        delete orders[orderHash];
+    }
+
+    function updateOrderBalance(bytes32 orderHash, uint256 newBalance) public onlyOwner {
+        Order memory modifiedOrder = orders[orderHash];
+        modifiedOrder.balance = newBalance;
+        orders[orderHash] = modifiedOrder;
     }
 }
