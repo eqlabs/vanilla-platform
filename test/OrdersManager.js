@@ -9,12 +9,12 @@ async function createLongOrder(
   leverage,
   sender,
   position,
-  gas
+  gasLimit
 ) {
   await instance.createOrder(closingDate, leverage, true, sender, {
     from: sender,
     value: position,
-    gas: gas
+    gasLimit: gasLimit
   });
 }
 
@@ -24,19 +24,19 @@ async function createShortOrder(
   leverage,
   sender,
   position,
-  gas
+  gasLimit
 ) {
   await instance.createOrder(closingDate, leverage, false, sender, {
     from: sender,
     value: position,
-    gas: gas
+    gasLimit: gasLimit
   });
 }
 
 // eslint-disable-next-line
 contract("OrdersManager", ([owner, user, feeWallet]) => {
   let instance, minimumPosition, maximumPosition;
-  const gasLimit = 3000000;
+  let gasLimit = 0xfffffffffff;
 
   beforeEach(
     "Start a new instance of the contract for each test",
@@ -46,6 +46,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       minimumPosition = new BigNumber(minimumPosition);
       maximumPosition = await instance.MAXIMUM_POSITION.call();
       maximumPosition = new BigNumber(maximumPosition);
+      //eslint-disable-next-line
+      //gasLimit = await web3.eth.estimateGas();
     }
   );
 
@@ -54,9 +56,12 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     contract_owner.should.equal(owner);
   });
 
-  it("Should be able to set the fee wallet as the owner", async () => {
+  it("Should be able to set the fee wallet when owner", async () => {
     try {
-      await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
+      await instance.setFeeWallet(feeWallet, {
+        from: owner,
+        gasLimit: gasLimit
+      });
       return true;
     } catch (e) {
       return false;
@@ -65,7 +70,10 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
   it("Should not be able to set the fee wallet by anyone but the owner", async () => {
     try {
-      await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
+      await instance.setFeeWallet(feeWallet, {
+        from: owner,
+        gasLimit: gasLimit
+      });
       return false;
     } catch (e) {
       return true;
@@ -162,94 +170,5 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     } catch (e) {
       return true;
     }
-  });
-
-  it("Should refuse matching when there's no orders", async () => {
-    try {
-      await instance.matchMaker({
-        from: owner,
-        gas: gasLimit
-      });
-      return false;
-    } catch (e) {
-      return true;
-    }
-  });
-
-  it("Should refuse matching when there's no orders on both sides", async () => {
-    try {
-      // Create a long order
-      await createLongOrder(
-        instance,
-        Math.round(new Date().getTime() / 1000),
-        2,
-        user,
-        minimumPosition,
-        gasLimit
-      );
-      // Try to run matchmaker
-      await instance.matchMaker({
-        from: owner,
-        gas: gasLimit
-      });
-      return false;
-    } catch (e) {
-      return true;
-    }
-  });
-
-  it("Should be able to match orders and pay fees", async () => {
-    // Set fee wallet address
-    await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
-
-    // Get initial fee wallet balance
-    //eslint-disable-next-line
-    const initBalance = await web3.eth.getBalance(feeWallet);
-    const position = minimumPosition;
-
-    // Create a short order
-    await createShortOrder(
-      instance,
-      Math.round(new Date().getTime() / 1000),
-      2,
-      user,
-      position,
-      gasLimit
-    );
-
-    // Create a long order
-    await createLongOrder(
-      instance,
-      Math.round(new Date().getTime() / 1000),
-      2,
-      owner,
-      position,
-      gasLimit
-    );
-
-    // Check balance
-    //eslint-disable-next-line
-    const balance = await web3.eth.getBalance(instance.address);
-    balance.should.be.bignumber.equal(position.times(2));
-
-    // Run matchmaker
-    await instance.matchMaker({
-      from: user,
-      gas: gasLimit
-    });
-
-    await instance.withdrawFee({ from: owner, gas: gasLimit });
-
-    //eslint-disable-next-line
-    const feeBalance = await web3.eth.getBalance(feeWallet);
-    feeBalance.should.be.bignumber.equal(
-      initBalance.plus(position.times(2).times(0.3))
-    );
-  });
-
-  it("Should be able to communicate with LongShortController", async () => {
-    // Set fee wallet address
-    await instance.setFeeWallet(feeWallet, { from: owner, gas: gasLimit });
-    await instance.setLongShortController();
   });
 });

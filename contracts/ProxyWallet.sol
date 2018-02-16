@@ -1,5 +1,5 @@
 pragma solidity ^0.4.18;
-import "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "./Ownable.sol";
 
 /**
  * Proxy wallet, spawned and managed by our backend.
