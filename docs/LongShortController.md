@@ -17,17 +17,19 @@
 
 # Debuggable
 
+Convoluted Labs
 
 ## *function* debug
 
 Debuggable.debug(message) `nonpayable` `2f50fbfa`
 
+> Debug function that gets injected to extending contracts
 
 Inputs
 
 | | | |
 |-|-|-|
-| *string* | message | undefined |
+| *string* | message | the message that we want to log/debug |
 
 ## *event* DebugEvent
 
@@ -57,12 +59,13 @@ LongShortController.getActiveClosingDates() `view` `1c6d1138`
 
 LongShortController.debug(message) `nonpayable` `2f50fbfa`
 
+> Debug function that gets injected to extending contracts
 
 Inputs
 
 | | | |
 |-|-|-|
-| *string* | message | undefined |
+| *string* | message | the message that we want to log/debug |
 
 
 ## *function* owner
