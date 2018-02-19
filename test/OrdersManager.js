@@ -232,11 +232,11 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         from: owner,
         gasLimit: gasLimit
       });
-      const order = await instance.getOrderBalance(openOrders[0], {
+      const order = await instance.getOrder(openOrders[0], {
         from: owner,
         gasLimit: gasLimit
       });
-      order.should.be.bignumber.gt(0);
+      order[4].should.be.bignumber.gt(0);
       await instance.deleteOrder(openOrders[0], {
         from: owner,
         gasLimit: gasLimit
@@ -266,11 +266,11 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         from: owner,
         gasLimit: gasLimit
       });
-      const order = await instance.getOrderBalance(openOrders[0], {
+      const order = await instance.getOrder(openOrders[0], {
         from: owner,
         gasLimit: gasLimit
       });
-      order.should.be.bignumber.gt(0);
+      order[4].should.be.bignumber.gt(0);
       await instance.updateOrderBalance(openOrders[0], 0, {
         from: owner,
         gasLimit: gasLimit
@@ -279,11 +279,11 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         from: owner,
         gasLimit: gasLimit
       });
-      const deletedOrder = await instance.getOrderBalance(openOrders[0], {
+      const deletedOrder = await instance.getOrder(openOrders[0], {
         from: owner,
         gasLimit: gasLimit
       });
-      deletedOrder.should.be.bignumber.equal(0);
+      deletedOrder[4].should.be.bignumber.equal(0);
       return true;
     } catch (e) {
       return false;

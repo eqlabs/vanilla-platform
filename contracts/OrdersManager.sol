@@ -105,12 +105,17 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-     * Returns order balance by orderID
+     * Returns order by orderID
      * 
-     * @return uint256 order balance matching the orderHash
+     * @return bool isLong
+     * @return uint duration
+     * @return uint leverage
+     * @return address paymentAddress
+     * @return uint256 balance
      */
-    function getOrderBalance(bytes32 orderHash) public view returns (uint256) {
-        return orders[orderHash].balance;
+    function getOrder(bytes32 orderHash) public view returns (bool, uint, uint, address, uint256) {
+        Order memory order = orders[orderHash];
+        return (order.isLong, order.duration, order.leverage, order.paymentAddress, order.balance);
     }
 
     /**
