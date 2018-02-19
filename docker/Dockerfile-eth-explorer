@@ -1,0 +1,14 @@
+FROM tislaamo/node:8
+
+RUN git clone https://github.com/etherparty/explorer \
+  && mv explorer/* ./
+
+RUN npm install \
+  && mv bower_components ./app/
+
+RUN sed -i 's,"prestart": "npm install","prestart": "",' package.json \
+  && sed -i 's,localhost,0.0.0.0,' package.json
+
+EXPOSE 8000
+
+CMD ["npm", "start"]
