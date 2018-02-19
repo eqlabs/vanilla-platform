@@ -38,6 +38,25 @@ contract LongShortController is Ownable, Debuggable {
     }
 
     /**
+     * Helper function to check if both sides of the bet have same balance
+     *
+     * @param isLongs - list of position types {long: true, short: false}
+     * @param balances - list of position amounts in wei
+     */
+    function requireNullSum(bool[] isLongs, uint256[] balances) internal pure {
+        uint256 shortBalance;
+        uint256 longBalance;
+        for (uint8 i = 0; i < isLongs.length; i++) {
+            if (isLongs[i]) {
+                longBalance = longBalance.add(balances[i]);
+            } else {
+                shortBalance = shortBalance.add(balances[i]);
+            }
+        }
+        require(shortBalance==longBalance);
+    }
+
+    /**
      * LongShort activator function. Called by OrdersManager.
      */
     function openLongShort(bytes32 parameterHash, uint duration, uint leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
@@ -47,6 +66,9 @@ contract LongShortController is Ownable, Debuggable {
         require(ownerSignatures.length == paymentAddresses.length);
         require(paymentAddresses.length == balances.length);
         require(balances.length == isLongs.length);
+
+        // Require both sides of the LongShort to have same total balance
+        requireNullSum(isLongs, balances);
 
         uint256 startingPrice = 900; // CHange this to an oracle-fetched price
         bytes32 longShortHash = keccak256(this, parameterHash, block.timestamp);
