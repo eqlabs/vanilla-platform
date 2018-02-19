@@ -4,11 +4,11 @@ import "./Debuggable.sol";
 import "./SafeMath.sol";
 
 /**
- * Controller for Long/Short options
- * on the Ethereum blockchain.
- *
- * @author Convoluted Labs
- */
+Controller for Long/Short options
+on the Ethereum blockchain.
+
+@author Convoluted Labs
+*/
 contract LongShortController is Ownable, Debuggable {
     
     // Use Zeppelin's SafeMath library for calculations
@@ -19,8 +19,8 @@ contract LongShortController is Ownable, Debuggable {
     mapping(bytes32 => Position[]) private positions;
 
     /**
-     * Position struct
-     */
+    @dev Position struct
+    */
     struct Position {
         bool isLong;
         bytes32 ownerSignature;
@@ -29,8 +29,8 @@ contract LongShortController is Ownable, Debuggable {
     }
 
     /**
-     * Activated LongShort struct
-     */
+    @dev Activated LongShort struct
+    */
     struct LongShort {
         bytes32 parameterHash;
         uint256 startingPrice;
@@ -38,11 +38,11 @@ contract LongShortController is Ownable, Debuggable {
     }
 
     /**
-     * Helper function to check if both sides of the bet have same balance
-     *
-     * @param isLongs - list of position types {long: true, short: false}
-     * @param balances - list of position amounts in wei
-     */
+    @dev Helper function to check if both sides of the bet have same balance
+    
+    @param isLongs - list of position types {long: true, short: false}
+    @param balances - list of position amounts in wei
+    */
     function requireNullSum(bool[] isLongs, uint256[] balances) internal pure {
         uint256 shortBalance;
         uint256 longBalance;
@@ -57,8 +57,8 @@ contract LongShortController is Ownable, Debuggable {
     }
 
     /**
-     * LongShort activator function. Called by OrdersManager.
-     */
+    @dev LongShort activator function. Called by OrdersManager.
+    */
     function openLongShort(bytes32 parameterHash, uint duration, uint leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
 
         // Require all input arrays to be the same length

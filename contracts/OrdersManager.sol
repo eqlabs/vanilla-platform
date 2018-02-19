@@ -5,12 +5,12 @@ import "./SafeMath.sol";
 //import "./Verify.sol";
 
 /**
- * Handles opening and bundling of orders into active LongShort contracts.
- * New orders' parameters are grouped by a hash of the parameters,
- * with which a matchMaker function bundles open orders and closes ones that have expired.
- *
- * @author Convoluted Labs
- */
+@dev Handles opening and bundling of orders into active LongShort contracts.
+New orders' parameters are grouped by a hash of the parameters,
+with which a matchMaker function bundles open orders and closes ones that have expired.
+
+@author Convoluted Labs
+*/
 contract OrdersManager is Ownable, Debuggable {
 
     // Use Zeppelin's SafeMath library for calculations
@@ -38,9 +38,9 @@ contract OrdersManager is Ownable, Debuggable {
     uint8 private constant FEE_PERCENTAGE = 30;
 
     /**
-     * Order struct
-     * Constructed in createOrder() with user parameters
-     */
+    @dev Order struct
+    Constructed in createOrder() with user parameters
+    */
     struct Order {
         bool isLong;
         uint duration;
@@ -51,41 +51,41 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-     * Setter for Vanilla's fee wallet address
-     * Only callable by the owner.
-     *
-     * @param feeWalletAddress - upcoming address that receives the fees
-     */
+    @dev Setter for Vanilla's fee wallet address
+    Only callable by the owner.
+    
+    @param feeWalletAddress upcoming address that receives the fees
+    */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
         debug("Fee wallet set.");
     }
 
     /**
-     * Setter for the contract signature
-     * Only callable by the owner.
-     *
-     * @param signingSecret - a salt used in parameter and order hashing
-     */
+    @dev Setter for the contract signature
+    Only callable by the owner.
+    
+    @param signingSecret a salt used in parameter and order hashing
+    */
     function setSignature(string signingSecret) public onlyOwner {
         signature = signingSecret;
         debug("Signature set.");
     }
 
     /**
-     * Fee calculation function
-     *
-     * @param amount - the total amount that the fee is calculated from
-     */
+    @dev Fee calculation function
+    
+    @param amount the total amount that the fee is calculated from
+    */
     function calculateFee(uint256 amount) internal pure returns (uint256) {
         return amount.mul(FEE_PERCENTAGE).div(100);
     }
 
     /**
-     * Pull payment function for sending
-     * the accumulated fees to Vanilla's fee wallet.
-     * Only callable by the owner.
-     */
+    @dev Pull payment function for sending
+    the accumulated fees to Vanilla's fee wallet.
+    Only callable by the owner.
+    */
     function withdrawFee() public onlyOwner {
         require(cumulatedFee > 0 wei);
         feeWallet.transfer(cumulatedFee);
@@ -94,49 +94,51 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-     * Returns open parameter hashes.
-     * Only callable by the owner.
-     *
-     * @return bytes32[] - array of open order types
-     */
+    @dev Returns open parameter hashes.
+    Only callable by the owner.
+    
+    @return bytes32[] array of open order types
+    */
     function getOpenParameterHashes() public view onlyOwner returns (bytes32[]) {
         return openParameterHashes;
     }
 
     /**
-     * Returns open orders by hash
-     * Only callable by the owner.
-     *
-     * @param paramHash - Hash of duration, leverage and signature.
-     * @return bytes32[] - array of open orderIDs
-     */
+    @dev Returns open orders by hash
+    Only callable by the owner.
+
+    @param paramHash Hash of duration, leverage and signature.
+    @return bytes32[] array of open orderIDs
+    */
     function getOpenOrderIDs(bytes32 paramHash) public view onlyOwner returns (bytes32[]) {
         return orderIDs[paramHash];
     }
 
     /**
-     * Returns order by orderID.
-     * Deconstructs the Order struct for returning. Leaves out the ownerSignature.
-     *
-     * @param orderHash - An unique hash that maps to an order
-     * @return bool isLong
-     * @return uint duration
-     * @return uint leverage
-     * @return address paymentAddress
-     * @return uint256 balance
-     */
+    @dev Returns order by orderID.
+    Deconstructs the Order struct for returning. Leaves out the ownerSignature.
+     
+    @param orderHash An unique hash that maps to an order
+    @return {
+        "isLong": "boolean, describing if the order is long or short",
+        "duration": "uint, duration of the order in seconds",
+        "leverage": "uint, leverage of the LongShort",
+        "paymentAddress": "address, to which the refunds and rewards are paid",
+        "balance": "uint256, balance of the order"
+    }
+    */
     function getOrder(bytes32 orderHash) public view returns (bool, uint, uint, address, uint256) {
         Order memory order = orders[orderHash];
         return (order.isLong, order.duration, order.leverage, order.paymentAddress, order.balance);
     }
 
     /**
-     * Function for checking if there are orders
-     * with the same parameters open already
-     *
-     * @param parameterHash - Hash of duration, leverage and signature.
-     * @return bool
-     */
+    @dev Function for checking if there are orders
+    with the same parameters open already
+    
+    @param parameterHash Hash of duration, leverage and signature.
+    @return bool
+    */
     function parameterHashExists(bytes32 parameterHash) private returns (bool) {
         if (orderIDs[parameterHash].length > 0) {
             debug("Parameter hash exists.");
@@ -147,20 +149,20 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-     * Open order creation, the main endpoint for Vanilla platform.
-     *
-     * Mainly called by Vanilla's own backend, but open for
-     * everyone who knows how to use the smart contract on its own.
-     *
-     * Receives a singular payment with parameters to open an order with.
-     *
-     * @param orderID - A unique ID to create the order with. Will be hashed.
-     * @param isLong - {long: true, short: false}
-     * @param duration - Duration of the LongShort in seconds. For example, 14 days = 1209600
-     * @param leverage - uint of the wanted leverage
-     * @param paymentAddress - address, to which the user wants the funds back whether he/she won or not
-     * @return bytes32 - order hash
-     */
+    @dev Open order creation, the main endpoint for Vanilla platform.
+    
+    Mainly called by Vanilla's own backend, but open for
+    everyone who knows how to use the smart contract on its own.
+    
+    Receives a singular payment with parameters to open an order with.
+    
+    @param orderID A unique ID to create the order with. Will be hashed.
+    @param isLong {long: true, short: false}
+    @param duration Duration of the LongShort in seconds. For example, 14 days = 1209600
+    @param leverage uint of the wanted leverage
+    @param paymentAddress address, to which the user wants the funds back whether he/she won or not
+    @return bytes32 order hash
+    */
     function createOrder(string orderID, bool isLong, uint duration, uint leverage, address paymentAddress) public payable returns (bytes32) {
         // Calculate a hash of the order to uniquely identify orders
         bytes32 orderHash = keccak256(orderID);
@@ -196,26 +198,26 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-     * Deletes an order by hash,
-     * effectively turning all its parameters to 0.
-     * Used by the backend after an order has been fully matched.
-     * Only callable by the owner.
-     *
-     * @param orderHash - The unique hash of the deletable order.
-     */
+    @dev Deletes an order by hash,
+    effectively turning all its parameters to 0.
+    Used by the backend after an order has been fully matched.
+    Only callable by the owner.
+    
+    @param orderHash The unique hash of the deletable order.
+    */
     function deleteOrder(bytes32 orderHash) public onlyOwner {
         require(orders[orderHash].balance == 0);
         delete orders[orderHash];
     }
 
     /**
-     * Updates an order's balance.
-     * Used by the backend when an order was partially matched.
-     * Only callable by the owner.
-     *
-     * @param orderHash - The unique hash of the deletable order.
-     * @param newBalance - The new balance of an order.
-     */
+    @dev Updates an order's balance.
+    Used by the backend when an order was partially matched.
+    Only callable by the owner.
+    
+    @param orderHash The unique hash of the deletable order.
+    @param newBalance The new balance of an order.
+    */
     function updateOrderBalance(bytes32 orderHash, uint256 newBalance) public onlyOwner {
         Order memory modifiedOrder = orders[orderHash];
         modifiedOrder.balance = newBalance;
