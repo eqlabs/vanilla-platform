@@ -97,7 +97,9 @@ contract OrdersManager is Ownable, Debuggable {
     @dev Returns open parameter hashes.
     Only callable by the owner.
     
-    @return bytes32[] array of open order types
+    @return {
+        "openParameterHashes": "A bytes32 array of open order types"
+    }
     */
     function getOpenParameterHashes() public view onlyOwner returns (bytes32[]) {
         return openParameterHashes;
@@ -108,7 +110,9 @@ contract OrdersManager is Ownable, Debuggable {
     Only callable by the owner.
 
     @param paramHash Hash of duration, leverage and signature.
-    @return bytes32[] array of open orderIDs
+    @return {
+        "orderIDs[paramHash]": "A bytes32 array of open order IDs for the parameters"
+    }
     */
     function getOpenOrderIDs(bytes32 paramHash) public view onlyOwner returns (bytes32[]) {
         return orderIDs[paramHash];
@@ -161,7 +165,9 @@ contract OrdersManager is Ownable, Debuggable {
     @param duration Duration of the LongShort in seconds. For example, 14 days = 1209600
     @param leverage uint of the wanted leverage
     @param paymentAddress address, to which the user wants the funds back whether he/she won or not
-    @return bytes32 order hash
+    @return {
+        "orderHash": "Hashed unique ID for the new order"
+    }
     */
     function createOrder(string orderID, bool isLong, uint duration, uint leverage, address paymentAddress) public payable returns (bytes32) {
         // Calculate a hash of the order to uniquely identify orders

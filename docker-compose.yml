@@ -22,6 +22,11 @@ services:
       - ganache-cli
       - eth-explorer
 
+  docs:
+    extends:
+      service: base-dev
+    command: yarn docs
+
   test:
     extends:
       service: base-dev

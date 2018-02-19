@@ -34,7 +34,7 @@ contract ProxyWallet is Ownable {
 
   /**
   @dev Refund the user
-  @param paymentAddress - the address to transfer the funds to
+  @param paymentAddress the address to transfer the funds to
   */
   function refund(address paymentAddress) public onlyOwner {
     require(paymentAddress!=owner);

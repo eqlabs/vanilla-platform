@@ -15,7 +15,9 @@
   },
   "scripts": {
     "compile": "./node_modules/truffle/build/cli.bundled.js compile",
+    "build": "./node_modules/truffle/build/cli.bundled.js compile",
     "develop": "./node_modules/truffle/build/cli.bundled.js develop",
+    "docs": "./node_modules/solmd/lib/bin/solmd.js ./contracts/* --dest ./docs/sol.md",
     "migrate": "./node_modules/truffle/build/cli.bundled.js migrate",
     "test": "./node_modules/truffle/build/cli.bundled.js test",
     "precommit": "./node_modules/lint-staged/index.js && ./node_modules/nsp/bin/nsp check --threshold=10",
@@ -23,7 +25,6 @@
     "coverage-explorer": "./node_modules/http-server/bin/http-server coverage/"
   },
   "devDependencies": {
-    "@digix/doxity": "^0.5.2",
     "@tislaamo/eslint-config": "^1.0.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
@@ -42,7 +43,7 @@
   },
   "dependencies": {
     "http-server": "^0.11.1",
-    "truffle": "^4.0.6",
-    "zeppelin-solidity": "1.6.0"
+    "solmd": "^0.1.6",
+    "truffle": "^4.0.6"
   }
 }

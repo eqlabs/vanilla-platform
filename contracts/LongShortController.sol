@@ -40,8 +40,8 @@ contract LongShortController is Ownable, Debuggable {
     /**
     @dev Helper function to check if both sides of the bet have same balance
     
-    @param isLongs - list of position types {long: true, short: false}
-    @param balances - list of position amounts in wei
+    @param isLongs list of position types {long: true, short: false}
+    @param balances list of position amounts in wei
     */
     function requireNullSum(bool[] isLongs, uint256[] balances) internal pure {
         uint256 shortBalance;

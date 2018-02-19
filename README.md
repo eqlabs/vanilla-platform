@@ -26,6 +26,14 @@ OR
 yarn test
 ```
 
+## Generating documentation
+
+```bash
+yarn docs
+```
+
+You need to have solc installed in your PATH to do this.
+
 ## Checking test coverage (IS BROKEN)
 
 ```bash
