@@ -16,7 +16,7 @@
     "migrate": "./node_modules/truffle/build/cli.bundled.js migrate",
     "test": "./node_modules/truffle/build/cli.bundled.js test",
     "precommit":
-      "./node_modules/lint-staged/index.js && ./node_modules/nsp/bin/nsp check --threshold=10",
+      "./node_modules/lint-staged/index.js && ./scripts/docs.sh && ./node_modules/nsp/bin/nsp check --threshold=10",
     "coverage": "./node_modules/solidity-coverage/bin/exec.js",
     "coverage-explorer": "./node_modules/http-server/bin/http-server coverage/"
   },
