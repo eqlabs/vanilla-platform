@@ -2,7 +2,6 @@ pragma solidity ^0.4.18;
 import "./Ownable.sol";
 import "./Debuggable.sol";
 import "./SafeMath.sol";
-import "./LongShortController.sol";
 //import "./Verify.sol";
 
 /**
