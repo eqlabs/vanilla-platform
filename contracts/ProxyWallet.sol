@@ -25,7 +25,7 @@ contract ProxyWallet is Ownable {
 
   /**
    * Simple payment endpoint, that
-   * accumulates funds in the contract.
+   * accumulates funds in the contract
    */
   function() public payable {
     balance += msg.value;
@@ -34,6 +34,8 @@ contract ProxyWallet is Ownable {
 
   /**
    * Refund the user
+   *
+   * @param paymentAddress - the address to transfer the funds to
    */
   function refund(address paymentAddress) public onlyOwner {
     require(paymentAddress!=owner);
