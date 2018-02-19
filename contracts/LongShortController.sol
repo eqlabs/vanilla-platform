@@ -4,7 +4,7 @@ import "./Debuggable.sol";
 import "./SafeMath.sol";
 
 /**
-Controller for Long/Short options
+@dev Controller for Long/Short options
 on the Ethereum blockchain.
 
 @author Convoluted Labs
