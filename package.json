@@ -5,22 +5,18 @@
   "author": "",
   "private": true,
   "lint-staged": {
-    "{,!(node_modules)/}**/*.{json,css}": [
-      "prettier-eslint --write"
-    ],
-    "{,!(node_modules)/}**/*.js": [
-      "prettier-eslint --write",
-      "eslint"
-    ]
+    "{,!(node_modules)/}**/*.{json,css}": ["prettier-eslint --write"],
+    "{,!(node_modules)/}**/*.js": ["prettier-eslint --write", "eslint"]
   },
   "scripts": {
     "compile": "./node_modules/truffle/build/cli.bundled.js compile",
     "build": "./node_modules/truffle/build/cli.bundled.js compile",
     "develop": "./node_modules/truffle/build/cli.bundled.js develop",
-    "docs": "./node_modules/solmd/lib/bin/solmd.js ./contracts/* --dest ./docs/sol.md",
+    "docs": "./scripts/docs.sh",
     "migrate": "./node_modules/truffle/build/cli.bundled.js migrate",
     "test": "./node_modules/truffle/build/cli.bundled.js test",
-    "precommit": "./node_modules/lint-staged/index.js && ./node_modules/nsp/bin/nsp check --threshold=10",
+    "precommit":
+      "./node_modules/lint-staged/index.js && ./node_modules/nsp/bin/nsp check --threshold=10",
     "coverage": "./node_modules/solidity-coverage/bin/exec.js",
     "coverage-explorer": "./node_modules/http-server/bin/http-server coverage/"
   },
