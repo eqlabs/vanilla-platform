@@ -12,7 +12,7 @@ async function createLongOrder(
   position,
   gasLimit
 ) {
-  return await instance.createOrder(orderID, duration, leverage, true, sender, {
+  return await instance.createOrder(orderID, true, duration, leverage, sender, {
     from: sender,
     value: position,
     gasLimit: gasLimit
@@ -30,9 +30,9 @@ async function createShortOrder(
 ) {
   return await instance.createOrder(
     orderID,
+    false,
     duration,
     leverage,
-    false,
     sender,
     {
       from: sender,

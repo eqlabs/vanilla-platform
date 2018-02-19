@@ -13,7 +13,7 @@ import "./LongShortController.sol";
  * @author Convoluted Labs
  */
 contract OrdersManager is Ownable, Debuggable {
-    
+
     // Use Zeppelin's SafeMath library for calculations
     using SafeMath for uint256;
 
@@ -23,7 +23,7 @@ contract OrdersManager is Ownable, Debuggable {
     // Address of the fee wallet
     address private feeWallet;
     uint256 private cumulatedFee;
-    
+
     // List of all open order types
     bytes32[] private openParameterHashes;
     // Order IDs mapped by parameter hash
@@ -37,7 +37,7 @@ contract OrdersManager is Ownable, Debuggable {
 
     // Fee percentage
     uint8 private constant FEE_PERCENTAGE = 30;
-    
+
     /**
      * Order struct
      * Constructed in createOrder() with user parameters
@@ -46,11 +46,11 @@ contract OrdersManager is Ownable, Debuggable {
         bool isLong;
         uint duration;
         uint leverage;
-        bytes32 ownerSignature;
         address paymentAddress;
         uint256 balance;
+        bytes32 ownerSignature;
     }
-    
+
     /**
      * Setter for Vanilla's fee wallet address
      * Only callable by the owner.
@@ -88,7 +88,7 @@ contract OrdersManager is Ownable, Debuggable {
 
     /**
      * Returns open parameter hashes
-     * 
+     *
      * @return bytes32[] array of open order types
      */
     function getOpenParameterHashes() public view onlyOwner returns (bytes32[]) {
@@ -97,7 +97,7 @@ contract OrdersManager is Ownable, Debuggable {
 
     /**
      * Returns open orders by hash
-     * 
+     *
      * @return bytes32[] array of open orderIDs
      */
     function getOpenOrderIDs(bytes32 paramHash) public view onlyOwner returns (bytes32[]) {
@@ -106,7 +106,7 @@ contract OrdersManager is Ownable, Debuggable {
 
     /**
      * Returns order by orderID
-     * 
+     *
      * @return bool isLong
      * @return uint duration
      * @return uint leverage
@@ -121,7 +121,7 @@ contract OrdersManager is Ownable, Debuggable {
     /**
      * Function for checking if there are orders
      * with the same parameters open already
-     * 
+     *
      * @return bool
      */
     function parameterHashExists(bytes32 parameterHash) private returns (bool) {
@@ -141,10 +141,10 @@ contract OrdersManager is Ownable, Debuggable {
      *
      * Receives a singular payment with parameters to open an order with.
      */
-    function createOrder(string orderID, uint duration, uint leverage, bool isLong, address paymentAddress) public payable returns (bytes32) {
+    function createOrder(string orderID, bool isLong, uint duration, uint leverage, address paymentAddress) public payable returns (bytes32) {
         // Calculate a hash of the order to uniquely identify orders
         bytes32 orderHash = keccak256(orderID);
-        
+
         // Require that there isn't an order with this ID yet
         require(orders[orderHash].paymentAddress == 0);
 
@@ -162,14 +162,14 @@ contract OrdersManager is Ownable, Debuggable {
         }
 
         uint256 fee = calculateFee(msg.value);
-        uint256 userBet = msg.value.sub(fee);
+        uint256 balance = msg.value.sub(fee);
 
         cumulatedFee = cumulatedFee.add(fee);
 
         // Map the orderHash to paramHash
         orderIDs[parameterHash].push(orderHash);
         // Map the order to the orderHash
-        orders[orderHash] = Order(isLong, duration, leverage, keccak256(msg.sender), paymentAddress, userBet);
+        orders[orderHash] = Order(isLong, duration, leverage, paymentAddress, balance, keccak256(msg.sender));
 
         debug("New order received and saved.");
         return orderHash;
