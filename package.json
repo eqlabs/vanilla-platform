@@ -9,13 +9,14 @@
     "{,!(node_modules)/}**/*.js": ["prettier-eslint --write", "eslint"]
   },
   "scripts": {
-    "compile": "truffle compile",
-    "develop": "truffle develop",
-    "migrate": "truffle migrate",
-    "test": "truffle test",
-    "precommit": "lint-staged && nsp check --threshold=10",
-    "coverage": "./node_modules/.bin/solidity-coverage",
-    "coverage-explorer": "./node_modules/.bin/http-server coverage/"
+    "compile": "./node_modules/truffle/build/cli.bundled.js compile",
+    "develop": "./node_modules/truffle/build/cli.bundled.js develop",
+    "migrate": "./node_modules/truffle/build/cli.bundled.js migrate",
+    "test": "./node_modules/truffle/build/cli.bundled.js test",
+    "precommit":
+      "./node_modules/lint-staged/index.js && ./node_modules/nsp/bin/nsp check --threshold=10",
+    "coverage": "./node_modules/solidity-coverage/bin/exec.js",
+    "coverage-explorer": "./node_modules/http-server/bin/http-server coverage/"
   },
   "devDependencies": {
     "@tislaamo/eslint-config": "^1.0.3",
