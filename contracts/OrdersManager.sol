@@ -105,12 +105,12 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-     * Returns order by orderID
+     * Returns order balance by orderID
      * 
-     * @return Order order matching the orderHash
+     * @return uint256 order balance matching the orderHash
      */
-    function getOrder(bytes32 orderHash) public view returns (Order) {
-        return orders[orderHash];
+    function getOrderBalance(bytes32 orderHash) public view returns (uint256) {
+        return orders[orderHash].balance;
     }
 
     /**
@@ -171,6 +171,7 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     function deleteOrder(bytes32 orderHash) public onlyOwner {
+        require(orders[orderHash].balance == 0);
         delete orders[orderHash];
     }
 

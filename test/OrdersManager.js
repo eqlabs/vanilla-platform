@@ -12,7 +12,7 @@ async function createLongOrder(
   position,
   gasLimit
 ) {
-  await instance.createOrder(orderID, duration, leverage, true, sender, {
+  return await instance.createOrder(orderID, duration, leverage, true, sender, {
     from: sender,
     value: position,
     gasLimit: gasLimit
@@ -28,11 +28,18 @@ async function createShortOrder(
   position,
   gasLimit
 ) {
-  await instance.createOrder(orderID, duration, leverage, false, sender, {
-    from: sender,
-    value: position,
-    gasLimit: gasLimit
-  });
+  return await instance.createOrder(
+    orderID,
+    duration,
+    leverage,
+    false,
+    sender,
+    {
+      from: sender,
+      value: position,
+      gasLimit: gasLimit
+    }
+  );
 }
 
 // eslint-disable-next-line
@@ -206,25 +213,80 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     }
   });
 
-  it("Should be able to delete order", async () => {
-    /* let orderHash;
-    await createShortOrder(
-      instance,
-      "asdlol",
-      14,
-      2,
-      user,
-      minimumPosition,
-      gasLimit,
-      (error, response) => orderHash = response;
-    );
-    console.log(web3.toAscii(orderHash));
-    await instance.deleteOrder(web3.fromAscii(orderHash), {
-      from: owner,
-      gasLimit: gasLimit
-    });
-    const order = await instance.getOrder(orderHash);
-    console.log(order);
-    order.balance.should.equal(1); */
+  it("Should not be able to delete order when balance is over 0", async () => {
+    try {
+      await createShortOrder(
+        instance,
+        "asdlol",
+        14,
+        2,
+        user,
+        minimumPosition,
+        gasLimit
+      );
+      const paramHashes = await instance.getOpenParameterHashes({
+        from: owner,
+        gasLimit: gasLimit
+      });
+      const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      const order = await instance.getOrderBalance(openOrders[0], {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      order.should.be.bignumber.gt(0);
+      await instance.deleteOrder(openOrders[0], {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      return false;
+    } catch (e) {
+      return true;
+    }
+  });
+
+  it("Should be able to delete order when balance is 0", async () => {
+    try {
+      await createShortOrder(
+        instance,
+        "asdlol",
+        14,
+        2,
+        user,
+        minimumPosition,
+        gasLimit
+      );
+      const paramHashes = await instance.getOpenParameterHashes({
+        from: owner,
+        gasLimit: gasLimit
+      });
+      const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      const order = await instance.getOrderBalance(openOrders[0], {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      order.should.be.bignumber.gt(0);
+      await instance.updateOrderBalance(openOrders[0], 0, {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      await instance.deleteOrder(openOrders[0], {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      const deletedOrder = await instance.getOrderBalance(openOrders[0], {
+        from: owner,
+        gasLimit: gasLimit
+      });
+      deletedOrder.should.be.bignumber.equal(0);
+      return true;
+    } catch (e) {
+      return false;
+    }
   });
 });
