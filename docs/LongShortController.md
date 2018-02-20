@@ -5,6 +5,7 @@
   * [getActiveClosingDates](#function-getactiveclosingdates)
   * [debug](#function-debug)
   * [linkOracle](#function-linkoracle)
+  * [payRewards](#function-payrewards)
   * [oracle](#function-oracle)
   * [owner](#function-owner)
   * [oracleAddress](#function-oracleaddress)
@@ -93,6 +94,14 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | _oracleAddress | undefined |
+
+
+## *function* payRewards
+
+LongShortController.payRewards() `nonpayable` `7288e961`
+
+
+
 
 
 ## *function* oracle
@@ -195,6 +204,7 @@ Arguments
 ---
 # Oracle
 
+Convoluted Labs
 
 ## *function* debug
 
