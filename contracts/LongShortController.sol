@@ -146,6 +146,19 @@ contract LongShortController is Ownable, Debuggable {
                 delete positions[longShort.longShortHash][j];
                 debug("New reward calculated, position ended");
             }
+
+            delete longShortsForDate[i];
         }
+
+        delete longShorts[closingDate];
+    }
+
+    function payRewards() public {
+        for (uint8 paymentNum = 0; paymentNum < payments.length; paymentNum++) {
+            payments[paymentNum].paymentAddress.transfer(payments[paymentNum].balance);
+            delete payments[paymentNum];
+            debug("Reward paid!");
+        }
+        payments.length = 0;
     }
 }

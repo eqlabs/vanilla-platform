@@ -277,5 +277,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     });
 
     paymentsLength.c[0].should.equal(12);
+
+    await instance.payRewards();
   });
 });

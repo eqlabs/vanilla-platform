@@ -2,6 +2,11 @@ pragma solidity ^0.4.18;
 import "./Ownable.sol";
 import "./Debuggable.sol";
 
+/**
+@title Oracle
+@dev A contract which saves price history to the Ethereum blockchain.
+@author Convoluted Labs
+*/
 contract Oracle is Ownable, Debuggable {
   uint[] public timesUpdated;
   mapping(uint => uint) public priceByTime;
