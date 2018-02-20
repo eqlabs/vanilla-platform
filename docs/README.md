@@ -34,14 +34,6 @@ yarn docs
 
 You need to have solc installed in your PATH to do this.
 
-## Browse documentation
-
-Either open ./docs/index.html with your browser, or:
-
-```bash
-make servedocs
-```
-
 ## Checking test coverage (IS BROKEN)
 
 ```bash

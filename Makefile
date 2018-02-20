@@ -1,4 +1,4 @@
-.PHONY: install dev docs test coverage coverage-explorer
+.PHONY: install dev docs servedocs test coverage coverage-explorer
 
 install:
 	docker-compose run --rm --service-ports install
@@ -8,6 +8,9 @@ dev:
 
 docs:
 	docker-compose run --rm --service-ports docs
+
+servedocs:
+	docker-compose run --rm --service-ports servedocs
 
 test:
 	docker-compose run --rm --service-ports test && docker-compose down

@@ -27,6 +27,13 @@ services:
       service: base-dev
     command: yarn docs
 
+  servedocs:
+    extends:
+      service: base-dev
+    command: yarn servedocs
+    ports:
+      - "3000:3000"
+
   test:
     extends:
       service: base-dev
