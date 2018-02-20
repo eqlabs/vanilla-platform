@@ -3,6 +3,8 @@ const LongShortController = artifacts.require(
   "../contracts/LongShortController.sol"
 );
 // eslint-disable-next-line
+const Oracle = artifacts.require("../contracts/Oracle.sol");
+// eslint-disable-next-line
 const { should, BigNumber } = require("./helpers");
 
 const matchedOrders = require("./orderExamples.json");
@@ -38,13 +40,17 @@ async function openLongShort(
 
 // eslint-disable-next-line
 contract("LongShortController", ([owner, user, feeWallet]) => {
-  let instance;
+  let instance, oracle;
   const gasLimit = 0xfffffffffff;
 
   beforeEach(
     "Start a new instance of the contract for each test",
     async function() {
       instance = await LongShortController.new(owner);
+      oracle = await Oracle.new(owner);
+      await instance.linkOracle(oracle.address, {
+        from: owner
+      });
     }
   );
 
@@ -175,5 +181,101 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     } catch (e) {
       return true;
     }
+  });
+
+  it("Should get active closing dates", async () => {
+    const numOrders = 12;
+    const availableAddresses = [owner, user];
+
+    const isLongs = [];
+    const ownerSignatures = [];
+    const balances = [];
+    const paymentAddresses = [];
+
+    for (let i = 0; i < numOrders; i++) {
+      const orderIndex = i % 2;
+      isLongs.push(matchedOrders[orderIndex].isLong);
+      ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
+      balances.push(matchedOrders[orderIndex].balance);
+      paymentAddresses.push(availableAddresses[orderIndex]);
+    }
+
+    const totalBalance = balances.reduce((a, b) => a + b);
+
+    await openLongShort(
+      instance,
+      owner,
+      totalBalance,
+      gasLimit,
+      "hg79a8shgufdilhsagf89ds",
+      1209600,
+      2,
+      ownerSignatures,
+      paymentAddresses,
+      balances,
+      isLongs
+    );
+
+    //eslint-disable-next-line
+    const closingDates = await instance.getActiveClosingDates({
+      from: owner,
+      gasLimit: gasLimit
+    });
+
+    closingDates.should.have.length.gt(0);
+  });
+
+  it("Should be able to exercise LongShorts on closing date", async () => {
+    const numOrders = 12;
+    const availableAddresses = [owner, user];
+
+    const isLongs = [];
+    const ownerSignatures = [];
+    const balances = [];
+    const paymentAddresses = [];
+
+    for (let i = 0; i < numOrders; i++) {
+      const orderIndex = i % 2;
+      isLongs.push(matchedOrders[orderIndex].isLong);
+      ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
+      balances.push(matchedOrders[orderIndex].balance);
+      paymentAddresses.push(availableAddresses[orderIndex]);
+    }
+
+    const totalBalance = balances.reduce((a, b) => a + b);
+
+    await openLongShort(
+      instance,
+      owner,
+      totalBalance,
+      gasLimit,
+      "hg79a8shgufdilhsagf89ds",
+      0,
+      2,
+      ownerSignatures,
+      paymentAddresses,
+      balances,
+      isLongs
+    );
+
+    await oracle.setLatestPrice(900 * 2, {
+      from: owner,
+      gasLimit: gasLimit
+    });
+
+    //eslint-disable-next-line
+    const closingDates = await instance.getActiveClosingDates({
+      from: owner,
+      gasLimit: gasLimit
+    });
+
+    await instance.exercise(closingDates[0]);
+
+    const paymentsLength = await instance.getPaymentsLength({
+      from: owner,
+      gasLimit: gasLimit
+    });
+
+    paymentsLength.c[0].should.equal(12);
   });
 });

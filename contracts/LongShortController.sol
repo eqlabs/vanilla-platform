@@ -2,6 +2,7 @@ pragma solidity ^0.4.18;
 import "./Ownable.sol";
 import "./Debuggable.sol";
 import "./SafeMath.sol";
+import "./Oracle.sol";
 
 /**
 @dev Controller for Long/Short options
@@ -10,13 +11,9 @@ on the Ethereum blockchain.
 @author Convoluted Labs
 */
 contract LongShortController is Ownable, Debuggable {
-    
+
     // Use Zeppelin's SafeMath library for calculations
     using SafeMath for uint256;
-
-    uint[] private activeClosingDates;
-    mapping(uint => LongShort[]) private longShorts;
-    mapping(bytes32 => Position[]) private positions;
 
     /**
     @dev Position struct
@@ -32,9 +29,31 @@ contract LongShortController is Ownable, Debuggable {
     @dev Activated LongShort struct
     */
     struct LongShort {
-        bytes32 parameterHash;
+        bytes32 longShortHash;
         uint256 startingPrice;
         uint leverage;
+    }
+
+    /**
+    @dev Payment struct for calculated payments
+    */
+    struct Payment {
+        address paymentAddress;
+        uint256 balance;
+    }
+
+    uint[] private activeClosingDates;
+    Payment[] private payments;
+    mapping(uint => LongShort[]) private longShorts;
+    mapping(bytes32 => Position[]) private positions;
+
+    Oracle public oracle;
+    address public oracleAddress;
+
+    function linkOracle(address _oracleAddress) public onlyOwner {
+        oracleAddress = _oracleAddress;
+        oracle = Oracle(oracleAddress);
+        debug("Oracle linked");
     }
 
     /**
@@ -79,7 +98,7 @@ contract LongShortController is Ownable, Debuggable {
         }
 
         activeClosingDates.push(closingDate);
-        longShorts[closingDate].push(LongShort(parameterHash, startingPrice, leverage));
+        longShorts[closingDate].push(LongShort(longShortHash, startingPrice, leverage));
 
         debug("New LongShort activated.");
 
@@ -87,5 +106,46 @@ contract LongShortController is Ownable, Debuggable {
 
     function getActiveClosingDates() public view returns (uint[]) {
         return activeClosingDates;
+    }
+
+    function calculateReward(uint256 balance/* , uint leverage, uint256 startingPrice, uint256 closingPrice */) internal pure returns (uint256) {
+        return balance;
+    }
+
+    function getPaymentsLength() public view onlyOwner returns (uint) {
+        return payments.length;
+    }
+
+    function exercise(uint closingDate) public {
+        require(closingDate <= block.timestamp);
+        debug("Given closingDate is over it's expiry.");
+
+        LongShort[] memory longShortsForDate = longShorts[closingDate];
+        
+        require(longShortsForDate.length > 0);
+
+        for (uint8 i = 0; i < longShortsForDate.length; i++) {
+
+            LongShort memory longShort = longShortsForDate[i];
+            var positionsLength = positions[longShort.longShortHash].length;
+
+            debug("Calculating payments...");
+
+            for (uint8 j = 0; j < positionsLength; j++) {
+                payments.push(
+                    Payment(
+                        positions[longShort.longShortHash][j].paymentAddress,
+                        calculateReward(
+                            positions[longShort.longShortHash][j].balance/* ,
+                            longShort.leverage,
+                            longShort.startingPrice,
+                            oracle.latestPrice() */
+                        )
+                    )
+                );
+                delete positions[longShort.longShortHash][j];
+                debug("New reward calculated, position ended");
+            }
+        }
     }
 }
