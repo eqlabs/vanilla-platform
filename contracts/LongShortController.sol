@@ -127,7 +127,7 @@ contract LongShortController is Ownable, Debuggable {
         for (uint8 i = 0; i < longShortsForDate.length; i++) {
 
             LongShort memory longShort = longShortsForDate[i];
-            var positionsLength = positions[longShort.longShortHash].length;
+            uint positionsLength = positions[longShort.longShortHash].length;
 
             debug("Calculating payments...");
 
