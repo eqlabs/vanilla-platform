@@ -13,7 +13,6 @@ async function openLongShort(
   instance,
   sender,
   amount,
-  gasLimit,
   parameterHash,
   duration,
   leverage,
@@ -32,8 +31,7 @@ async function openLongShort(
     isLongs,
     {
       from: sender,
-      value: amount,
-      gasLimit: gasLimit
+      value: amount
     }
   );
 }
@@ -41,7 +39,6 @@ async function openLongShort(
 // eslint-disable-next-line
 contract("LongShortController", ([owner, user, feeWallet]) => {
   let instance, oracle;
-  const gasLimit = 0xfffffffffff;
 
   beforeEach(
     "Start a new instance of the contract for each test",
@@ -82,7 +79,6 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       instance,
       owner,
       totalBalance,
-      gasLimit,
       "hg79a8shgufdilhsagf89ds",
       1209600,
       2,
@@ -122,7 +118,6 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       instance,
       owner,
       totalBalance,
-      gasLimit,
       "hg79a8shgufdilhsagf89ds",
       1209600,
       2,
@@ -162,7 +157,6 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       instance,
       owner,
       totalBalance,
-      gasLimit,
       "hg79a8shgufdilhsagf89ds",
       1209600,
       2,
@@ -198,7 +192,6 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       instance,
       owner,
       totalBalance,
-      gasLimit,
       "hg79a8shgufdilhsagf89ds",
       1209600,
       2,
@@ -210,8 +203,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
 
     //eslint-disable-next-line
     const closingDates = await instance.getActiveClosingDates({
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
 
     closingDates.should.have.length.gt(0);
@@ -240,7 +232,6 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       instance,
       owner,
       totalBalance,
-      gasLimit,
       "hg79a8shgufdilhsagf89ds",
       0,
       2,
@@ -251,21 +242,18 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     );
 
     await oracle.setLatestPrice(900 * 2, {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
 
     //eslint-disable-next-line
     const closingDates = await instance.getActiveClosingDates({
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
 
     await instance.exercise(closingDates[0]);
 
     const paymentsLength = await instance.getPaymentsLength({
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
 
     paymentsLength.c[0].should.equal(12);

@@ -9,8 +9,7 @@ async function createLongOrder(
   duration,
   leverage,
   sender,
-  position,
-  gasLimit
+  position
 ) {
   return await instance.createOrder(
     orderID,
@@ -21,8 +20,7 @@ async function createLongOrder(
     sender,
     {
       from: sender,
-      value: position,
-      gasLimit: gasLimit
+      value: position
     }
   );
 }
@@ -33,8 +31,7 @@ async function createShortOrder(
   duration,
   leverage,
   sender,
-  position,
-  gasLimit
+  position
 ) {
   return await instance.createOrder(
     orderID,
@@ -45,8 +42,7 @@ async function createShortOrder(
     sender,
     {
       from: sender,
-      value: position,
-      gasLimit: gasLimit
+      value: position
     }
   );
 }
@@ -54,7 +50,6 @@ async function createShortOrder(
 // eslint-disable-next-line
 contract("OrdersManager", ([owner, user, feeWallet]) => {
   let instance, minimumPosition, maximumPosition;
-  let gasLimit = 0xfffffffffff;
 
   beforeEach(
     "Start a new instance of the contract for each test",
@@ -77,8 +72,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should be able to set the fee wallet when owner", async () => {
     try {
       await instance.setFeeWallet(feeWallet, {
-        from: owner,
-        gasLimit: gasLimit
+        from: owner
       });
       return true;
     } catch (e) {
@@ -89,37 +83,20 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   it("Should not be able to set the fee wallet by anyone but the owner", async () => {
     await instance
       .setFeeWallet(feeWallet, {
-        from: owner,
-        gasLimit: gasLimit
+        from: owner
       })
       .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should be able to create a new short order with minimum position", async () => {
-    await createShortOrder(
-      instance,
-      "ebin",
-      14,
-      2,
-      user,
-      minimumPosition,
-      gasLimit
-    );
+    await createShortOrder(instance, "ebin", 14, 2, user, minimumPosition);
     //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
     balance.should.be.bignumber.equal(minimumPosition);
   });
 
   it("Should be able to create a new long order with minimum position", async () => {
-    await createLongOrder(
-      instance,
-      "ebin",
-      14,
-      2,
-      user,
-      minimumPosition,
-      gasLimit
-    );
+    await createLongOrder(instance, "ebin", 14, 2, user, minimumPosition);
     //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
     balance.should.be.bignumber.equal(minimumPosition);
@@ -132,8 +109,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       14,
       2,
       user,
-      minimumPosition.sub(10),
-      gasLimit
+      minimumPosition.sub(10)
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -146,8 +122,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       14,
       2,
       user,
-      minimumPosition.sub(10),
-      gasLimit
+      minimumPosition.sub(10)
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -160,8 +135,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       14,
       2,
       user,
-      maximumPosition.add(10),
-      gasLimit
+      maximumPosition.add(10)
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -174,8 +148,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       14,
       2,
       user,
-      maximumPosition.add(10),
-      gasLimit
+      maximumPosition.add(10)
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -185,8 +158,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     await instance
       .createOrder("ebin", "ETH-MONOPOLY", "SHORT", 14, 2, user, {
         from: user,
-        value: minimumPosition,
-        gasLimit: gasLimit
+        value: minimumPosition
       })
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -196,8 +168,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     await instance
       .createOrder("ebin", "ETH-USD", "SHORTEST", 14, 2, user, {
         from: user,
-        value: minimumPosition,
-        gasLimit: gasLimit
+        value: minimumPosition
       })
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -207,102 +178,59 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     await instance
       .createOrder("ebin", "ETH-USD", "SHORT", 14, 500, user, {
         from: user,
-        value: minimumPosition,
-        gasLimit: gasLimit
+        value: minimumPosition
       })
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to create duplicate orders", async () => {
-    await createShortOrder(
-      instance,
-      "ebin",
-      14,
-      2,
-      user,
-      minimumPosition,
-      gasLimit
-    );
-    await createShortOrder(
-      instance,
-      "ebin",
-      14,
-      2,
-      user,
-      minimumPosition,
-      gasLimit
-    )
+    await createShortOrder(instance, "ebin", 14, 2, user, minimumPosition);
+    await createShortOrder(instance, "ebin", 14, 2, user, minimumPosition)
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to delete order when balance is over 0", async () => {
-    await createShortOrder(
-      instance,
-      "asdlol",
-      14,
-      2,
-      user,
-      minimumPosition,
-      gasLimit
-    );
+    await createShortOrder(instance, "asdlol", 14, 2, user, minimumPosition);
     const paramHashes = await instance.getOpenParameterHashes({
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     const order = await instance.getOrder(openOrders[0], {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     order[4].should.be.bignumber.gt(0);
     await instance
       .deleteOrder(openOrders[0], {
-        from: owner,
-        gasLimit: gasLimit
+        from: owner
       })
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should be able to delete order when balance is 0", async () => {
-    await createShortOrder(
-      instance,
-      "asdlol",
-      14,
-      2,
-      user,
-      minimumPosition,
-      gasLimit
-    );
+    await createShortOrder(instance, "asdlol", 14, 2, user, minimumPosition);
     const paramHashes = await instance.getOpenParameterHashes({
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     const order = await instance.getOrder(openOrders[0], {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     order[4].should.be.bignumber.gt(0);
     await instance.updateOrderBalance(openOrders[0], 0, {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     await instance.deleteOrder(openOrders[0], {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     const deletedOrder = await instance.getOrder(openOrders[0], {
-      from: owner,
-      gasLimit: gasLimit
+      from: owner
     });
     deletedOrder[4].should.be.bignumber.equal(0);
   });
