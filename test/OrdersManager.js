@@ -234,4 +234,33 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     });
     deletedOrder[4].should.be.bignumber.equal(0);
   });
+
+  it("Should be able to pay fees to the fee wallet", async () => {
+    await instance.setFeeWallet(feeWallet, {
+      from: owner
+    });
+    //eslint-disable-next-line
+    const initialBalance = await web3.eth.getBalance(feeWallet);
+    await instance.createOrder("ebin", "ETH-USD", "SHORT", 14, 2, user, {
+      from: user,
+      value: minimumPosition
+    });
+    await instance.createOrder("ebinings", "ETH-USD", "LONG", 14, 2, owner, {
+      from: owner,
+      value: minimumPosition
+    });
+    await instance.withdrawFee({
+      from: owner
+    });
+    //eslint-disable-next-line
+    const feeWalletBalance = await web3.eth.getBalance(feeWallet);
+    feeWalletBalance.should.be.bignumber.equal(
+      initialBalance.add(
+        minimumPosition
+          .add(minimumPosition)
+          .mul(3)
+          .div(100)
+      )
+    );
+  });
 });
