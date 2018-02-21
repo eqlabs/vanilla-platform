@@ -7,12 +7,14 @@
   * [debug](#function-debug)
   * [getOpenOrderIDs](#function-getopenorderids)
   * [getOrder](#function-getorder)
-  * [createOrder](#function-createorder)
+  * [CURRENCY_PAIRS](#function-currency_pairs)
   * [MINIMUM_POSITION](#function-minimum_position)
   * [deleteOrder](#function-deleteorder)
   * [owner](#function-owner)
   * [updateOrderBalance](#function-updateorderbalance)
   * [setFeeWallet](#function-setfeewallet)
+  * [createOrder](#function-createorder)
+  * [POSITION_TYPES](#function-position_types)
   * [withdrawFee](#function-withdrawfee)
   * [MAXIMUM_POSITION](#function-maximum_position)
   * [transferOwnership](#function-transferownership)
@@ -130,33 +132,24 @@ Outputs
 
 | | | |
 |-|-|-|
-| *bool* |  | undefined |
+| *string* |  | undefined |
+| *string* |  | undefined |
 | *uint256* |  | undefined |
 | *uint256* |  | undefined |
 | *address* |  | undefined |
 | *uint256* |  | undefined |
 
-## *function* createOrder
+## *function* CURRENCY_PAIRS
 
-OrdersManager.createOrder(orderID, isLong, duration, leverage, paymentAddress) `payable` `6eb2760c`
+OrdersManager.CURRENCY_PAIRS() `view` `7a03aa3f`
 
-> Open order creation, the main endpoint for Vanilla platform. Mainly called by Vanilla's own backend, but open for everyone who knows how to use the smart contract on its own. Receives a singular payment with parameters to open an order with.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *string* | orderID | A unique ID to create the order with. Will be hashed. |
-| *bool* | isLong | {long: true, short: false} |
-| *uint256* | duration | Duration of the LongShort in seconds. For example, 14 days = 1209600 |
-| *uint256* | leverage | uint of the wanted leverage |
-| *address* | paymentAddress | address, to which the user wants the funds back whether he/she won or not |
+| *uint256* |  | undefined |
 
-Outputs
-
-| | | |
-|-|-|-|
-| *bytes32* |  | undefined |
 
 ## *function* MINIMUM_POSITION
 
@@ -212,6 +205,41 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | feeWalletAddress | upcoming address that receives the fees |
+
+
+## *function* createOrder
+
+OrdersManager.createOrder(orderID, currencyPair, positionType, duration, leverage, paymentAddress) `payable` `9575ab62`
+
+> Open order creation, the main endpoint for Vanilla platform. Mainly called by Vanilla's own backend, but open for everyone who knows how to use the smart contract on its own. Receives a singular payment with parameters to open an order with.
+
+Inputs
+
+| | | |
+|-|-|-|
+| *string* | orderID | A unique ID to create the order with. Will be hashed. |
+| *string* | currencyPair | "ETH-USD" || "BTC-USD" |
+| *string* | positionType | "LONG" || "SHORT" |
+| *uint256* | duration | Duration of the LongShort in seconds. For example, 14 days = 1209600 |
+| *uint256* | leverage | uint of the wanted leverage |
+| *address* | paymentAddress | address, to which the user wants the funds back whether he/she won or not |
+
+Outputs
+
+| | | |
+|-|-|-|
+| *bytes32* |  | undefined |
+
+## *function* POSITION_TYPES
+
+OrdersManager.POSITION_TYPES() `view` `ae2ed20f`
+
+
+Inputs
+
+| | | |
+|-|-|-|
+| *uint256* |  | undefined |
 
 
 ## *function* withdrawFee
