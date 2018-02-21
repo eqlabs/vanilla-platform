@@ -5,6 +5,7 @@ import "./Debuggable.sol";
 /**
 @title Oracle
 @dev A contract which saves price history to the Ethereum blockchain.
+
 @author Convoluted Labs
 */
 contract Oracle is Ownable, Debuggable {

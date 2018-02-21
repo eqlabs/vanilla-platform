@@ -5,6 +5,7 @@ pragma solidity ^0.4.18;
 @dev Contract that's meant to be extended in other contracts to give them
 a debug event to test the code with. Just import, "SampleContract is Debuggable"
 and then in the SampleContract, writing debug("event") will write an event in the blockchain.
+
 @author Convoluted Labs
 */
 contract Debuggable {
