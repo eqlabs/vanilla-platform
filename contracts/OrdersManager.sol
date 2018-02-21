@@ -164,6 +164,14 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
+    @dev A function that compares two strings for equality.
+    Hashes first and second with keccak256 and checks if the hashes are equal.
+    */
+    function stringsAreEqual(string first, string second) internal pure returns (bool) {
+        return keccak256(first) == keccak256(second);
+    }
+
+    /**
     @dev Open order creation, the main endpoint for Vanilla platform.
     
     Mainly called by Vanilla's own backend, but open for
@@ -197,7 +205,7 @@ contract OrdersManager is Ownable, Debuggable {
         // Check currencyPair against allowed pairs
         bool currencyFound = false;
         for (uint8 i = 0; i < CURRENCY_PAIRS.length; i++) {
-            if (keccak256(currencyPair) == keccak256(CURRENCY_PAIRS[i])) {
+            if (stringsAreEqual(currencyPair, CURRENCY_PAIRS[i])) {
                 currencyFound = true;
             }
         }
@@ -206,7 +214,7 @@ contract OrdersManager is Ownable, Debuggable {
         // Check positionType against allowed types
         bool positionTypeFound = false;
         for (i = 0; i < POSITION_TYPES.length; i++) {
-            if (keccak256(positionType) == keccak256(POSITION_TYPES[i])) {
+            if (stringsAreEqual(positionType, POSITION_TYPES[i])) {
                 positionTypeFound = true;
             }
         }
@@ -215,7 +223,7 @@ contract OrdersManager is Ownable, Debuggable {
         // Check leverage against allowed amounts
         bool allowedLeverage = false;
         for (i = 0; i < LEVERAGES.length; i++) {
-            if (keccak256(leverage) == keccak256(LEVERAGES[i])) {
+            if (leverage == LEVERAGES[i]) {
                 allowedLeverage = true;
             }
         }
