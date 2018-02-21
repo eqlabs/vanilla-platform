@@ -32,17 +32,24 @@ contract OrdersManager is Ownable, Debuggable {
 
     // Minimum and maximum positions
     uint256 public constant MINIMUM_POSITION = 0.01 ether;
-    uint256 public constant MAXIMUM_POSITION = 500 ether;
+    uint256 public constant MAXIMUM_POSITION = 5 ether;
 
     // Fee percentage
-    uint8 private constant FEE_PERCENTAGE = 30;
+    uint8 private constant FEE_PERCENTAGE = 3;
+
+    // Available order types
+    string[] public POSITION_TYPES = [ "LONG", "SHORT" ];
+
+    // Available currency pairs
+    string[] public CURRENCY_PAIRS = [ "ETH-USD", "BTC-USD" ];
 
     /**
     @dev Order struct
     Constructed in createOrder() with user parameters
     */
     struct Order {
-        bool isLong;
+        string currencyPair;
+        string positionType;
         uint duration;
         uint leverage;
         address paymentAddress;
@@ -124,16 +131,17 @@ contract OrdersManager is Ownable, Debuggable {
      
     @param orderHash An unique hash that maps to an order
     @return {
-        "isLong": "boolean, describing if the order is long or short",
+        "currencyPair": "string, describing the currency pair of the order",
+        "positionType": "string, describing if the order is 'LONG' or 'SHORT'",
         "duration": "uint, duration of the order in seconds",
         "leverage": "uint, leverage of the LongShort",
         "paymentAddress": "address, to which the refunds and rewards are paid",
         "balance": "uint256, balance of the order"
     }
     */
-    function getOrder(bytes32 orderHash) public view returns (bool, uint, uint, address, uint256) {
+    function getOrder(bytes32 orderHash) public view returns (string, string, uint, uint, address, uint256) {
         Order memory order = orders[orderHash];
-        return (order.isLong, order.duration, order.leverage, order.paymentAddress, order.balance);
+        return (order.currencyPair, order.positionType, order.duration, order.leverage, order.paymentAddress, order.balance);
     }
 
     /**
@@ -161,7 +169,8 @@ contract OrdersManager is Ownable, Debuggable {
     Receives a singular payment with parameters to open an order with.
     
     @param orderID A unique ID to create the order with. Will be hashed.
-    @param isLong {long: true, short: false}
+    @param currencyPair "ETH-USD" || "BTC-USD"
+    @param positionType "LONG" || "SHORT"
     @param duration Duration of the LongShort in seconds. For example, 14 days = 1209600
     @param leverage uint of the wanted leverage
     @param paymentAddress address, to which the user wants the funds back whether he/she won or not
@@ -169,7 +178,7 @@ contract OrdersManager is Ownable, Debuggable {
         "orderHash": "Hashed unique ID for the new order"
     }
     */
-    function createOrder(string orderID, bool isLong, uint duration, uint leverage, address paymentAddress) public payable returns (bytes32) {
+    function createOrder(string orderID, string currencyPair, string positionType, uint duration, uint leverage, address paymentAddress) public payable returns (bytes32) {
         // Calculate a hash of the order to uniquely identify orders
         bytes32 orderHash = keccak256(orderID);
 
@@ -181,6 +190,28 @@ contract OrdersManager is Ownable, Debuggable {
 
         // Calculate a hash of the parameters for matching
         bytes32 parameterHash = keccak256(duration, leverage, signature);
+
+        // Enums are skeidaa so we do this
+        bool currencyFound = false;
+        for (uint8 i = 0; i < CURRENCY_PAIRS.length; i++) {
+            if (keccak256(currencyPair) == keccak256(CURRENCY_PAIRS[i])) {
+                debug(CURRENCY_PAIRS[i]);
+                debug(currencyPair);
+                currencyFound = true;
+            }
+        }
+        require(currencyFound);
+
+        // Enums are skeidaa so we do this
+        bool positionTypeFound = false;
+        for (i = 0; i < POSITION_TYPES.length; i++) {
+            if (keccak256(positionType) == keccak256(POSITION_TYPES[i])) {
+                debug(POSITION_TYPES[i]);
+                debug(positionType);
+                positionTypeFound = true;
+            }
+        }
+        require(positionTypeFound);
 
         /* SAVE ORDER */
 
@@ -197,7 +228,7 @@ contract OrdersManager is Ownable, Debuggable {
         // Map the orderHash to paramHash
         orderIDs[parameterHash].push(orderHash);
         // Map the order to the orderHash
-        orders[orderHash] = Order(isLong, duration, leverage, paymentAddress, balance, keccak256(msg.sender));
+        orders[orderHash] = Order(currencyPair, positionType, duration, leverage, paymentAddress, balance, keccak256(msg.sender));
 
         debug("New order received and saved.");
         return orderHash;

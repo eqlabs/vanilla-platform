@@ -12,11 +12,19 @@ async function createLongOrder(
   position,
   gasLimit
 ) {
-  return await instance.createOrder(orderID, true, duration, leverage, sender, {
-    from: sender,
-    value: position,
-    gasLimit: gasLimit
-  });
+  return await instance.createOrder(
+    orderID,
+    "ETH-USD",
+    "LONG",
+    duration,
+    leverage,
+    sender,
+    {
+      from: sender,
+      value: position,
+      gasLimit: gasLimit
+    }
+  );
 }
 
 async function createShortOrder(
@@ -30,7 +38,8 @@ async function createShortOrder(
 ) {
   return await instance.createOrder(
     orderID,
-    false,
+    "ETH-USD",
+    "SHORT",
     duration,
     leverage,
     sender,
@@ -73,7 +82,7 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       });
       return true;
     } catch (e) {
-      return false;
+      e.should.not.exist;
     }
   });
 
@@ -83,9 +92,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         from: owner,
         gasLimit: gasLimit
       });
-      return false;
     } catch (e) {
-      return true;
+      e.toString().should.include("revert");
     }
   });
 
@@ -130,9 +138,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         minimumPosition - 1,
         gasLimit
       );
-      return false;
     } catch (e) {
-      return true;
+      e.toString().should.include("revert");
     }
   });
 
@@ -147,9 +154,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         minimumPosition - 1,
         gasLimit
       );
-      return false;
     } catch (e) {
-      return true;
+      e.toString().should.include("revert");
     }
   });
 
@@ -164,9 +170,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         maximumPosition + 1,
         gasLimit
       );
-      return false;
     } catch (e) {
-      return true;
+      e.toString().should.include("revert");
     }
   });
 
@@ -181,9 +186,32 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         maximumPosition + 1,
         gasLimit
       );
-      return false;
     } catch (e) {
-      return true;
+      e.toString().should.include("revert");
+    }
+  });
+
+  it("Should not be able to create a new order with an unsupported currency pair", async () => {
+    try {
+      await instance.createOrder("ebin", "ETH-MONOPOLY", "SHORT", 14, 2, user, {
+        from: user,
+        value: minimumPosition,
+        gasLimit: gasLimit
+      });
+    } catch (e) {
+      e.toString().should.include("revert");
+    }
+  });
+
+  it("Should not be able to create a new order with an unsupported position type", async () => {
+    try {
+      await instance.createOrder("ebin", "ETH-USD", "SHORTEST", 14, 2, user, {
+        from: user,
+        value: minimumPosition,
+        gasLimit: gasLimit
+      });
+    } catch (e) {
+      e.toString().should.include("revert");
     }
   });
 
@@ -207,9 +235,8 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         minimumPosition,
         gasLimit
       );
-      return true;
     } catch (e) {
-      return false;
+      e.toString().should.include("revert");
     }
   });
 
@@ -241,52 +268,46 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
         from: owner,
         gasLimit: gasLimit
       });
-      return false;
     } catch (e) {
-      return true;
+      e.toString().should.include("revert");
     }
   });
 
   it("Should be able to delete order when balance is 0", async () => {
-    try {
-      await createShortOrder(
-        instance,
-        "asdlol",
-        14,
-        2,
-        user,
-        minimumPosition,
-        gasLimit
-      );
-      const paramHashes = await instance.getOpenParameterHashes({
-        from: owner,
-        gasLimit: gasLimit
-      });
-      const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
-        from: owner,
-        gasLimit: gasLimit
-      });
-      const order = await instance.getOrder(openOrders[0], {
-        from: owner,
-        gasLimit: gasLimit
-      });
-      order[4].should.be.bignumber.gt(0);
-      await instance.updateOrderBalance(openOrders[0], 0, {
-        from: owner,
-        gasLimit: gasLimit
-      });
-      await instance.deleteOrder(openOrders[0], {
-        from: owner,
-        gasLimit: gasLimit
-      });
-      const deletedOrder = await instance.getOrder(openOrders[0], {
-        from: owner,
-        gasLimit: gasLimit
-      });
-      deletedOrder[4].should.be.bignumber.equal(0);
-      return true;
-    } catch (e) {
-      return false;
-    }
+    await createShortOrder(
+      instance,
+      "asdlol",
+      14,
+      2,
+      user,
+      minimumPosition,
+      gasLimit
+    );
+    const paramHashes = await instance.getOpenParameterHashes({
+      from: owner,
+      gasLimit: gasLimit
+    });
+    const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    const order = await instance.getOrder(openOrders[0], {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    order[4].should.be.bignumber.gt(0);
+    await instance.updateOrderBalance(openOrders[0], 0, {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    await instance.deleteOrder(openOrders[0], {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    const deletedOrder = await instance.getOrder(openOrders[0], {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    deletedOrder[4].should.be.bignumber.equal(0);
   });
 });
