@@ -98,89 +98,81 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
   });
 
   it("Should not be able to open a longshort with an inequal amount of parameters", async () => {
-    try {
-      const numOrders = 12;
-      const availableAddresses = [owner, user];
+    const numOrders = 12;
+    const availableAddresses = [owner, user];
 
-      const isLongs = [];
-      const ownerSignatures = [];
-      const balances = [];
-      const paymentAddresses = [];
+    const isLongs = [];
+    const ownerSignatures = [];
+    const balances = [];
+    const paymentAddresses = [];
 
-      for (let i = 0; i < numOrders; i++) {
-        const orderIndex = i % 2;
-        isLongs.push(matchedOrders[orderIndex].isLong);
-        if (orderIndex === 0) {
-          ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
-        }
-        balances.push(matchedOrders[orderIndex].balance);
-        paymentAddresses.push(availableAddresses[orderIndex]);
+    for (let i = 0; i < numOrders; i++) {
+      const orderIndex = i % 2;
+      isLongs.push(matchedOrders[orderIndex].isLong);
+      if (orderIndex === 0) {
+        ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       }
-
-      const totalBalance = balances.reduce((a, b) => a + b);
-
-      await openLongShort(
-        instance,
-        owner,
-        totalBalance,
-        gasLimit,
-        "hg79a8shgufdilhsagf89ds",
-        1209600,
-        2,
-        ownerSignatures,
-        paymentAddresses,
-        balances,
-        isLongs
-      );
-
-      return false;
-    } catch (e) {
-      return true;
+      balances.push(matchedOrders[orderIndex].balance);
+      paymentAddresses.push(availableAddresses[orderIndex]);
     }
+
+    const totalBalance = balances.reduce((a, b) => a + b);
+
+    await openLongShort(
+      instance,
+      owner,
+      totalBalance,
+      gasLimit,
+      "hg79a8shgufdilhsagf89ds",
+      1209600,
+      2,
+      ownerSignatures,
+      paymentAddresses,
+      balances,
+      isLongs
+    )
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to open a longshort without a null-sum result", async () => {
-    try {
-      const numOrders = 12;
-      const availableAddresses = [owner, user];
+    const numOrders = 12;
+    const availableAddresses = [owner, user];
 
-      const isLongs = [];
-      const ownerSignatures = [];
-      const balances = [];
-      const paymentAddresses = [];
+    const isLongs = [];
+    const ownerSignatures = [];
+    const balances = [];
+    const paymentAddresses = [];
 
-      for (let i = 0; i < numOrders; i++) {
-        const orderIndex = i % 2;
-        isLongs.push(matchedOrders[orderIndex].isLong);
-        ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
-        if (orderIndex === 0) {
-          balances.push(matchedOrders[orderIndex].balance);
-        } else {
-          balances.push(matchedOrders[orderIndex].balance - 2);
-        }
-        paymentAddresses.push(availableAddresses[orderIndex]);
+    for (let i = 0; i < numOrders; i++) {
+      const orderIndex = i % 2;
+      isLongs.push(matchedOrders[orderIndex].isLong);
+      ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
+      if (orderIndex === 0) {
+        balances.push(matchedOrders[orderIndex].balance);
+      } else {
+        balances.push(matchedOrders[orderIndex].balance - 2);
       }
-
-      const totalBalance = balances.reduce((a, b) => a + b);
-
-      await openLongShort(
-        instance,
-        owner,
-        totalBalance,
-        gasLimit,
-        "hg79a8shgufdilhsagf89ds",
-        1209600,
-        2,
-        ownerSignatures,
-        paymentAddresses,
-        balances,
-        isLongs
-      );
-
-      return false;
-    } catch (e) {
-      return true;
+      paymentAddresses.push(availableAddresses[orderIndex]);
     }
+
+    const totalBalance = balances.reduce((a, b) => a + b);
+
+    await openLongShort(
+      instance,
+      owner,
+      totalBalance,
+      gasLimit,
+      "hg79a8shgufdilhsagf89ds",
+      1209600,
+      2,
+      ownerSignatures,
+      paymentAddresses,
+      balances,
+      isLongs
+    )
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should get active closing dates", async () => {
