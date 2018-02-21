@@ -1,4 +1,6 @@
 node_modules/
 config/local*
 coverage/
+coverageEnv/
+scTopics
 build/
