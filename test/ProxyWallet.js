@@ -38,47 +38,41 @@ contract("ProxyWallet", accounts => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
     const initialBalance = await instance.balance.call();
     initialBalance.should.be.bignumber.equal(5);
-    try {
-      await instance.refund(accounts[0], { from: accounts[0] });
-    } catch (e) {
-      return true;
-    }
+    await instance
+      .refund(accounts[0], { from: accounts[0] })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should refuse to refund when called by anyone else but the owner", async () => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
     const initialBalance = await instance.balance.call();
     initialBalance.should.be.bignumber.equal(5);
-    try {
-      await instance.refund(accounts[1], { from: accounts[1] });
-    } catch (e) {
-      return true;
-    }
+    await instance
+      .refund(accounts[1], { from: accounts[1] })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should be able to destroy when balance is 0", async () => {
-    try {
-      await instance.destroy({ from: accounts[0] });
-      return true;
-    } catch (e) {
-      return false;
-    }
+    await instance.destroy({ from: accounts[0] });
+    await instance.sendTransaction({ value: 5, from: accounts[1] });
+    const balance = await instance.balance.call();
+    balance.should.be.bignumber.equal(0);
   });
 
   it("Should refuse to destroy when balance is over 0", async () => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
-    try {
-      await instance.destroy({ from: accounts[0] });
-    } catch (e) {
-      return true;
-    }
+    await instance
+      .destroy({ from: accounts[0] })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should refuse to destroy when called by anyone else but the owner", async () => {
-    try {
-      await instance.destroy({ from: accounts[1] });
-    } catch (e) {
-      return true;
-    }
+    await instance
+      .destroy({ from: accounts[1] })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 });
