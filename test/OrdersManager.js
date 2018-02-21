@@ -87,14 +87,12 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   });
 
   it("Should not be able to set the fee wallet by anyone but the owner", async () => {
-    try {
-      await instance.setFeeWallet(feeWallet, {
+    await instance
+      .setFeeWallet(feeWallet, {
         from: owner,
         gasLimit: gasLimit
-      });
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+      })
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should be able to create a new short order with minimum position", async () => {
@@ -128,149 +126,147 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
   });
 
   it("Should not be able to create a new long order with under minimum position", async () => {
-    try {
-      await createLongOrder(
-        instance,
-        "ebin",
-        14,
-        2,
-        user,
-        minimumPosition - 1,
-        gasLimit
-      );
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+    await createLongOrder(
+      instance,
+      "ebin",
+      14,
+      2,
+      user,
+      minimumPosition.sub(10),
+      gasLimit
+    )
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to create a new short order with under minimum position", async () => {
-    try {
-      await createShortOrder(
-        instance,
-        "ebin",
-        14,
-        2,
-        user,
-        minimumPosition - 1,
-        gasLimit
-      );
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+    await createShortOrder(
+      instance,
+      "ebin",
+      14,
+      2,
+      user,
+      minimumPosition.sub(10),
+      gasLimit
+    )
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to create a new long order with over maximum position", async () => {
-    try {
-      await createLongOrder(
-        instance,
-        "ebin",
-        14,
-        2,
-        user,
-        maximumPosition + 1,
-        gasLimit
-      );
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+    await createLongOrder(
+      instance,
+      "ebin",
+      14,
+      2,
+      user,
+      maximumPosition.add(10),
+      gasLimit
+    )
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to create a new short order with over maximum position", async () => {
-    try {
-      await createShortOrder(
-        instance,
-        "ebin",
-        14,
-        2,
-        user,
-        maximumPosition + 1,
-        gasLimit
-      );
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+    await createShortOrder(
+      instance,
+      "ebin",
+      14,
+      2,
+      user,
+      maximumPosition.add(10),
+      gasLimit
+    )
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to create a new order with an unsupported currency pair", async () => {
-    try {
-      await instance.createOrder("ebin", "ETH-MONOPOLY", "SHORT", 14, 2, user, {
+    await instance
+      .createOrder("ebin", "ETH-MONOPOLY", "SHORT", 14, 2, user, {
         from: user,
         value: minimumPosition,
         gasLimit: gasLimit
-      });
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+      })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to create a new order with an unsupported position type", async () => {
-    try {
-      await instance.createOrder("ebin", "ETH-USD", "SHORTEST", 14, 2, user, {
+    await instance
+      .createOrder("ebin", "ETH-USD", "SHORTEST", 14, 2, user, {
         from: user,
         value: minimumPosition,
         gasLimit: gasLimit
-      });
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+      })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
+  });
+
+  it("Should not be able to create a new order with an unsupported leverage", async () => {
+    await instance
+      .createOrder("ebin", "ETH-USD", "SHORT", 14, 500, user, {
+        from: user,
+        value: minimumPosition,
+        gasLimit: gasLimit
+      })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to create duplicate orders", async () => {
-    try {
-      await createShortOrder(
-        instance,
-        "ebin",
-        14,
-        2,
-        user,
-        minimumPosition,
-        gasLimit
-      );
-      await createShortOrder(
-        instance,
-        "ebin",
-        14,
-        2,
-        user,
-        minimumPosition,
-        gasLimit
-      );
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+    await createShortOrder(
+      instance,
+      "ebin",
+      14,
+      2,
+      user,
+      minimumPosition,
+      gasLimit
+    );
+    await createShortOrder(
+      instance,
+      "ebin",
+      14,
+      2,
+      user,
+      minimumPosition,
+      gasLimit
+    )
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should not be able to delete order when balance is over 0", async () => {
-    try {
-      await createShortOrder(
-        instance,
-        "asdlol",
-        14,
-        2,
-        user,
-        minimumPosition,
-        gasLimit
-      );
-      const paramHashes = await instance.getOpenParameterHashes({
+    await createShortOrder(
+      instance,
+      "asdlol",
+      14,
+      2,
+      user,
+      minimumPosition,
+      gasLimit
+    );
+    const paramHashes = await instance.getOpenParameterHashes({
+      from: owner,
+      gasLimit: gasLimit
+    });
+    const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    const order = await instance.getOrder(openOrders[0], {
+      from: owner,
+      gasLimit: gasLimit
+    });
+    order[4].should.be.bignumber.gt(0);
+    await instance
+      .deleteOrder(openOrders[0], {
         from: owner,
         gasLimit: gasLimit
-      });
-      const openOrders = await instance.getOpenOrderIDs(paramHashes[0], {
-        from: owner,
-        gasLimit: gasLimit
-      });
-      const order = await instance.getOrder(openOrders[0], {
-        from: owner,
-        gasLimit: gasLimit
-      });
-      order[4].should.be.bignumber.gt(0);
-      await instance.deleteOrder(openOrders[0], {
-        from: owner,
-        gasLimit: gasLimit
-      });
-    } catch (e) {
-      e.toString().should.include("revert");
-    }
+      })
+      .then(r => r.tx.should.not.exist)
+      .catch(e => e.toString().should.include("revert"));
   });
 
   it("Should be able to delete order when balance is 0", async () => {

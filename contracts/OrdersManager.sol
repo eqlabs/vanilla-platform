@@ -37,11 +37,14 @@ contract OrdersManager is Ownable, Debuggable {
     // Fee percentage
     uint8 private constant FEE_PERCENTAGE = 3;
 
-    // Available order types
+    // Allowed order types
     string[] public POSITION_TYPES = [ "LONG", "SHORT" ];
 
-    // Available currency pairs
+    // Allowed currency pairs
     string[] public CURRENCY_PAIRS = [ "ETH-USD", "BTC-USD" ];
+
+    // Allowed currency pairs
+    uint8[] public LEVERAGES = [ 2, 5 ];
 
     /**
     @dev Order struct
@@ -178,7 +181,7 @@ contract OrdersManager is Ownable, Debuggable {
         "orderHash": "Hashed unique ID for the new order"
     }
     */
-    function createOrder(string orderID, string currencyPair, string positionType, uint duration, uint leverage, address paymentAddress) public payable returns (bytes32) {
+    function createOrder(string orderID, string currencyPair, string positionType, uint duration, uint8 leverage, address paymentAddress) public payable returns (bytes32) {
         // Calculate a hash of the order to uniquely identify orders
         bytes32 orderHash = keccak256(orderID);
 
@@ -191,27 +194,32 @@ contract OrdersManager is Ownable, Debuggable {
         // Calculate a hash of the parameters for matching
         bytes32 parameterHash = keccak256(duration, leverage, signature);
 
-        // Enums are skeidaa so we do this
+        // Check currencyPair against allowed pairs
         bool currencyFound = false;
         for (uint8 i = 0; i < CURRENCY_PAIRS.length; i++) {
             if (keccak256(currencyPair) == keccak256(CURRENCY_PAIRS[i])) {
-                debug(CURRENCY_PAIRS[i]);
-                debug(currencyPair);
                 currencyFound = true;
             }
         }
         require(currencyFound);
 
-        // Enums are skeidaa so we do this
+        // Check positionType against allowed types
         bool positionTypeFound = false;
         for (i = 0; i < POSITION_TYPES.length; i++) {
             if (keccak256(positionType) == keccak256(POSITION_TYPES[i])) {
-                debug(POSITION_TYPES[i]);
-                debug(positionType);
                 positionTypeFound = true;
             }
         }
         require(positionTypeFound);
+
+        // Check leverage against allowed amounts
+        bool allowedLeverage = false;
+        for (i = 0; i < LEVERAGES.length; i++) {
+            if (keccak256(leverage) == keccak256(LEVERAGES[i])) {
+                allowedLeverage = true;
+            }
+        }
+        require(allowedLeverage);
 
         /* SAVE ORDER */
 
