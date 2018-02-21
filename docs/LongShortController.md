@@ -276,12 +276,13 @@ Inputs
 
 Oracle.setLatestPrice(_latestPrice) `nonpayable` `fc9bb7fe`
 
+> Endpoint for the Oracle owner to update prices
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint256* | _latestPrice | undefined |
+| *uint256* | _latestPrice | The latest price from Vanilla API |
 
 
 ## *event* DebugEvent

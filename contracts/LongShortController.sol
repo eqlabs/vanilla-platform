@@ -42,7 +42,9 @@ contract LongShortController is Ownable, Debuggable {
         uint256 balance;
     }
 
+    /// List of active closing dates
     uint[] private activeClosingDates;
+
     Payment[] private payments;
     mapping(uint => LongShort[]) private longShorts;
     mapping(bytes32 => Position[]) private positions;
@@ -108,7 +110,7 @@ contract LongShortController is Ownable, Debuggable {
         return activeClosingDates;
     }
 
-    function calculateReward(uint256 balance/* , uint leverage, uint256 startingPrice, uint256 closingPrice */) internal pure returns (uint256) {
+    function calculateReward(uint256 balance, uint leverage, uint256 startingPrice, uint256 closingPrice) internal pure returns (uint256) {
         return balance;
     }
 
@@ -136,10 +138,10 @@ contract LongShortController is Ownable, Debuggable {
                     Payment(
                         positions[longShort.longShortHash][j].paymentAddress,
                         calculateReward(
-                            positions[longShort.longShortHash][j].balance/* ,
+                            positions[longShort.longShortHash][j].balance,
                             longShort.leverage,
                             longShort.startingPrice,
-                            oracle.latestPrice() */
+                            oracle.latestPrice()
                         )
                     )
                 );
