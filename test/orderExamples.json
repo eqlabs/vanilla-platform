@@ -1,11 +1,11 @@
 [
   {
-    "positionType": "LONG",
+    "isLong": true,
     "ownerSignature": "long",
     "balance": 500000000
   },
   {
-    "positionType": "SHORT",
+    "isLong": false,
     "ownerSignature": "short",
     "balance": 500000000
   }

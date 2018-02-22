@@ -14,21 +14,23 @@ async function openLongShort(
   sender,
   amount,
   parameterHash,
+  currencyPair,
   duration,
   leverage,
   ownerSignatures,
   paymentAddresses,
   balances,
-  positionTypes
+  isLongs
 ) {
   return await instance.openLongShort(
     parameterHash,
+    currencyPair,
     duration,
     leverage,
     ownerSignatures,
     paymentAddresses,
     balances,
-    positionTypes,
+    isLongs,
     {
       from: sender,
       value: amount
@@ -39,6 +41,7 @@ async function openLongShort(
 // eslint-disable-next-line
 contract("LongShortController", ([owner, user, feeWallet]) => {
   let instance, oracle;
+  const currencyPair = "ETH-USD";
 
   beforeEach(
     "Start a new instance of the contract for each test",
@@ -60,14 +63,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const positionTypes = [];
+    const isLongs = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      positionTypes.push(matchedOrders[orderIndex].positionType);
+      isLongs.push(matchedOrders[orderIndex].isLong);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       balances.push(matchedOrders[orderIndex].balance);
       paymentAddresses.push(availableAddresses[orderIndex]);
@@ -80,12 +83,13 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       owner,
       totalBalance,
       "hg79a8shgufdilhsagf89ds",
+      currencyPair,
       1209600,
       2,
       ownerSignatures,
       paymentAddresses,
       balances,
-      positionTypes
+      isLongs
     );
 
     //eslint-disable-next-line
@@ -97,14 +101,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const positionTypes = [];
+    const isLongs = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      positionTypes.push(matchedOrders[orderIndex].positionType);
+      isLongs.push(matchedOrders[orderIndex].isLong);
       if (orderIndex === 0) {
         ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       }
@@ -119,12 +123,13 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       owner,
       totalBalance,
       "hg79a8shgufdilhsagf89ds",
+      currencyPair,
       1209600,
       2,
       ownerSignatures,
       paymentAddresses,
       balances,
-      positionTypes
+      isLongs
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -134,14 +139,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const positionTypes = [];
+    const isLongs = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      positionTypes.push(matchedOrders[orderIndex].positionType);
+      isLongs.push(matchedOrders[orderIndex].isLong);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       if (orderIndex === 0) {
         balances.push(matchedOrders[orderIndex].balance);
@@ -158,12 +163,13 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       owner,
       totalBalance,
       "hg79a8shgufdilhsagf89ds",
+      currencyPair,
       1209600,
       2,
       ownerSignatures,
       paymentAddresses,
       balances,
-      positionTypes
+      isLongs
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -173,14 +179,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const positionTypes = [];
+    const isLongs = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      positionTypes.push(matchedOrders[orderIndex].positionType);
+      isLongs.push(matchedOrders[orderIndex].isLong);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       balances.push(matchedOrders[orderIndex].balance);
       paymentAddresses.push(availableAddresses[orderIndex]);
@@ -193,18 +199,17 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       owner,
       totalBalance,
       "hg79a8shgufdilhsagf89ds",
+      currencyPair,
       1209600,
       2,
       ownerSignatures,
       paymentAddresses,
       balances,
-      positionTypes
+      isLongs
     );
 
     //eslint-disable-next-line
-    const closingDates = await instance.getActiveClosingDates({
-      from: owner
-    });
+    const closingDates = await instance.getActiveClosingDates();
 
     closingDates.should.have.length.gt(0);
   });
@@ -213,14 +218,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const positionTypes = [];
+    const isLongs = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      positionTypes.push(matchedOrders[orderIndex].positionType);
+      isLongs.push(matchedOrders[orderIndex].isLong);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       balances.push(matchedOrders[orderIndex].balance);
       paymentAddresses.push(availableAddresses[orderIndex]);
@@ -233,12 +238,13 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       owner,
       totalBalance,
       "hg79a8shgufdilhsagf89ds",
+      currencyPair,
       0,
       2,
       ownerSignatures,
       paymentAddresses,
       balances,
-      positionTypes
+      isLongs
     );
 
     await oracle.setLatestPrice(900 * 2, {
@@ -246,18 +252,25 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     });
 
     //eslint-disable-next-line
-    const closingDates = await instance.getActiveClosingDates({
+    const closingDates = await instance.getActiveClosingDates();
+
+    const longShortHashes = await instance.getLongShortHashes(closingDates[0], {
       from: owner
     });
 
-    await instance.exercise(closingDates[0]);
+    await instance.exercise(longShortHashes[0]);
 
-    const paymentsLength = await instance.getPaymentsLength({
+    const rewardsLength = await instance.getRewardsLength({
       from: owner
     });
 
-    paymentsLength.c[0].should.equal(12);
+    rewardsLength.c[0].should.equal(12);
 
     await instance.payRewards();
+
+    //eslint-disable-next-line
+    const controllerBalance = await web3.eth.getBalance(instance.address);
+
+    controllerBalance.should.be.bignumber.equal(0);
   });
 });

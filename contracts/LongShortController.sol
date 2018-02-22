@@ -92,6 +92,10 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         debug("New LongShort activated.");
     }
 
+    function getActiveClosingDates() public view returns (uint[]) {
+        return activeClosingDates;
+    }
+
     function getLongShortHashes(uint closingDate) public view onlyOwner returns (bytes32[]) {
         return longShortHashes[closingDate];
     }
@@ -100,11 +104,43 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         return (longShorts[longShortHash].currencyPair, longShorts[longShortHash].startingPrice, longShorts[longShortHash].leverage);
     }
 
-    function calculateReward(bool isLong, uint256 balance, uint leverage, uint256 startingPrice, uint256 closingPrice) internal pure returns (uint256) {
+    function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) internal pure returns (uint256) {
         uint256 reward = 0;
+        uint256 priceDiff = 0;
+        uint256 balanceDiff = 0;
+
         if (startingPrice > closingPrice) {
 
+            priceDiff = startingPrice.sub(closingPrice);
+            balanceDiff = balance.mul(priceDiff.div(startingPrice).mul(leverage));
+            
+            if (balanceDiff > balance) {
+                balanceDiff = balance;
+            }
+
+            if (isLong) {
+                reward = balance.sub(balanceDiff);
+            } else {
+                reward = balance.add(balanceDiff);
+            }
+
+        } else {
+
+            priceDiff = closingPrice.sub(startingPrice);
+            balanceDiff = balance.mul(priceDiff.div(startingPrice).mul(leverage));
+            
+            if (balanceDiff > balance) {
+                balanceDiff = balance;
+            }
+
+            if (isLong) {
+                reward = balance.add(balanceDiff);
+            } else {
+                reward = balance.sub(balanceDiff);
+            }
+
         }
+
         return reward;
     }
 
