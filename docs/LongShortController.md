@@ -13,6 +13,7 @@
   * [oracle](#function-oracle)
   * [owner](#function-owner)
   * [validateAllParameters](#function-validateallparameters)
+  * [calculateReward](#function-calculatereward)
   * [oracleAddress](#function-oracleaddress)
   * [POSITION_TYPES](#function-position_types)
   * [exercise](#function-exercise)
@@ -211,6 +212,22 @@ Inputs
 | *string* | currencyPair | undefined |
 | *string* | positionType | undefined |
 | *uint8* | leverage | undefined |
+
+
+## *function* calculateReward
+
+LongShortController.calculateReward(isLong, balance, leverage, startingPrice, closingPrice) `pure` `a3cfb754`
+
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bool* | isLong | undefined |
+| *uint256* | balance | undefined |
+| *uint8* | leverage | undefined |
+| *uint256* | startingPrice | undefined |
+| *uint256* | closingPrice | undefined |
 
 
 ## *function* oracleAddress
