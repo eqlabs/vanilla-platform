@@ -42,12 +42,15 @@ async function openLongShort(
 contract("LongShortController", ([owner, user, feeWallet]) => {
   let instance, oracle;
   const currencyPair = "ETH-USD";
+  const initialPrice = 900;
+  const highPrice = 900 + 900 * 0.5;
+  const lowPrice = 900 - 900 * 0.5;
 
   beforeEach(
     "Start a new instance of the contract for each test",
     async function() {
       instance = await LongShortController.new(owner);
-      oracle = await Oracle.new(owner);
+      oracle = await Oracle.new(initialPrice, { from: owner });
       await instance.linkOracle(oracle.address, {
         from: owner
       });
@@ -247,7 +250,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       isLongs
     );
 
-    await oracle.setLatestPrice(900 * 2, {
+    await oracle.setLatestPrice(lowPrice, {
       from: owner
     });
 
@@ -260,7 +263,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
 
     await instance.exercise(longShortHashes[0]);
 
-    const rewardsLength = await instance.getRewardsLength({
+    let rewardsLength = await instance.getRewardsLength({
       from: owner
     });
 
@@ -268,9 +271,41 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
 
     await instance.payRewards();
 
+    rewardsLength = await instance.getRewardsLength({
+      from: owner
+    });
+
+    rewardsLength.c[0].should.equal(0);
+
     //eslint-disable-next-line
     const controllerBalance = await web3.eth.getBalance(instance.address);
 
     controllerBalance.should.be.bignumber.equal(0);
+  });
+
+  it("Should calculate rewards correctly for long positions on price decrease", async () => {
+    const balance = 8000;
+    const reward = await instance.calculateReward(
+      true,
+      balance,
+      2,
+      initialPrice,
+      lowPrice,
+      { from: user }
+    );
+    reward.should.be.bignumber.equal(0);
+  });
+
+  it("Should calculate rewards correctly for long positions on price increase", async () => {
+    const balance = 8000;
+    const reward = await instance.calculateReward(
+      true,
+      balance,
+      2,
+      initialPrice,
+      highPrice,
+      { from: user }
+    );
+    reward.should.be.bignumber.equal(balance * 2);
   });
 });

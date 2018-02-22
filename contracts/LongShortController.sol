@@ -104,10 +104,10 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         return (longShorts[longShortHash].currencyPair, longShorts[longShortHash].startingPrice, longShorts[longShortHash].leverage);
     }
 
-    function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) internal pure returns (uint256) {
-        uint256 reward = 0;
-        uint256 priceDiff = 0;
-        uint256 balanceDiff = 0;
+    function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) public pure returns (uint256) {
+        uint256 reward;
+        uint256 priceDiff;
+        uint256 balanceDiff;
 
         if (startingPrice > closingPrice) {
 
