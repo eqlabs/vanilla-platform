@@ -9,6 +9,7 @@
   * [Oracle](Oracle.md)
   * [ProxyWallet](ProxyWallet.md)
   * [Debuggable](Debuggable.md)
+  * [Validatable](Validatable.md)
   * [Verify](Verify.md)
 
 <!--
