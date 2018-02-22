@@ -5,6 +5,7 @@
   * [requireZeroSum](#function-requirezerosum)
   * [openLongShort](#function-openlongshort)
   * [activeClosingDates](#function-activeclosingdates)
+  * [getActiveClosingDates](#function-getactiveclosingdates)
   * [debug](#function-debug)
   * [linkOracle](#function-linkoracle)
   * [payRewards](#function-payrewards)
@@ -126,6 +127,14 @@ Inputs
 | | | |
 |-|-|-|
 | *uint256* |  | undefined |
+
+
+## *function* getActiveClosingDates
+
+LongShortController.getActiveClosingDates() `view` `1c6d1138`
+
+
+
 
 
 ## *function* debug
