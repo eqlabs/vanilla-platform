@@ -19,7 +19,7 @@ async function openLongShort(
   ownerSignatures,
   paymentAddresses,
   balances,
-  isLongs
+  positionTypes
 ) {
   return await instance.openLongShort(
     parameterHash,
@@ -28,7 +28,7 @@ async function openLongShort(
     ownerSignatures,
     paymentAddresses,
     balances,
-    isLongs,
+    positionTypes,
     {
       from: sender,
       value: amount
@@ -60,14 +60,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const isLongs = [];
+    const positionTypes = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      isLongs.push(matchedOrders[orderIndex].isLong);
+      positionTypes.push(matchedOrders[orderIndex].positionType);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       balances.push(matchedOrders[orderIndex].balance);
       paymentAddresses.push(availableAddresses[orderIndex]);
@@ -85,7 +85,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       ownerSignatures,
       paymentAddresses,
       balances,
-      isLongs
+      positionTypes
     );
 
     //eslint-disable-next-line
@@ -97,14 +97,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const isLongs = [];
+    const positionTypes = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      isLongs.push(matchedOrders[orderIndex].isLong);
+      positionTypes.push(matchedOrders[orderIndex].positionType);
       if (orderIndex === 0) {
         ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       }
@@ -124,7 +124,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       ownerSignatures,
       paymentAddresses,
       balances,
-      isLongs
+      positionTypes
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -134,14 +134,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const isLongs = [];
+    const positionTypes = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      isLongs.push(matchedOrders[orderIndex].isLong);
+      positionTypes.push(matchedOrders[orderIndex].positionType);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       if (orderIndex === 0) {
         balances.push(matchedOrders[orderIndex].balance);
@@ -163,7 +163,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       ownerSignatures,
       paymentAddresses,
       balances,
-      isLongs
+      positionTypes
     )
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
@@ -173,14 +173,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const isLongs = [];
+    const positionTypes = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      isLongs.push(matchedOrders[orderIndex].isLong);
+      positionTypes.push(matchedOrders[orderIndex].positionType);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       balances.push(matchedOrders[orderIndex].balance);
       paymentAddresses.push(availableAddresses[orderIndex]);
@@ -198,7 +198,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       ownerSignatures,
       paymentAddresses,
       balances,
-      isLongs
+      positionTypes
     );
 
     //eslint-disable-next-line
@@ -213,14 +213,14 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
-    const isLongs = [];
+    const positionTypes = [];
     const ownerSignatures = [];
     const balances = [];
     const paymentAddresses = [];
 
     for (let i = 0; i < numOrders; i++) {
       const orderIndex = i % 2;
-      isLongs.push(matchedOrders[orderIndex].isLong);
+      positionTypes.push(matchedOrders[orderIndex].positionType);
       ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
       balances.push(matchedOrders[orderIndex].balance);
       paymentAddresses.push(availableAddresses[orderIndex]);
@@ -238,7 +238,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       ownerSignatures,
       paymentAddresses,
       balances,
-      isLongs
+      positionTypes
     );
 
     await oracle.setLatestPrice(900 * 2, {

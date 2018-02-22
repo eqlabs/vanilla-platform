@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 import "./Ownable.sol";
 import "./Debuggable.sol";
+import "./Validatable.sol";
 import "./SafeMath.sol";
 import "./Oracle.sol";
 
@@ -10,7 +11,7 @@ on the Ethereum blockchain.
 
 @author Convoluted Labs
 */
-contract LongShortController is Ownable, Debuggable {
+contract LongShortController is Ownable, Debuggable, Validatable {
 
     // Use Zeppelin's SafeMath library for calculations
     using SafeMath for uint256;
@@ -29,29 +30,35 @@ contract LongShortController is Ownable, Debuggable {
     @dev Activated LongShort struct
     */
     struct LongShort {
-        bytes32 longShortHash;
+        string currencyPair;
         uint256 startingPrice;
-        uint leverage;
+        uint closingDate;
+        uint8 leverage;
     }
 
     /**
-    @dev Payment struct for calculated payments
+    @dev Reward struct for calculated rewards
     */
-    struct Payment {
+    struct Reward {
         address paymentAddress;
         uint256 balance;
     }
 
     /// List of active closing dates
-    uint[] private activeClosingDates;
-
-    Payment[] private payments;
-    mapping(uint => LongShort[]) private longShorts;
+    uint[] public activeClosingDates;
+    mapping(uint => bytes32[]) private longShortHashes;
+    mapping(bytes32 => LongShort) private longShorts;
     mapping(bytes32 => Position[]) private positions;
+
+    // Queued rewards
+    Reward[] private rewards;
 
     Oracle public oracle;
     address public oracleAddress;
 
+    /**
+    @dev Links Vanilla's oracle to the contract
+    */
     function linkOracle(address _oracleAddress) public onlyOwner {
         oracleAddress = _oracleAddress;
         oracle = Oracle(oracleAddress);
@@ -59,108 +66,90 @@ contract LongShortController is Ownable, Debuggable {
     }
 
     /**
-    @dev Helper function to check if both sides of the bet have same balance
-    
-    @param isLongs list of position types {long: true, short: false}
-    @param balances list of position amounts in wei
-    */
-    function requireNullSum(bool[] isLongs, uint256[] balances) internal pure {
-        uint256 shortBalance;
-        uint256 longBalance;
-        for (uint8 i = 0; i < isLongs.length; i++) {
-            if (isLongs[i]) {
-                longBalance = longBalance.add(balances[i]);
-            } else {
-                shortBalance = shortBalance.add(balances[i]);
-            }
-        }
-        require(shortBalance==longBalance);
-    }
-
-    /**
     @dev LongShort activator function. Called by OrdersManager.
     */
-    function openLongShort(bytes32 parameterHash, uint duration, uint leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
-
-        // Require all input arrays to be the same length
-        // The backend must make sure that the indices point to the same original order
+    function openLongShort(bytes32 parameterHash, string currencyPair, uint duration, uint8 leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
+        /// Input validation
         require(ownerSignatures.length == paymentAddresses.length);
         require(paymentAddresses.length == balances.length);
         require(balances.length == isLongs.length);
-
-        // Require both sides of the LongShort to have same total balance
-        requireNullSum(isLongs, balances);
+        requireZeroSum(isLongs, balances);
+        validateCurrencyPair(currencyPair);
+        validateLeverage(leverage);
 
         uint256 startingPrice = 900; // CHange this to an oracle-fetched price
         bytes32 longShortHash = keccak256(this, parameterHash, block.timestamp);
-        uint closingDate = block.timestamp + duration;
+        uint closingDate = block.timestamp.add(duration);
 
         for (uint8 i = 0; i < isLongs.length; i++) {
             positions[longShortHash].push(Position(isLongs[i], ownerSignatures[i], paymentAddresses[i], balances[i]));
         }
 
         activeClosingDates.push(closingDate);
-        longShorts[closingDate].push(LongShort(longShortHash, startingPrice, leverage));
+        longShortHashes[closingDate].push(longShortHash);
+        longShorts[longShortHash] = LongShort(currencyPair, startingPrice, closingDate, leverage);
 
         debug("New LongShort activated.");
-
     }
 
-    function getActiveClosingDates() public view returns (uint[]) {
-        return activeClosingDates;
+    function getLongShortHashes(uint closingDate) public view onlyOwner returns (bytes32[]) {
+        return longShortHashes[closingDate];
     }
 
-    function calculateReward(uint256 balance, uint leverage, uint256 startingPrice, uint256 closingPrice) internal pure returns (uint256) {
-        return balance;
+    function getLongShort(bytes32 longShortHash) public view onlyOwner returns (string, uint256, uint8) {
+        return (longShorts[longShortHash].currencyPair, longShorts[longShortHash].startingPrice, longShorts[longShortHash].leverage);
     }
 
-    function getPaymentsLength() public view onlyOwner returns (uint) {
-        return payments.length;
+    function calculateReward(bool isLong, uint256 balance, uint leverage, uint256 startingPrice, uint256 closingPrice) internal pure returns (uint256) {
+        uint256 reward = 0;
+        if (startingPrice > closingPrice) {
+
+        }
+        return reward;
     }
 
-    function exercise(uint closingDate) public {
-        require(closingDate <= block.timestamp);
+    function getRewardsLength() public view onlyOwner returns (uint) {
+        return rewards.length;
+    }
+
+    function exercise(bytes32 longShortHash) public {
+        LongShort memory longShort = longShorts[longShortHash];
+
+        require(longShort.closingDate <= block.timestamp);
         debug("Given closingDate is over it's expiry.");
 
-        LongShort[] memory longShortsForDate = longShorts[closingDate];
-        
-        require(longShortsForDate.length > 0);
+        uint positionsLength = positions[longShortHash].length;
 
-        for (uint8 i = 0; i < longShortsForDate.length; i++) {
+        debug("Calculating rewards...");
 
-            LongShort memory longShort = longShortsForDate[i];
-            uint positionsLength = positions[longShort.longShortHash].length;
+        Position[] memory positionsForHash = positions[longShortHash];
 
-            debug("Calculating payments...");
-
-            for (uint8 j = 0; j < positionsLength; j++) {
-                payments.push(
-                    Payment(
-                        positions[longShort.longShortHash][j].paymentAddress,
-                        calculateReward(
-                            positions[longShort.longShortHash][j].balance,
-                            longShort.leverage,
-                            longShort.startingPrice,
-                            oracle.latestPrice()
-                        )
+        for (uint8 j = 0; j < positionsLength; j++) {
+            rewards.push(
+                Reward(
+                    positionsForHash[j].paymentAddress,
+                    calculateReward(
+                        positionsForHash[j].isLong,
+                        positionsForHash[j].balance,
+                        longShort.leverage,
+                        longShort.startingPrice,
+                        oracle.latestPrice()
                     )
-                );
-                delete positions[longShort.longShortHash][j];
-                debug("New reward calculated, position ended");
-            }
-
-            delete longShortsForDate[i];
+                )
+            );
+            delete positions[longShortHash];
+            debug("New reward calculated, position ended");
         }
 
-        delete longShorts[closingDate];
+        delete longShorts[longShortHash];
     }
 
     function payRewards() public {
-        for (uint8 paymentNum = 0; paymentNum < payments.length; paymentNum++) {
-            payments[paymentNum].paymentAddress.transfer(payments[paymentNum].balance);
-            delete payments[paymentNum];
+        for (uint8 paymentNum = 0; paymentNum < rewards.length; paymentNum++) {
+            rewards[paymentNum].paymentAddress.transfer(rewards[paymentNum].balance);
+            delete rewards[paymentNum];
             debug("Reward paid!");
         }
-        payments.length = 0;
+        rewards.length = 0;
     }
 }

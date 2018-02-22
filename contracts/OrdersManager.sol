@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 import "./Ownable.sol";
 import "./Debuggable.sol";
+import "./Validatable.sol";
 import "./SafeMath.sol";
 //import "./Verify.sol";
 
@@ -11,7 +12,7 @@ with which a matchMaker function bundles open orders and closes ones that have e
 
 @author Convoluted Labs
 */
-contract OrdersManager is Ownable, Debuggable {
+contract OrdersManager is Ownable, Debuggable, Validatable {
 
     // Use Zeppelin's SafeMath library for calculations
     using SafeMath for uint256;
@@ -36,15 +37,6 @@ contract OrdersManager is Ownable, Debuggable {
 
     // Fee percentage
     uint8 private constant FEE_PERCENTAGE = 3;
-
-    // Allowed order types
-    string[] public POSITION_TYPES = [ "LONG", "SHORT" ];
-
-    // Allowed currency pairs
-    string[] public CURRENCY_PAIRS = [ "ETH-USD", "BTC-USD" ];
-
-    // Allowed currency pairs
-    uint8[] public LEVERAGES = [ 2, 5 ];
 
     /**
     @dev Order struct
@@ -164,14 +156,6 @@ contract OrdersManager is Ownable, Debuggable {
     }
 
     /**
-    @dev A function that compares two strings for equality.
-    Hashes first and second with keccak256 and checks if the hashes are equal.
-    */
-    function stringsAreEqual(string first, string second) internal pure returns (bool) {
-        return keccak256(first) == keccak256(second);
-    }
-
-    /**
     @dev Open order creation, the main endpoint for Vanilla platform.
     
     Mainly called by Vanilla's own backend, but open for
@@ -202,32 +186,7 @@ contract OrdersManager is Ownable, Debuggable {
         // Calculate a hash of the parameters for matching
         bytes32 parameterHash = keccak256(duration, leverage, signature);
 
-        // Check currencyPair against allowed pairs
-        bool currencyFound = false;
-        for (uint8 i = 0; i < CURRENCY_PAIRS.length; i++) {
-            if (stringsAreEqual(currencyPair, CURRENCY_PAIRS[i])) {
-                currencyFound = true;
-            }
-        }
-        require(currencyFound);
-
-        // Check positionType against allowed types
-        bool positionTypeFound = false;
-        for (i = 0; i < POSITION_TYPES.length; i++) {
-            if (stringsAreEqual(positionType, POSITION_TYPES[i])) {
-                positionTypeFound = true;
-            }
-        }
-        require(positionTypeFound);
-
-        // Check leverage against allowed amounts
-        bool allowedLeverage = false;
-        for (i = 0; i < LEVERAGES.length; i++) {
-            if (leverage == LEVERAGES[i]) {
-                allowedLeverage = true;
-            }
-        }
-        require(allowedLeverage);
+        validateAllParameters(currencyPair, positionType, leverage);
 
         /* SAVE ORDER */
 
