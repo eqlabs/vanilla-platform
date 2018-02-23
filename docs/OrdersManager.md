@@ -8,11 +8,11 @@
   * [debug](#function-debug)
   * [getOpenOrderIDs](#function-getopenorderids)
   * [getOrder](#function-getorder)
+  * [createOrder](#function-createorder)
   * [CURRENCY_PAIRS](#function-currency_pairs)
   * [MINIMUM_POSITION](#function-minimum_position)
   * [deleteOrder](#function-deleteorder)
   * [owner](#function-owner)
-  * [createOrder](#function-createorder)
   * [updateOrderBalance](#function-updateorderbalance)
   * [setFeeWallet](#function-setfeewallet)
   * [validateAllParameters](#function-validateallparameters)
@@ -147,7 +147,7 @@ Outputs
 
 ## *function* getOrder
 
-OrdersManager.getOrder(orderHash) `view` `5778472a`
+OrdersManager.getOrder(orderID) `view` `5778472a`
 
 > Returns order by orderID. Deconstructs the Order struct for returning. Leaves out the ownerSignature.
 
@@ -155,7 +155,7 @@ Inputs
 
 | | | |
 |-|-|-|
-| *bytes32* | orderHash | An unique hash that maps to an order |
+| *bytes32* | orderID | An unique hash that maps to an order |
 
 Outputs
 
@@ -167,6 +167,24 @@ Outputs
 | *uint256* |  | undefined |
 | *address* |  | undefined |
 | *uint256* |  | undefined |
+
+## *function* createOrder
+
+OrdersManager.createOrder(orderID, currencyPair, positionType, duration, leverage, paymentAddress) `payable` `64bcfd7c`
+
+> Open order creation, the main endpoint for Vanilla platform. Mainly called by Vanilla's own backend, but open for everyone who knows how to use the smart contract on its own. Receives a singular payment with parameters to open an order with.
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes32* | orderID | A unique bytes32 ID to create the order with. |
+| *string* | currencyPair | "ETH-USD" || "BTC-USD" |
+| *string* | positionType | "LONG" || "SHORT" |
+| *uint256* | duration | Duration of the LongShort in seconds. For example, 14 days = 1209600 |
+| *uint8* | leverage | uint of the wanted leverage |
+| *address* | paymentAddress | address, to which the user wants the funds back whether he/she won or not |
+
 
 ## *function* CURRENCY_PAIRS
 
@@ -190,7 +208,7 @@ OrdersManager.MINIMUM_POSITION() `view` `7a0b89d3`
 
 ## *function* deleteOrder
 
-OrdersManager.deleteOrder(orderHash) `nonpayable` `87a61cbd`
+OrdersManager.deleteOrder(orderID) `nonpayable` `87a61cbd`
 
 > Deletes an order by hash, effectively turning all its parameters to 0. Used by the backend after an order has been fully matched. Only callable by the owner.
 
@@ -198,7 +216,7 @@ Inputs
 
 | | | |
 |-|-|-|
-| *bytes32* | orderHash | The unique hash of the deletable order. |
+| *bytes32* | orderID | The unique hash of the deletable order. |
 
 
 ## *function* owner
@@ -209,32 +227,9 @@ OrdersManager.owner() `view` `8da5cb5b`
 
 
 
-## *function* createOrder
-
-OrdersManager.createOrder(orderID, currencyPair, positionType, duration, leverage, paymentAddress) `payable` `8da6c9e2`
-
-> Open order creation, the main endpoint for Vanilla platform. Mainly called by Vanilla's own backend, but open for everyone who knows how to use the smart contract on its own. Receives a singular payment with parameters to open an order with.
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | orderID | A unique ID to create the order with. Will be hashed. |
-| *string* | currencyPair | "ETH-USD" || "BTC-USD" |
-| *string* | positionType | "LONG" || "SHORT" |
-| *uint256* | duration | Duration of the LongShort in seconds. For example, 14 days = 1209600 |
-| *uint8* | leverage | uint of the wanted leverage |
-| *address* | paymentAddress | address, to which the user wants the funds back whether he/she won or not |
-
-Outputs
-
-| | | |
-|-|-|-|
-| *bytes32* |  | undefined |
-
 ## *function* updateOrderBalance
 
-OrdersManager.updateOrderBalance(orderHash, newBalance) `nonpayable` `8fb08201`
+OrdersManager.updateOrderBalance(orderID, newBalance) `nonpayable` `8fb08201`
 
 > Updates an order's balance. Used by the backend when an order was partially matched. Only callable by the owner.
 
@@ -242,7 +237,7 @@ Inputs
 
 | | | |
 |-|-|-|
-| *bytes32* | orderHash | The unique hash of the deletable order. |
+| *bytes32* | orderID | The unique hash of the deletable order. |
 | *uint256* | newBalance | The new balance of an order. |
 
 
