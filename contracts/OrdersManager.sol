@@ -18,7 +18,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     using SafeMath for uint256;
 
     // Secret for parameter matching
-    string private signature = "mysaltisshitty";
+    bytes32 private signature = "mysaltisshitty";
 
     // Address of the fee wallet
     address private feeWallet;
@@ -43,8 +43,8 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     Constructed in createOrder() with user parameters
     */
     struct Order {
-        string currencyPair;
-        string positionType;
+        bytes7 currencyPair;
+        bytes5 positionType;
         uint duration;
         uint leverage;
         address paymentAddress;
@@ -69,7 +69,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     
     @param signingSecret a salt used in parameter and order hashing
     */
-    function setSignature(string signingSecret) public onlyOwner {
+    function setSignature(bytes32 signingSecret) public onlyOwner {
         signature = signingSecret;
         debug("Signature set.");
     }
@@ -126,15 +126,15 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
      
     @param orderID An unique hash that maps to an order
     @return {
-        "currencyPair": "string, describing the currency pair of the order",
-        "positionType": "string, describing if the order is 'LONG' or 'SHORT'",
+        "currencyPair": "bytes32, describing the currency pair of the order",
+        "positionType": "bytes32, describing if the order is 'LONG' or 'SHORT'",
         "duration": "uint, duration of the order in seconds",
         "leverage": "uint, leverage of the LongShort",
         "paymentAddress": "address, to which the refunds and rewards are paid",
         "balance": "uint256, balance of the order"
     }
     */
-    function getOrder(bytes32 orderID) public view returns (string, string, uint, uint, address, uint256) {
+    function getOrder(bytes32 orderID) public view returns (bytes7, bytes5, uint, uint, address, uint256) {
         Order memory order = orders[orderID];
         return (order.currencyPair, order.positionType, order.duration, order.leverage, order.paymentAddress, order.balance);
     }
@@ -170,7 +170,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     @param leverage uint of the wanted leverage
     @param paymentAddress address, to which the user wants the funds back whether he/she won or not
     */
-    function createOrder(bytes32 orderID, string currencyPair, string positionType, uint duration, uint8 leverage, address paymentAddress) public payable {
+    function createOrder(bytes32 orderID, bytes7 currencyPair, bytes5 positionType, uint duration, uint8 leverage, address paymentAddress) public payable {
 
         // Require that there isn't an order with this ID yet
         require(orders[orderID].paymentAddress == 0);
@@ -181,7 +181,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
         // Calculate a hash of the parameters for matching
         bytes32 parameterHash = keccak256(duration, leverage, signature);
 
-        validateAllParameters(currencyPair, positionType, leverage);
+        validateLeverage(leverage);
 
         /* SAVE ORDER */
 

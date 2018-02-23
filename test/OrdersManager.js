@@ -154,26 +154,6 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       .catch(e => e.toString().should.include("revert"));
   });
 
-  it("Should not be able to create a new order with an unsupported currency pair", async () => {
-    await instance
-      .createOrder("ebin", "ETH-MONOPOLY", "SHORT", 14, 2, user, {
-        from: user,
-        value: minimumPosition
-      })
-      .then(r => r.tx.should.not.exist)
-      .catch(e => e.toString().should.include("revert"));
-  });
-
-  it("Should not be able to create a new order with an unsupported position type", async () => {
-    await instance
-      .createOrder("ebin", "ETH-USD", "SHORTEST", 14, 2, user, {
-        from: user,
-        value: minimumPosition
-      })
-      .then(r => r.tx.should.not.exist)
-      .catch(e => e.toString().should.include("revert"));
-  });
-
   it("Should not be able to create a new order with an unsupported leverage", async () => {
     await instance
       .createOrder("ebin", "ETH-USD", "SHORT", 14, 500, user, {

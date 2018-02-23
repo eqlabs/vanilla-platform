@@ -43,8 +43,8 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
   let instance, oracle;
   const currencyPair = "ETH-USD";
   const initialPrice = new BigNumber("900");
-  const highPrice = 900 + 900 * 0.5;
-  const lowPrice = 900 - 900 * 0.5;
+  const highPrice = initialPrice.div(2).add(initialPrice);
+  const lowPrice = initialPrice.sub(initialPrice.div(2));
 
   beforeEach(
     "Start a new instance of the contract for each test",

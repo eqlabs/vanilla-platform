@@ -30,7 +30,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @dev Activated LongShort struct
     */
     struct LongShort {
-        string currencyPair;
+        bytes32 currencyPair;
         uint256 startingPrice;
         uint closingDate;
         uint8 leverage;
@@ -68,13 +68,12 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     /**
     @dev LongShort activator function. Called by OrdersManager.
     */
-    function openLongShort(bytes32 parameterHash, string currencyPair, uint duration, uint8 leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
+    function openLongShort(bytes32 parameterHash, bytes32 currencyPair, uint duration, uint8 leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
         /// Input validation
         require(ownerSignatures.length == paymentAddresses.length);
         require(paymentAddresses.length == balances.length);
         require(balances.length == isLongs.length);
         requireZeroSum(isLongs, balances);
-        validateCurrencyPair(currencyPair);
         validateLeverage(leverage);
 
         uint256 startingPrice = 900; // CHange this to an oracle-fetched price
@@ -100,7 +99,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         return longShortHashes[closingDate];
     }
 
-    function getLongShort(bytes32 longShortHash) public view onlyOwner returns (string, uint256, uint8) {
+    function getLongShort(bytes32 longShortHash) public view onlyOwner returns (bytes32, uint256, uint8) {
         return (longShorts[longShortHash].currencyPair, longShorts[longShortHash].startingPrice, longShorts[longShortHash].leverage);
     }
 
