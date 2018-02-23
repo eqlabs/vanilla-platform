@@ -28,29 +28,30 @@
       "type": "function"
     }
   ],
-  "bytecode":
-    "0x6060604052341561000f57600080fd5b61016e8061001e6000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632f50fbfa14610046575b600080fd5b341561005157600080fd5b6100a1600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506100a3565b005b7f56f074d292557f2e3c567d982816e0fb5b72100ff196892f8fbd23b8a9073679816040518080602001828103825283818151815260200191508051906020019080838360005b838110156101055780820151818401526020810190506100ea565b50505050905090810190601f1680156101325780820380516001836020036101000a031916815260200191505b509250505060405180910390a1505600a165627a7a72305820a6f16e17e7e787b8aceaa84ac8f8ebd57df5f22fad1d7ddddf5c3dcb7bb4aeec0029",
-  "deployedBytecode":
-    "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632f50fbfa14610046575b600080fd5b341561005157600080fd5b6100a1600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506100a3565b005b7f56f074d292557f2e3c567d982816e0fb5b72100ff196892f8fbd23b8a9073679816040518080602001828103825283818151815260200191508051906020019080838360005b838110156101055780820151818401526020810190506100ea565b50505050905090810190601f1680156101325780820380516001836020036101000a031916815260200191505b509250505060405180910390a1505600a165627a7a72305820a6f16e17e7e787b8aceaa84ac8f8ebd57df5f22fad1d7ddddf5c3dcb7bb4aeec0029",
-  "sourceMap": "313:130:0:-;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap":
-    "313:130:0:-;;;;;;;;;;;;;;;;;;;;;;;;373:68;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;417:19;428:7;417:19;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;373:68:0;:::o",
-  "source":
-    "pragma solidity ^0.4.18;\n\n/**\n * @title Debuggable\n * @dev Contract that's meant to be extended in other contracts to give them\n * a debug event to test the code with. Just import, \"SampleContract is Debuggable\"\n * and then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.\n */\ncontract Debuggable {\n  event DebugEvent(string message);\n  function debug(string message) public {\n    DebugEvent(message);\n  }\n}\n",
-  "sourcePath":
-    "/home/jani/dev/blockchain/vanilla-platform/contracts/Debuggable.sol",
+  "bytecode": "0x6060604052341561000f57600080fd5b61016e8061001e6000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632f50fbfa14610046575b600080fd5b341561005157600080fd5b6100a1600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506100a3565b005b7f56f074d292557f2e3c567d982816e0fb5b72100ff196892f8fbd23b8a9073679816040518080602001828103825283818151815260200191508051906020019080838360005b838110156101055780820151818401526020810190506100ea565b50505050905090810190601f1680156101325780820380516001836020036101000a031916815260200191505b509250505060405180910390a1505600a165627a7a723058205a706345d9de690c7d90fb34ce310b0eb04a27a43cde5658d06c71b711a2a5d40029",
+  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632f50fbfa14610046575b600080fd5b341561005157600080fd5b6100a1600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506100a3565b005b7f56f074d292557f2e3c567d982816e0fb5b72100ff196892f8fbd23b8a9073679816040518080602001828103825283818151815260200191508051906020019080838360005b838110156101055780820151818401526020810190506100ea565b50505050905090810190601f1680156101325780820380516001836020036101000a031916815260200191505b509250505060405180910390a1505600a165627a7a723058205a706345d9de690c7d90fb34ce310b0eb04a27a43cde5658d06c71b711a2a5d40029",
+  "sourceMap": "325:366:0:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "325:366:0:-;;;;;;;;;;;;;;;;;;;;;;;;620:68;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;664:19;675:7;664:19;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;620:68:0;:::o",
+  "source": "pragma solidity ^0.4.18;\n\n/**\n@title Debuggable\n@dev Contract that's meant to be extended in other contracts to give them\na debug event to test the code with. Just import, \"SampleContract is Debuggable\"\nand then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.\n\n@author Convoluted Labs\n*/\ncontract Debuggable {\n\n  /**\n  @dev The triggerable debug event\n  @param message string that's written in the blockchain\n  */\n  event DebugEvent(string message);\n\n  /**\n  @dev Debug function that gets injected to extending contracts\n  @param message the message that we want to log/debug\n  */\n  function debug(string message) public {\n    DebugEvent(message);\n  }\n\n}\n",
+  "sourcePath": "/home/jani/dev/blockchain/vanilla-platform/contracts/Debuggable.sol",
   "ast": {
     "attributes": {
-      "absolutePath":
-        "/home/jani/dev/blockchain/vanilla-platform/contracts/Debuggable.sol",
+      "absolutePath": "/home/jani/dev/blockchain/vanilla-platform/contracts/Debuggable.sol",
       "exportedSymbols": {
-        "Debuggable": [16]
+        "Debuggable": [
+          16
+        ]
       }
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", "^", "0.4", ".18"]
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".18"
+          ]
         },
         "id": 1,
         "name": "PragmaDirective",
@@ -58,13 +59,18 @@
       },
       {
         "attributes": {
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "contract",
-          "documentation":
-            "@title Debuggable\n@dev Contract that's meant to be extended in other contracts to give them\na debug event to test the code with. Just import, \"SampleContract is Debuggable\"\nand then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.",
+          "documentation": "@title Debuggable\n@dev Contract that's meant to be extended in other contracts to give them\na debug event to test the code with. Just import, \"SampleContract is Debuggable\"\nand then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.\n@author Convoluted Labs",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [16],
+          "linearizedBaseContracts": [
+            16
+          ],
           "name": "Debuggable",
           "scope": 17
         },
@@ -97,29 +103,31 @@
                         },
                         "id": 2,
                         "name": "ElementaryTypeName",
-                        "src": "354:6:0"
+                        "src": "470:6:0"
                       }
                     ],
                     "id": 3,
                     "name": "VariableDeclaration",
-                    "src": "354:14:0"
+                    "src": "470:14:0"
                   }
                 ],
                 "id": 4,
                 "name": "ParameterList",
-                "src": "353:16:0"
+                "src": "469:16:0"
               }
             ],
             "id": 5,
             "name": "EventDefinition",
-            "src": "337:33:0"
+            "src": "453:33:0"
           },
           {
             "attributes": {
               "constant": false,
               "implemented": true,
               "isConstructor": false,
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "debug",
               "payable": false,
               "scope": 16,
@@ -149,26 +157,28 @@
                         },
                         "id": 6,
                         "name": "ElementaryTypeName",
-                        "src": "388:6:0"
+                        "src": "635:6:0"
                       }
                     ],
                     "id": 7,
                     "name": "VariableDeclaration",
-                    "src": "388:14:0"
+                    "src": "635:14:0"
                   }
                 ],
                 "id": 8,
                 "name": "ParameterList",
-                "src": "387:16:0"
+                "src": "634:16:0"
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 9,
                 "name": "ParameterList",
-                "src": "411:0:0"
+                "src": "658:0:0"
               },
               {
                 "children": [
@@ -182,7 +192,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -195,56 +207,60 @@
                                   "typeString": "string memory"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 5,
                               "type": "function (string memory)",
                               "value": "DebugEvent"
                             },
                             "id": 10,
                             "name": "Identifier",
-                            "src": "417:10:0"
+                            "src": "664:10:0"
                           },
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 7,
                               "type": "string memory",
                               "value": "message"
                             },
                             "id": 11,
                             "name": "Identifier",
-                            "src": "428:7:0"
+                            "src": "675:7:0"
                           }
                         ],
                         "id": 12,
                         "name": "FunctionCall",
-                        "src": "417:19:0"
+                        "src": "664:19:0"
                       }
                     ],
                     "id": 13,
                     "name": "ExpressionStatement",
-                    "src": "417:19:0"
+                    "src": "664:19:0"
                   }
                 ],
                 "id": 14,
                 "name": "Block",
-                "src": "411:30:0"
+                "src": "658:30:0"
               }
             ],
             "id": 15,
             "name": "FunctionDefinition",
-            "src": "373:68:0"
+            "src": "620:68:0"
           }
         ],
         "id": 16,
         "name": "ContractDefinition",
-        "src": "313:130:0"
+        "src": "325:366:0"
       }
     ],
     "id": 17,
     "name": "SourceUnit",
-    "src": "0:444:0"
+    "src": "0:692:0"
   },
   "compiler": {
     "name": "solc",
@@ -252,5 +268,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-02-19T13:27:30.444Z"
+  "updatedAt": "2018-02-23T09:05:43.076Z"
 }
