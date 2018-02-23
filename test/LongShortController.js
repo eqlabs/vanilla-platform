@@ -42,7 +42,7 @@ async function openLongShort(
 contract("LongShortController", ([owner, user, feeWallet]) => {
   let instance, oracle;
   const currencyPair = "ETH-USD";
-  const initialPrice = 900;
+  const initialPrice = new BigNumber("900");
   const highPrice = 900 + 900 * 0.5;
   const lowPrice = 900 - 900 * 0.5;
 

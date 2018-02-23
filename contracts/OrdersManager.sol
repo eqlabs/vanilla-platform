@@ -124,7 +124,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     @dev Returns order by orderID.
     Deconstructs the Order struct for returning. Leaves out the ownerSignature.
      
-    @param orderHash An unique hash that maps to an order
+    @param orderID An unique hash that maps to an order
     @return {
         "currencyPair": "string, describing the currency pair of the order",
         "positionType": "string, describing if the order is 'LONG' or 'SHORT'",
@@ -134,8 +134,8 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
         "balance": "uint256, balance of the order"
     }
     */
-    function getOrder(bytes32 orderHash) public view returns (string, string, uint, uint, address, uint256) {
-        Order memory order = orders[orderHash];
+    function getOrder(bytes32 orderID) public view returns (string, string, uint, uint, address, uint256) {
+        Order memory order = orders[orderID];
         return (order.currencyPair, order.positionType, order.duration, order.leverage, order.paymentAddress, order.balance);
     }
 
@@ -163,22 +163,17 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     
     Receives a singular payment with parameters to open an order with.
     
-    @param orderID A unique ID to create the order with. Will be hashed.
+    @param orderID A unique bytes32 ID to create the order with.
     @param currencyPair "ETH-USD" || "BTC-USD"
     @param positionType "LONG" || "SHORT"
     @param duration Duration of the LongShort in seconds. For example, 14 days = 1209600
     @param leverage uint of the wanted leverage
     @param paymentAddress address, to which the user wants the funds back whether he/she won or not
-    @return {
-        "orderHash": "Hashed unique ID for the new order"
-    }
     */
-    function createOrder(string orderID, string currencyPair, string positionType, uint duration, uint8 leverage, address paymentAddress) public payable returns (bytes32) {
-        // Calculate a hash of the order to uniquely identify orders
-        bytes32 orderHash = keccak256(orderID);
+    function createOrder(bytes32 orderID, string currencyPair, string positionType, uint duration, uint8 leverage, address paymentAddress) public payable {
 
         // Require that there isn't an order with this ID yet
-        require(orders[orderHash].paymentAddress == 0);
+        require(orders[orderID].paymentAddress == 0);
 
         // Check minimum and maximum bets
         require(msg.value >= MINIMUM_POSITION && msg.value <= MAXIMUM_POSITION);
@@ -200,13 +195,12 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
 
         cumulatedFee = cumulatedFee.add(fee);
 
-        // Map the orderHash to paramHash
-        orderIDs[parameterHash].push(orderHash);
-        // Map the order to the orderHash
-        orders[orderHash] = Order(currencyPair, positionType, duration, leverage, paymentAddress, balance, keccak256(msg.sender));
+        // Map the orderID to paramHash
+        orderIDs[parameterHash].push(orderID);
+        // Map the order to the orderID
+        orders[orderID] = Order(currencyPair, positionType, duration, leverage, paymentAddress, balance, keccak256(msg.sender));
 
         debug("New order received and saved.");
-        return orderHash;
     }
 
     /**
@@ -215,11 +209,11 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     Used by the backend after an order has been fully matched.
     Only callable by the owner.
     
-    @param orderHash The unique hash of the deletable order.
+    @param orderID The unique hash of the deletable order.
     */
-    function deleteOrder(bytes32 orderHash) public onlyOwner {
-        require(orders[orderHash].balance == 0);
-        delete orders[orderHash];
+    function deleteOrder(bytes32 orderID) public onlyOwner {
+        require(orders[orderID].balance == 0);
+        delete orders[orderID];
     }
 
     /**
@@ -227,12 +221,12 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     Used by the backend when an order was partially matched.
     Only callable by the owner.
     
-    @param orderHash The unique hash of the deletable order.
+    @param orderID The unique hash of the deletable order.
     @param newBalance The new balance of an order.
     */
-    function updateOrderBalance(bytes32 orderHash, uint256 newBalance) public onlyOwner {
-        Order memory modifiedOrder = orders[orderHash];
+    function updateOrderBalance(bytes32 orderID, uint256 newBalance) public onlyOwner {
+        Order memory modifiedOrder = orders[orderID];
         modifiedOrder.balance = newBalance;
-        orders[orderHash] = modifiedOrder;
+        orders[orderID] = modifiedOrder;
     }
 }

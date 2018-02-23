@@ -3,4 +3,3 @@ config/local*
 coverage/
 coverageEnv/
 scTopics
-build/
