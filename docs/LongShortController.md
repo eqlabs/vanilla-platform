@@ -3,28 +3,23 @@
   * [DebugEvent](#event-debugevent)
 * [LongShortController](#longshortcontroller)
   * [requireZeroSum](#function-requirezerosum)
-  * [openLongShort](#function-openlongshort)
   * [activeClosingDates](#function-activeclosingdates)
   * [getActiveClosingDates](#function-getactiveclosingdates)
   * [debug](#function-debug)
   * [linkOracle](#function-linkoracle)
   * [payRewards](#function-payrewards)
-  * [CURRENCY_PAIRS](#function-currency_pairs)
+  * [openLongShort](#function-openlongshort)
   * [oracle](#function-oracle)
   * [owner](#function-owner)
-  * [validateAllParameters](#function-validateallparameters)
   * [calculateReward](#function-calculatereward)
   * [oracleAddress](#function-oracleaddress)
-  * [POSITION_TYPES](#function-position_types)
   * [exercise](#function-exercise)
   * [getLongShortHashes](#function-getlongshorthashes)
   * [getLongShort](#function-getlongshort)
   * [LEVERAGES](#function-leverages)
   * [getRewardsLength](#function-getrewardslength)
   * [validateLeverage](#function-validateleverage)
-  * [validatePositionType](#function-validatepositiontype)
   * [transferOwnership](#function-transferownership)
-  * [validateCurrencyPair](#function-validatecurrencypair)
   * [DebugEvent](#event-debugevent)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [Oracle](#oracle)
@@ -44,13 +39,8 @@
 * [SafeMath](#safemath)
 * [Validatable](#validatable)
   * [requireZeroSum](#function-requirezerosum)
-  * [CURRENCY_PAIRS](#function-currency_pairs)
-  * [validateAllParameters](#function-validateallparameters)
-  * [POSITION_TYPES](#function-position_types)
   * [LEVERAGES](#function-leverages)
   * [validateLeverage](#function-validateleverage)
-  * [validatePositionType](#function-validatepositiontype)
-  * [validateCurrencyPair](#function-validatecurrencypair)
 
 # Debuggable
 
@@ -96,26 +86,6 @@ Inputs
 |-|-|-|
 | *bool[]* | isLongs | list of position types in boolean [true, false] |
 | *uint256[]* | balances | list of position amounts in wei |
-
-
-## *function* openLongShort
-
-LongShortController.openLongShort(parameterHash, currencyPair, duration, leverage, ownerSignatures, paymentAddresses, balances, isLongs) `payable` `0ff7d25c`
-
-> LongShort activator function. Called by OrdersManager.
-
-Inputs
-
-| | | |
-|-|-|-|
-| *bytes32* | parameterHash | undefined |
-| *string* | currencyPair | undefined |
-| *uint256* | duration | undefined |
-| *uint8* | leverage | undefined |
-| *bytes32[]* | ownerSignatures | undefined |
-| *address[]* | paymentAddresses | undefined |
-| *uint256[]* | balances | undefined |
-| *bool[]* | isLongs | undefined |
 
 
 ## *function* activeClosingDates
@@ -172,16 +142,24 @@ LongShortController.payRewards() `nonpayable` `7288e961`
 
 
 
-## *function* CURRENCY_PAIRS
+## *function* openLongShort
 
-LongShortController.CURRENCY_PAIRS() `view` `7a03aa3f`
+LongShortController.openLongShort(parameterHash, currencyPair, duration, leverage, ownerSignatures, paymentAddresses, balances, isLongs) `payable` `750614c7`
 
+> LongShort activator function. Called by OrdersManager.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint256* |  | undefined |
+| *bytes32* | parameterHash | undefined |
+| *bytes32* | currencyPair | undefined |
+| *uint256* | duration | undefined |
+| *uint8* | leverage | undefined |
+| *bytes32[]* | ownerSignatures | undefined |
+| *address[]* | paymentAddresses | undefined |
+| *uint256[]* | balances | undefined |
+| *bool[]* | isLongs | undefined |
 
 
 ## *function* oracle
@@ -198,20 +176,6 @@ LongShortController.owner() `view` `8da5cb5b`
 
 
 
-
-
-## *function* validateAllParameters
-
-LongShortController.validateAllParameters(currencyPair, positionType, leverage) `view` `a22d3dd2`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
-| *string* | positionType | undefined |
-| *uint8* | leverage | undefined |
 
 
 ## *function* calculateReward
@@ -236,18 +200,6 @@ LongShortController.oracleAddress() `view` `a89ae4ba`
 
 
 
-
-
-## *function* POSITION_TYPES
-
-LongShortController.POSITION_TYPES() `view` `ae2ed20f`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
 
 
 ## *function* exercise
@@ -318,18 +270,6 @@ Inputs
 | *uint8* | leverage | undefined |
 
 
-## *function* validatePositionType
-
-LongShortController.validatePositionType(positionType) `view` `e7a026f1`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | positionType | undefined |
-
-
 ## *function* transferOwnership
 
 LongShortController.transferOwnership(newOwner) `nonpayable` `f2fde38b`
@@ -341,18 +281,6 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | newOwner | The address to transfer ownership to. |
-
-
-## *function* validateCurrencyPair
-
-LongShortController.validateCurrencyPair(currencyPair) `view` `fa748eac`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
 
 ## *event* DebugEvent
 
@@ -541,44 +469,6 @@ Inputs
 | *uint256[]* | balances | list of position amounts in wei |
 
 
-## *function* CURRENCY_PAIRS
-
-Validatable.CURRENCY_PAIRS() `view` `7a03aa3f`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
-
-
-## *function* validateAllParameters
-
-Validatable.validateAllParameters(currencyPair, positionType, leverage) `view` `a22d3dd2`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
-| *string* | positionType | undefined |
-| *uint8* | leverage | undefined |
-
-
-## *function* POSITION_TYPES
-
-Validatable.POSITION_TYPES() `view` `ae2ed20f`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
-
-
 ## *function* LEVERAGES
 
 Validatable.LEVERAGES() `view` `cf90f950`
@@ -601,30 +491,6 @@ Inputs
 | | | |
 |-|-|-|
 | *uint8* | leverage | undefined |
-
-
-## *function* validatePositionType
-
-Validatable.validatePositionType(positionType) `view` `e7a026f1`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | positionType | undefined |
-
-
-## *function* validateCurrencyPair
-
-Validatable.validateCurrencyPair(currencyPair) `view` `fa748eac`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
 
 
 ---

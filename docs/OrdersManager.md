@@ -4,26 +4,21 @@
 * [OrdersManager](#ordersmanager)
   * [getOpenParameterHashes](#function-getopenparameterhashes)
   * [requireZeroSum](#function-requirezerosum)
-  * [setSignature](#function-setsignature)
   * [debug](#function-debug)
   * [getOpenOrderIDs](#function-getopenorderids)
   * [getOrder](#function-getorder)
-  * [createOrder](#function-createorder)
-  * [CURRENCY_PAIRS](#function-currency_pairs)
   * [MINIMUM_POSITION](#function-minimum_position)
+  * [setSignature](#function-setsignature)
   * [deleteOrder](#function-deleteorder)
   * [owner](#function-owner)
   * [updateOrderBalance](#function-updateorderbalance)
   * [setFeeWallet](#function-setfeewallet)
-  * [validateAllParameters](#function-validateallparameters)
-  * [POSITION_TYPES](#function-position_types)
+  * [createOrder](#function-createorder)
   * [LEVERAGES](#function-leverages)
   * [validateLeverage](#function-validateleverage)
-  * [validatePositionType](#function-validatepositiontype)
   * [withdrawFee](#function-withdrawfee)
   * [MAXIMUM_POSITION](#function-maximum_position)
   * [transferOwnership](#function-transferownership)
-  * [validateCurrencyPair](#function-validatecurrencypair)
   * [DebugEvent](#event-debugevent)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [Ownable](#ownable)
@@ -33,13 +28,8 @@
 * [SafeMath](#safemath)
 * [Validatable](#validatable)
   * [requireZeroSum](#function-requirezerosum)
-  * [CURRENCY_PAIRS](#function-currency_pairs)
-  * [validateAllParameters](#function-validateallparameters)
-  * [POSITION_TYPES](#function-position_types)
   * [LEVERAGES](#function-leverages)
   * [validateLeverage](#function-validateleverage)
-  * [validatePositionType](#function-validatepositiontype)
-  * [validateCurrencyPair](#function-validatecurrencypair)
 
 # Debuggable
 
@@ -101,19 +91,6 @@ Inputs
 | *uint256[]* | balances | list of position amounts in wei |
 
 
-## *function* setSignature
-
-OrdersManager.setSignature(signingSecret) `nonpayable` `2782fb22`
-
-> Setter for the contract signature Only callable by the owner.
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | signingSecret | a salt used in parameter and order hashing |
-
-
 ## *function* debug
 
 OrdersManager.debug(message) `nonpayable` `2f50fbfa`
@@ -161,42 +138,12 @@ Outputs
 
 | | | |
 |-|-|-|
-| *string* |  | undefined |
-| *string* |  | undefined |
+| *bytes7* |  | undefined |
+| *bytes5* |  | undefined |
 | *uint256* |  | undefined |
 | *uint256* |  | undefined |
 | *address* |  | undefined |
 | *uint256* |  | undefined |
-
-## *function* createOrder
-
-OrdersManager.createOrder(orderID, currencyPair, positionType, duration, leverage, paymentAddress) `payable` `64bcfd7c`
-
-> Open order creation, the main endpoint for Vanilla platform. Mainly called by Vanilla's own backend, but open for everyone who knows how to use the smart contract on its own. Receives a singular payment with parameters to open an order with.
-
-Inputs
-
-| | | |
-|-|-|-|
-| *bytes32* | orderID | A unique bytes32 ID to create the order with. |
-| *string* | currencyPair | "ETH-USD" || "BTC-USD" |
-| *string* | positionType | "LONG" || "SHORT" |
-| *uint256* | duration | Duration of the LongShort in seconds. For example, 14 days = 1209600 |
-| *uint8* | leverage | uint of the wanted leverage |
-| *address* | paymentAddress | address, to which the user wants the funds back whether he/she won or not |
-
-
-## *function* CURRENCY_PAIRS
-
-OrdersManager.CURRENCY_PAIRS() `view` `7a03aa3f`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
-
 
 ## *function* MINIMUM_POSITION
 
@@ -204,6 +151,19 @@ OrdersManager.MINIMUM_POSITION() `view` `7a0b89d3`
 
 
 
+
+
+## *function* setSignature
+
+OrdersManager.setSignature(signingSecret) `nonpayable` `7f591fe2`
+
+> Setter for the contract signature Only callable by the owner.
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes32* | signingSecret | a salt used in parameter and order hashing |
 
 
 ## *function* deleteOrder
@@ -254,30 +214,22 @@ Inputs
 | *address* | feeWalletAddress | upcoming address that receives the fees |
 
 
-## *function* validateAllParameters
+## *function* createOrder
 
-OrdersManager.validateAllParameters(currencyPair, positionType, leverage) `view` `a22d3dd2`
+OrdersManager.createOrder(orderID, currencyPair, positionType, duration, leverage, paymentAddress) `payable` `b0387e34`
 
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
-| *string* | positionType | undefined |
-| *uint8* | leverage | undefined |
-
-
-## *function* POSITION_TYPES
-
-OrdersManager.POSITION_TYPES() `view` `ae2ed20f`
-
+> Open order creation, the main endpoint for Vanilla platform. Mainly called by Vanilla's own backend, but open for everyone who knows how to use the smart contract on its own. Receives a singular payment with parameters to open an order with.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint256* |  | undefined |
+| *bytes32* | orderID | A unique bytes32 ID to create the order with. |
+| *bytes7* | currencyPair | "ETH-USD" || "BTC-USD" |
+| *bytes5* | positionType | "LONG" || "SHORT" |
+| *uint256* | duration | Duration of the LongShort in seconds. For example, 14 days = 1209600 |
+| *uint8* | leverage | uint of the wanted leverage |
+| *address* | paymentAddress | address, to which the user wants the funds back whether he/she won or not |
 
 
 ## *function* LEVERAGES
@@ -302,18 +254,6 @@ Inputs
 | | | |
 |-|-|-|
 | *uint8* | leverage | undefined |
-
-
-## *function* validatePositionType
-
-OrdersManager.validatePositionType(positionType) `view` `e7a026f1`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | positionType | undefined |
 
 
 ## *function* withdrawFee
@@ -344,18 +284,6 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | newOwner | The address to transfer ownership to. |
-
-
-## *function* validateCurrencyPair
-
-OrdersManager.validateCurrencyPair(currencyPair) `view` `fa748eac`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
 
 ## *event* DebugEvent
 
@@ -438,44 +366,6 @@ Inputs
 | *uint256[]* | balances | list of position amounts in wei |
 
 
-## *function* CURRENCY_PAIRS
-
-Validatable.CURRENCY_PAIRS() `view` `7a03aa3f`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
-
-
-## *function* validateAllParameters
-
-Validatable.validateAllParameters(currencyPair, positionType, leverage) `view` `a22d3dd2`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
-| *string* | positionType | undefined |
-| *uint8* | leverage | undefined |
-
-
-## *function* POSITION_TYPES
-
-Validatable.POSITION_TYPES() `view` `ae2ed20f`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
-
-
 ## *function* LEVERAGES
 
 Validatable.LEVERAGES() `view` `cf90f950`
@@ -498,30 +388,6 @@ Inputs
 | | | |
 |-|-|-|
 | *uint8* | leverage | undefined |
-
-
-## *function* validatePositionType
-
-Validatable.validatePositionType(positionType) `view` `e7a026f1`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | positionType | undefined |
-
-
-## *function* validateCurrencyPair
-
-Validatable.validateCurrencyPair(currencyPair) `view` `fa748eac`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | currencyPair | undefined |
 
 
 ---
