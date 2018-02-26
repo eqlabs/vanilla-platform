@@ -7,11 +7,11 @@ A bunch of Solidity smart contracts handling trustless derivatives on the Ethere
     make install
     make explorer
 
-This will run the `start-rpc` and the `start-explorer` make commands.The explorer is available at http://localhost:8000
+This will run the `start-rpc` and the `start-explorer` make commands. The explorer is available at http://localhost:8000
 
 The accounts and corresponding keys generated are listed in [test-accounts.md](test-accounts.md)
 
-To view available addresses and such run:
+To view logs of the rpc run:
 
     make rpc-logs
 
