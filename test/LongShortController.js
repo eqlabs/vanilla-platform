@@ -43,8 +43,10 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
   let instance, oracle;
   const currencyPair = "ETH-USD";
   const initialPrice = new BigNumber("900");
-  const highPrice = initialPrice.div(2).add(initialPrice);
-  const lowPrice = initialPrice.sub(initialPrice.div(2));
+  const decreasedPrice = initialPrice.sub("100");
+  const increasedPrice = initialPrice.add("100");
+  const highPrice = initialPrice.div("2").add(initialPrice);
+  const lowPrice = initialPrice.sub(initialPrice.div("2"));
 
   beforeEach(
     "Start a new instance of the contract for each test",
@@ -286,7 +288,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     controllerBalance.should.be.bignumber.equal(0);
   });
 
-  it("Should calculate rewards correctly for long positions on price decrease", async () => {
+  it("Should calculate rewards correctly for long positions on maximum price decrease", async () => {
     const balance = 8000;
     const reward = await instance.calculateReward(
       true,
@@ -299,7 +301,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
     reward.should.be.bignumber.equal(0);
   });
 
-  it("Should calculate rewards correctly for long positions on price increase", async () => {
+  it("Should calculate rewards correctly for long positions on maximum price increase", async () => {
     const balance = 8000;
     const reward = await instance.calculateReward(
       true,
@@ -310,5 +312,45 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       { from: user }
     );
     reward.should.be.bignumber.equal(balance * 2);
+  });
+
+  it("Should calculate rewards correctly for short positions on a little price decrease", async () => {
+    const balance = new BigNumber("8000");
+    const reward = await instance.calculateReward(
+      false,
+      balance,
+      2,
+      initialPrice,
+      decreasedPrice,
+      { from: user }
+    );
+    const priceDiff = initialPrice.sub(decreasedPrice);
+    const diffPercentage = priceDiff
+      .mul("100")
+      .mul("2")
+      .div(initialPrice);
+    const balanceDiff = balance.mul(diffPercentage).div("100");
+    const expectedReward = balance.add(balanceDiff);
+    reward.should.be.bignumber.equal(expectedReward);
+  });
+
+  it("Should calculate rewards correctly for short positions on a little price increase", async () => {
+    const balance = new BigNumber("8000");
+    const reward = await instance.calculateReward(
+      false,
+      balance,
+      2,
+      initialPrice,
+      increasedPrice,
+      { from: user }
+    );
+    const priceDiff = increasedPrice.sub(initialPrice);
+    const diffPercentage = priceDiff
+      .mul("100")
+      .mul("2")
+      .div(initialPrice);
+    const balanceDiff = balance.mul(diffPercentage).div("100");
+    const expectedReward = balance.sub(balanceDiff);
+    reward.should.be.bignumber.equal(expectedReward);
   });
 });

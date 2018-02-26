@@ -151,8 +151,8 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         if (startingPrice > closingPrice) {
 
             priceDiff = startingPrice.sub(closingPrice);
-            diffPercentage = priceDiff.mul(leverage).div(startingPrice);
-            balanceDiff = balance.mul(diffPercentage);
+            diffPercentage = priceDiff.mul(100).mul(leverage).div(startingPrice);
+            balanceDiff = balance.mul(diffPercentage).div(100);
 
             if (balanceDiff > balance) {
                 balanceDiff = balance;
@@ -167,8 +167,8 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         } else {
 
             priceDiff = closingPrice.sub(startingPrice);
-            diffPercentage = priceDiff.mul(leverage).div(startingPrice);
-            balanceDiff = balance.mul(diffPercentage);
+            diffPercentage = priceDiff.mul(100).mul(leverage).div(startingPrice);
+            balanceDiff = balance.mul(diffPercentage).div(100);
 
             if (balanceDiff > balance) {
                 balanceDiff = balance;
