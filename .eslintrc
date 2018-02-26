@@ -16,7 +16,9 @@
     "mocha/no-exclusive-tests": "error"
   },
   "globals": {
-    "artifacts": true
+    "artifacts": true,
+    "contract": true,
+    "web3": true
   },
   "overrides": [
     {
