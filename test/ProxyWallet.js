@@ -1,9 +1,7 @@
-// eslint-disable-next-line
 const ProxyWallet = artifacts.require("../contracts/ProxyWallet.sol");
 // eslint-disable-next-line
 const { should } = require("./helpers");
 
-// eslint-disable-next-line
 contract("ProxyWallet", accounts => {
   let instance;
 

@@ -1,8 +1,6 @@
-// eslint-disable-next-line
 const LongShortController = artifacts.require(
   "../contracts/LongShortController.sol"
 );
-// eslint-disable-next-line
 const Oracle = artifacts.require("../contracts/Oracle.sol");
 // eslint-disable-next-line
 const { should, BigNumber } = require("./helpers");
@@ -38,8 +36,7 @@ async function openLongShort(
   );
 }
 
-// eslint-disable-next-line
-contract("LongShortController", ([owner, user, feeWallet]) => {
+contract("LongShortController", ([owner, user]) => {
   let instance, oracle;
   const currencyPair = "ETH-USD";
   const initialPrice = new BigNumber("900");
@@ -100,7 +97,6 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       isLongs
     );
 
-    //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
     balance.should.be.bignumber.equal(totalBalance);
   });
@@ -216,10 +212,9 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       isLongs
     );
 
-    //eslint-disable-next-line
     const closingDates = await instance.getActiveClosingDates();
 
-    closingDates.should.have.length.gt(0);
+    closingDates.should.not.be.empty;
   });
 
   it("Should be able to exercise LongShorts on closing date", async () => {
@@ -259,8 +254,7 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
       from: owner
     });
 
-    //eslint-disable-next-line
-    const closingDates = await instance.getActiveClosingDates();
+    let closingDates = await instance.getActiveClosingDates();
 
     const longShortHashes = await instance.getLongShortHashes(closingDates[0], {
       from: owner
@@ -282,10 +276,12 @@ contract("LongShortController", ([owner, user, feeWallet]) => {
 
     rewardsLength.c[0].should.equal(0);
 
-    //eslint-disable-next-line
     const controllerBalance = await web3.eth.getBalance(instance.address);
 
     controllerBalance.should.be.bignumber.equal(0);
+
+    closingDates = await instance.getActiveClosingDates();
+    closingDates.should.be.empty;
   });
 
   it("Should calculate rewards correctly for long positions on maximum price decrease", async () => {

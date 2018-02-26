@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 const OrdersManager = artifacts.require("../contracts/OrdersManager.sol");
 // eslint-disable-next-line
 const { should, BigNumber } = require("./helpers");
@@ -47,7 +46,6 @@ async function createShortOrder(
   );
 }
 
-// eslint-disable-next-line
 contract("OrdersManager", ([owner, user, feeWallet]) => {
   let instance, minimumPosition, maximumPosition;
 
@@ -59,8 +57,6 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
       minimumPosition = new BigNumber(minimumPosition);
       maximumPosition = await instance.MAXIMUM_POSITION.call();
       maximumPosition = new BigNumber(maximumPosition);
-      //eslint-disable-next-line
-      //gasLimit = await web3.eth.estimateGas();
     }
   );
 
@@ -90,14 +86,12 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
 
   it("Should be able to create a new short order with minimum position", async () => {
     await createShortOrder(instance, "ebin", 14, 2, user, minimumPosition);
-    //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
     balance.should.be.bignumber.equal(minimumPosition);
   });
 
   it("Should be able to create a new long order with minimum position", async () => {
     await createLongOrder(instance, "ebin", 14, 2, user, minimumPosition);
-    //eslint-disable-next-line
     const balance = await web3.eth.getBalance(instance.address);
     balance.should.be.bignumber.equal(minimumPosition);
   });
@@ -219,7 +213,6 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     await instance.setFeeWallet(feeWallet, {
       from: owner
     });
-    //eslint-disable-next-line
     const initialBalance = await web3.eth.getBalance(feeWallet);
     await instance.createOrder("ebin", "ETH-USD", "SHORT", 14, 2, user, {
       from: user,
@@ -232,7 +225,6 @@ contract("OrdersManager", ([owner, user, feeWallet]) => {
     await instance.withdrawFee({
       from: owner
     });
-    //eslint-disable-next-line
     const feeWalletBalance = await web3.eth.getBalance(feeWallet);
     feeWalletBalance.should.be.bignumber.equal(
       initialBalance.add(
