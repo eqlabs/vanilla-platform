@@ -248,12 +248,13 @@ Inputs
 
 OrdersManager.validateLeverage(leverage) `view` `d806476d`
 
+> Helper function to restrict users from opening orders with any other than predefined leverages.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint8* | leverage | undefined |
+| *uint8* | leverage | an uint8 number |
 
 
 ## *function* withdrawFee
@@ -382,12 +383,13 @@ Inputs
 
 Validatable.validateLeverage(leverage) `view` `d806476d`
 
+> Helper function to restrict users from opening orders with any other than predefined leverages.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint8* | leverage | undefined |
+| *uint8* | leverage | an uint8 number |
 
 
 ---

@@ -104,9 +104,15 @@ Inputs
 
 LongShortController.getActiveClosingDates() `view` `1c6d1138`
 
+> Gets all active closing dates from the contract
 
 
 
+Outputs
+
+| | | |
+|-|-|-|
+| *uint256[]* | closingDates | uint[] |
 
 ## *function* debug
 
@@ -138,6 +144,7 @@ Inputs
 
 LongShortController.payRewards() `nonpayable` `7288e961`
 
+> Pays all queued rewards to their corresponding addresses
 
 
 
@@ -182,17 +189,23 @@ LongShortController.owner() `view` `8da5cb5b`
 
 LongShortController.calculateReward(isLong, balance, leverage, startingPrice, closingPrice) `pure` `a3cfb754`
 
+> Calculates reward for a single position with given parameters
 
 Inputs
 
 | | | |
 |-|-|-|
-| *bool* | isLong | undefined |
-| *uint256* | balance | undefined |
-| *uint8* | leverage | undefined |
-| *uint256* | startingPrice | undefined |
-| *uint256* | closingPrice | undefined |
+| *bool* | isLong | boolean { true: "LONG", false: "SHORT" } |
+| *uint256* | balance | the original stake of the user (uint256) |
+| *uint8* | leverage | the leverage of the LongShort (uint8) |
+| *uint256* | startingPrice | (uint256) |
+| *uint256* | closingPrice | (uint256) |
 
+Outputs
+
+| | | |
+|-|-|-|
+| *uint256* | reward | uint256 |
 
 ## *function* oracleAddress
 
@@ -206,37 +219,52 @@ LongShortController.oracleAddress() `view` `a89ae4ba`
 
 LongShortController.exercise(longShortHash) `nonpayable` `c6daf4eb`
 
+> A function that exercises an option on it's expiry, effectively calculating rewards and closing positions
 
 Inputs
 
 | | | |
 |-|-|-|
-| *bytes32* | longShortHash | undefined |
+| *bytes32* | longShortHash | the unique ID for a single LongShort |
 
 
 ## *function* getLongShortHashes
 
 LongShortController.getLongShortHashes(closingDate) `view` `c83e2d4d`
 
+> Get LongShort identifiers/hashes by closing date. Only callable by the owner.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint256* | closingDate | undefined |
+| *uint256* | closingDate | (uint) |
 
+Outputs
+
+| | | |
+|-|-|-|
+| *bytes32[]* | hashes | bytes32[] |
 
 ## *function* getLongShort
 
 LongShortController.getLongShort(longShortHash) `view` `cdc06c91`
 
+> Get a single LongShort with its identifier Only callable by the owner.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *bytes32* | longShortHash | undefined |
+| *bytes32* | longShortHash | (bytes32) |
 
+Outputs
+
+| | | |
+|-|-|-|
+| *bytes32* | currencyPair | bytes32[] |
+| *uint256* | startingPrice | uint256 |
+| *uint8* | leverage | uint8 |
 
 ## *function* LEVERAGES
 
@@ -254,20 +282,27 @@ Inputs
 
 LongShortController.getRewardsLength() `view` `d7da1dee`
 
+> Get the length of all queued rewards
 
 
 
+Outputs
+
+| | | |
+|-|-|-|
+| *uint256* | rewardsLength | uint |
 
 ## *function* validateLeverage
 
 LongShortController.validateLeverage(leverage) `view` `d806476d`
 
+> Helper function to restrict users from opening orders with any other than predefined leverages.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint8* | leverage | undefined |
+| *uint8* | leverage | an uint8 number |
 
 
 ## *function* transferOwnership
@@ -485,12 +520,13 @@ Inputs
 
 Validatable.validateLeverage(leverage) `view` `d806476d`
 
+> Helper function to restrict users from opening orders with any other than predefined leverages.
 
 Inputs
 
 | | | |
 |-|-|-|
-| *uint8* | leverage | undefined |
+| *uint8* | leverage | an uint8 number |
 
 
 ---
