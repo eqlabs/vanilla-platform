@@ -11,17 +11,33 @@ and then in the SampleContract, writing debug("event") will write an event in th
 contract Debuggable {
 
   /**
-  @dev The triggerable debug event
+  @dev String debugger
   @param message string that's written in the blockchain
   */
-  event DebugEvent(string message);
+  event DebugString(string message);
 
   /**
-  @dev Debug function that gets injected to extending contracts
-  @param message the message that we want to log/debug
+  @dev String with value debugger
+  @param message string that's written in the blockchain
+  @param value uint that's written in the blockchain
   */
-  function debug(string message) public {
-    DebugEvent(message);
+  event DebugWithValue(string message, uint value);
+
+  /**
+  @dev Debug a string
+  @param message
+  */
+  function debugString(string message) public {
+    DebugString(message);
+  }
+
+  /**
+  @dev Debug a string with a value
+  @param message
+  @param value
+  */
+  function debugWithValue(string message, uint value) public {
+    DebugWithValue(message, value);
   }
 
 }

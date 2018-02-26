@@ -37,6 +37,6 @@ contract Oracle is Ownable, Debuggable {
     timesUpdated.push(block.timestamp);
     priceByTime[block.timestamp] = _latestPrice;
     latestPrice = _latestPrice;
-    debug("Oracle price updated!");
+    debugString("Oracle price updated!");
   }
 }

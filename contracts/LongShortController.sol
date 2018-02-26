@@ -63,11 +63,11 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     function linkOracle(address _oracleAddress) public onlyOwner {
         oracleAddress = _oracleAddress;
         oracle = Oracle(oracleAddress);
-        debug("Oracle linked");
+        debugString("Oracle linked");
     }
 
     /**
-    @dev LongShort activator function. Called by OrdersManager.
+    @dev LongShort opener function. Can only be called by the owner.
     */
     function openLongShort(bytes32 parameterHash, bytes32 currencyPair, uint duration, uint8 leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
         /// Input validation
@@ -89,7 +89,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         longShortHashes[closingDate].push(longShortHash);
         longShorts[longShortHash] = LongShort(currencyPair, startingPrice, closingDate, leverage);
 
-        debug("New LongShort activated.");
+        debugString("New LongShort activated.");
     }
 
     /**
@@ -195,6 +195,11 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         return rewards.length;
     }
 
+    function unlinkLongShortFromClosingDate(bytes32 longShortHash, uint closingDate) internal {
+        for (uint8 i = 0;)
+    }
+
+
     /**
     @dev A function that exercises an option on it's expiry,
     effectively calculating rewards and closing positions
@@ -205,11 +210,11 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         LongShort memory longShort = longShorts[longShortHash];
 
         require(longShort.closingDate <= block.timestamp);
-        debug("Given closingDate is over it's expiry.");
+        debugString("Given closingDate is over it's expiry.");
 
         uint positionsLength = positions[longShortHash].length;
 
-        debug("Calculating rewards...");
+        debugString("Calculating rewards...");
 
         Position[] memory positionsForHash = positions[longShortHash];
 
@@ -227,7 +232,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
                 )
             );
             delete positions[longShortHash];
-            debug("New reward calculated, position ended");
+            debugString("New reward calculated, position ended");
         }
 
         delete longShorts[longShortHash];
@@ -240,7 +245,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         for (uint8 paymentNum = 0; paymentNum < rewards.length; paymentNum++) {
             rewards[paymentNum].paymentAddress.transfer(rewards[paymentNum].balance);
             delete rewards[paymentNum];
-            debug("Reward paid!");
+            debugString("Reward paid!");
         }
         rewards.length = 0;
     }

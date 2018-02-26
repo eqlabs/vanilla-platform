@@ -60,7 +60,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
-        debug("Fee wallet set.");
+        debugString("Fee wallet set.");
     }
 
     /**
@@ -71,7 +71,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     */
     function setSignature(bytes32 signingSecret) public onlyOwner {
         signature = signingSecret;
-        debug("Signature set.");
+        debugString("Signature set.");
     }
 
     /**
@@ -92,7 +92,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
         require(cumulatedFee > 0 wei);
         feeWallet.transfer(cumulatedFee);
         cumulatedFee = 0;
-        debug("Fees withdrawn.");
+        debugString("Fees withdrawn.");
     }
 
     /**
@@ -148,10 +148,10 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     */
     function parameterHashExists(bytes32 parameterHash) private returns (bool) {
         if (orderIDs[parameterHash].length > 0) {
-            debug("Parameter hash exists.");
+            debugString("Parameter hash exists.");
             return true;
         }
-        debug("Parameter hash doesn't exist.");
+        debugString("Parameter hash doesn't exist.");
         return false;
     }
 
@@ -200,7 +200,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
         // Map the order to the orderID
         orders[orderID] = Order(currencyPair, positionType, duration, leverage, paymentAddress, balance, keccak256(msg.sender));
 
-        debug("New order received and saved.");
+        debugString("New order received and saved.");
     }
 
     /**
