@@ -46,6 +46,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
         bytes7 currencyPair;
         bytes5 positionType;
         uint duration;
+        uint expiryTime;
         uint leverage;
         address paymentAddress;
         uint256 balance;
@@ -126,12 +127,12 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
      
     @param orderID An unique hash that maps to an order
     @return {
-        "currencyPair": "bytes32, describing the currency pair of the order",
-        "positionType": "bytes32, describing if the order is 'LONG' or 'SHORT'",
-        "duration": "uint, duration of the order in seconds",
-        "leverage": "uint, leverage of the LongShort",
-        "paymentAddress": "address, to which the refunds and rewards are paid",
-        "balance": "uint256, balance of the order"
+        "currencyPair": "describing the currency pair of the order",
+        "positionType": "describing if the order is 'LONG' or 'SHORT'",
+        "duration": "duration of the order in seconds",
+        "leverage": "leverage of the LongShort",
+        "paymentAddress": "address to which the refunds and rewards are paid",
+        "balance": "balance of the order"
     }
     */
     function getOrder(bytes32 orderID) public view returns (bytes7, bytes5, uint, uint, address, uint256) {
@@ -198,7 +199,7 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
         // Map the orderID to paramHash
         orderIDs[parameterHash].push(orderID);
         // Map the order to the orderID
-        orders[orderID] = Order(currencyPair, positionType, duration, leverage, paymentAddress, balance, keccak256(msg.sender));
+        orders[orderID] = Order(currencyPair, positionType, duration, block.timestamp.add(12 hours), leverage, paymentAddress, balance, keccak256(msg.sender));
 
         debugString("New order received and saved.");
     }
@@ -213,6 +214,17 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     */
     function deleteOrder(bytes32 orderID) public onlyOwner {
         require(orders[orderID].balance == 0);
+        delete orders[orderID];
+    }
+
+    /**
+    @dev Refunds an order by hash after its expiry
+    
+    @param orderID The unique hash of the deletable order.
+    */
+    function refund(bytes32 orderID) public {
+        require(orders[orderID].expiryTime < block.timestamp);
+        orders[orderID].paymentAddress.transfer(orders[orderID].balance);
         delete orders[orderID];
     }
 
