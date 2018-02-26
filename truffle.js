@@ -1,13 +1,18 @@
 module.exports = {
   networks: {
     development: {
-      host: "ganache-cli",
+      host: "vanilla-rpc",
+      port: 8545,
+      network_id: "*"
+    },
+    test: {
+      host: "test-rpc",
       port: 8545,
       network_id: "*"
     },
     // Duplicate, but required for the coverage tool to work
     coverage: {
-      host: "ganache-cli",
+      host: "test-rpc",
       port: 8545,
       network_id: "*"
     }

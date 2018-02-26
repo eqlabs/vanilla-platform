@@ -15,6 +15,11 @@
     "node/no-unsupported-features": "off",
     "mocha/no-exclusive-tests": "error"
   },
+  "globals": {
+    "artifacts": true,
+    "contract": true,
+    "web3": true
+  },
   "overrides": [
     {
       "files": "test/**/*.js",
