@@ -31,7 +31,7 @@ contract Oracle is Ownable, Debuggable {
     function setLatestPrices(bytes7[] _currencyPairs, uint256[] _prices) public onlyOwner {
         require(_currencyPairs.length == _prices.length);
         timesUpdated.push(block.timestamp);
-        for (uint8 i = 0; i < _currencyPairs.length; i++) {
+        for (uint i = 0; i < _currencyPairs.length; i++) {
             price[_currencyPairs[i]] = _prices[i];
             pricesByTime[block.timestamp].push(Price(_currencyPairs[i], _prices[i]));
         }
