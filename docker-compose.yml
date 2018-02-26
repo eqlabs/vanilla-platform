@@ -9,23 +9,23 @@ services:
       - .:/home/node/app
     working_dir: /home/node/app
 
-  install:
-    extends:
-      service: base-dev
-    command: yarn install
-
   dev:
     extends:
       service: base-dev
-    command: yarn develop
-    links:
-      - ganache-cli
-      - eth-explorer
 
-  docs:
+  dev-network:
     extends:
       service: base-dev
-    command: yarn docs
+    network_mode: bridge
+    external_links:
+      - vanilla-rpc:vanilla-rpc
+
+  test-network:
+    extends:
+      service: base-dev
+    network_mode: bridge
+    external_links:
+      - test-rpc:test-rpc
 
   servedocs:
     extends:
@@ -33,38 +33,3 @@ services:
     command: yarn servedocs
     ports:
       - "3000:3000"
-
-  test:
-    extends:
-      service: base-dev
-    links:
-      - ganache-cli
-    command: yarn test
-
-  coverage:
-    extends:
-      service: base-dev
-    links:
-      - ganache-cli
-    command: yarn coverage
-
-  coverage-explorer:
-    extends:
-      service: base-dev
-    ports:
-      - "8080:8080"
-    command: yarn coverage-explorer
-
-  ganache-cli:
-    image: trufflesuite/ganache-cli:latest
-    networks:
-      - default
-    ports:
-      - "8545:8545"
-
-  eth-explorer:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile-eth-explorer
-    ports:
-      - "8000:8000"

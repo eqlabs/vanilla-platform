@@ -15,6 +15,9 @@
     "node/no-unsupported-features": "off",
     "mocha/no-exclusive-tests": "error"
   },
+  "globals": {
+    "artifacts": true
+  },
   "overrides": [
     {
       "files": "test/**/*.js",

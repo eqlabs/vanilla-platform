@@ -2,7 +2,30 @@
 
 A bunch of Solidity smart contracts handling trustless derivatives on the Ethereum blockchain.
 
-## Installing
+## Local ethereum network with explorer
+
+    make install
+    make explorer
+
+This will run the `start-rpc` and the `start-explorer` make commands.The explorer is available at http://localhost:8000
+
+To **deploy** the contracts from this project run:
+
+    make migrate
+
+The command will run a `migrate --reset` so everything will be migrated from the beginning.
+
+To **stop** the network and explorer run:
+
+    make stop
+
+The network is persistent. To **reset** everything run:
+
+    make clear
+
+## Some commands
+
+### Installing
 
 ```bash
 make install
@@ -14,7 +37,7 @@ OR
 yarn install
 ```
 
-## Running tests
+### Running tests
 
 ```bash
 make test
@@ -26,7 +49,7 @@ OR
 yarn test
 ```
 
-## Generating documentation
+### Generating documentation
 
 ```bash
 yarn docs
@@ -34,7 +57,7 @@ yarn docs
 
 You need to have solc installed in your PATH to do this.
 
-## Browse documentation
+### Browse documentation
 
 Either open ./docs/index.html with your browser, or:
 
@@ -42,13 +65,13 @@ Either open ./docs/index.html with your browser, or:
 make servedocs
 ```
 
-## Checking test coverage (IS BROKEN)
+### Checking test coverage (IS BROKEN)
 
 ```bash
 make coverage
 ```
 
-## Exploring the generated Istanbul coverage documentation
+### Exploring the generated Istanbul coverage documentation
 
 ```bash
 make coverage-explorer
