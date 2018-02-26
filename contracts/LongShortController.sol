@@ -53,6 +53,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     // Queued rewards
     Reward[] private rewards;
 
+    // Price oracle contract and address
     Oracle public oracle;
     address public oracleAddress;
 
@@ -91,20 +92,58 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         debug("New LongShort activated.");
     }
 
-    function getActiveClosingDates() public view returns (uint[]) {
+    /**
+    @dev Gets all active closing dates from the contract
+
+    @return {
+        "closingDates": "uint[]"
+    }
+    */
+    function getActiveClosingDates() public view returns (uint[] closingDates) {
         return activeClosingDates;
     }
 
-    function getLongShortHashes(uint closingDate) public view onlyOwner returns (bytes32[]) {
+    /**
+    @dev Get LongShort identifiers/hashes by closing date.
+    Only callable by the owner.
+
+    @param closingDate (uint)
+    @return {
+        "hashes": "bytes32[]"
+    }
+    */
+    function getLongShortHashes(uint closingDate) public view onlyOwner returns (bytes32[] hashes) {
         return longShortHashes[closingDate];
     }
 
-    function getLongShort(bytes32 longShortHash) public view onlyOwner returns (bytes32, uint256, uint8) {
+    /**
+    @dev Get a single LongShort with its identifier
+    Only callable by the owner.
+
+    @param longShortHash (bytes32)
+    @return {
+        "currencyPair": "bytes32[]",
+        "startingPrice": "uint256",
+        "leverage": "uint8"
+    }
+    */
+    function getLongShort(bytes32 longShortHash) public view onlyOwner returns (bytes32 currencyPair, uint256 startingPrice, uint8 leverage) {
         return (longShorts[longShortHash].currencyPair, longShorts[longShortHash].startingPrice, longShorts[longShortHash].leverage);
     }
 
-    function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) public pure returns (uint256) {
-        uint256 reward;
+    /**
+    @dev Calculates reward for a single position with given parameters
+
+    @param isLong boolean { true: "LONG", false: "SHORT" }
+    @param balance the original stake of the user (uint256)
+    @param leverage the leverage of the LongShort (uint8)
+    @param startingPrice (uint256)
+    @param closingPrice (uint256)
+    @return {
+        "reward": "uint256"
+    }
+    */
+    function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) public pure returns (uint256 reward) {
         uint256 priceDiff;
         uint256 balanceDiff;
         uint256 diffPercentage;
@@ -146,10 +185,22 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         return reward;
     }
 
-    function getRewardsLength() public view onlyOwner returns (uint) {
+    /**
+    @dev Get the length of all queued rewards
+    @return {
+        "rewardsLength": "uint"
+    }
+    */
+    function getRewardsLength() public view onlyOwner returns (uint rewardsLength) {
         return rewards.length;
     }
 
+    /**
+    @dev A function that exercises an option on it's expiry,
+    effectively calculating rewards and closing positions
+
+    @param longShortHash the unique ID for a single LongShort
+    */
     function exercise(bytes32 longShortHash) public {
         LongShort memory longShort = longShorts[longShortHash];
 
@@ -182,6 +233,9 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         delete longShorts[longShortHash];
     }
 
+    /**
+    @dev Pays all queued rewards to their corresponding addresses
+    */
     function payRewards() public {
         for (uint8 paymentNum = 0; paymentNum < rewards.length; paymentNum++) {
             rewards[paymentNum].paymentAddress.transfer(rewards[paymentNum].balance);
