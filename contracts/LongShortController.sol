@@ -117,44 +117,17 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     }
     */
     function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) public pure returns (uint256 reward) {
-        uint256 priceDiff;
-        uint256 balanceDiff;
-        uint256 diffPercentage;
-
-        if (startingPrice > closingPrice) {
-
-            priceDiff = startingPrice.sub(closingPrice);
-            diffPercentage = priceDiff.mul(10000).mul(leverage).div(startingPrice);
-            balanceDiff = balance.mul(diffPercentage).div(10000);
-
-            if (balanceDiff > balance) {
-                balanceDiff = balance;
-            }
-
-            if (isLong) {
-                reward = balance.sub(balanceDiff);
-            } else {
-                reward = balance.add(balanceDiff);
-            }
-
-        } else {
-
-            priceDiff = closingPrice.sub(startingPrice);
-            diffPercentage = priceDiff.mul(10000).mul(leverage).div(startingPrice);
-            balanceDiff = balance.mul(diffPercentage).div(10000);
-
-            if (balanceDiff > balance) {
-                balanceDiff = balance;
-            }
-
-            if (isLong) {
-                reward = balance.add(balanceDiff);
-            } else {
-                reward = balance.sub(balanceDiff);
-            }
-
+        uint256 priceDiff = startingPrice > closingPrice ? startingPrice.sub(closingPrice) : closingPrice.sub(startingPrice);
+        uint256 diffPercentage = priceDiff.mul(10000).mul(leverage).div(startingPrice);
+        uint256 balanceDiff = balance.mul(diffPercentage).div(10000);
+        if (balanceDiff > balance) {
+            balanceDiff = balance;
         }
-
+        if (startingPrice > closingPrice && isLong || startingPrice <= closingPrice && !isLong) {
+            reward = balance.sub(balanceDiff);
+        } else {
+            reward = balance.add(balanceDiff);
+        }
         return reward;
     }
 
@@ -207,12 +180,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         
         /// Calculate the price difference between latest price
         /// from the Oracle and the starting price of the LongShort
-        uint256 priceDiff = 0;
-        if (longShort.startingPrice > latestPrice) {
-            priceDiff = longShort.startingPrice.sub(latestPrice);
-        } else {
-            priceDiff = latestPrice.sub(longShort.startingPrice);
-        }
+        uint256 priceDiff = longShort.startingPrice > latestPrice ? longShort.startingPrice.sub(latestPrice) : latestPrice.sub(longShort.startingPrice);
 
         /// Margin call
         if (priceDiff >= diffThreshold) {
