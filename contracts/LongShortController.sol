@@ -30,7 +30,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @dev Activated LongShort struct
     */
     struct LongShort {
-        bytes32 currencyPair;
+        bytes7 currencyPair;
         uint256 startingPrice;
         uint closingDate;
         uint8 leverage;
@@ -59,6 +59,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
 
     /**
     @dev Links Vanilla's oracle to the contract
+    @param _oracleAddress The address of the deployed oracle contract
     */
     function linkOracle(address _oracleAddress) public onlyOwner {
         oracleAddress = _oracleAddress;
@@ -68,8 +69,16 @@ contract LongShortController is Ownable, Debuggable, Validatable {
 
     /**
     @dev LongShort opener function. Can only be called by the owner.
+    @param parameterHash Hash of the parameters, used in creating the unique LongShortHash
+    @param currencyPair A 7-character representation of a currency pair
+    @param duration seconds to closing date from block.timestamp
+    @param leverage A modifier which defines the rewards and the allowed price jump
+    @param ownerSignatures A list of bytes32 signatures for position owners
+    @param paymentAddresses A list of addresses to be rewarded
+    @param balances A list of original bet amounts
+    @param isLongs A list of position types {true: "LONG", false: "SHORT"}
     */
-    function openLongShort(bytes32 parameterHash, bytes32 currencyPair, uint duration, uint8 leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
+    function openLongShort(bytes32 parameterHash, bytes7 currencyPair, uint duration, uint8 leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
         /// Input validation
         require(ownerSignatures.length == paymentAddresses.length);
         require(paymentAddresses.length == balances.length);
@@ -77,7 +86,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         requireZeroSum(isLongs, balances);
         validateLeverage(leverage);
 
-        uint256 startingPrice = 900; // CHange this to an oracle-fetched price
+        uint256 startingPrice = oracle.price(currencyPair);
         bytes32 longShortHash = keccak256(this, parameterHash, block.timestamp);
         uint closingDate = block.timestamp.add(duration);
 
@@ -96,7 +105,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @dev Gets all active closing dates from the contract
 
     @return {
-        "closingDates": "uint[]"
+        "closingDates": "List of seconds from 1970."
     }
     */
     function getActiveClosingDates() public view returns (uint[] closingDates) {
@@ -106,10 +115,9 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     /**
     @dev Get LongShort identifiers/hashes by closing date.
     Only callable by the owner.
-
-    @param closingDate (uint)
+    @param closingDate closing date to get LongShorts for
     @return {
-        "hashes": "bytes32[]"
+        "hashes": "Unique identifiers for the LongShorts expiring on the closingDate."
     }
     */
     function getLongShortHashes(uint closingDate) public view onlyOwner returns (bytes32[] hashes) {
@@ -119,12 +127,11 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     /**
     @dev Get a single LongShort with its identifier
     Only callable by the owner.
-
-    @param longShortHash (bytes32)
+    @param longShortHash unique identifier for a LongShort
     @return {
-        "currencyPair": "bytes32[]",
-        "startingPrice": "uint256",
-        "leverage": "uint8"
+        "currencyPair": "7-character representation of a currency pair. For example, ETH-USD",
+        "startingPrice": "self-explanatory",
+        "leverage": "self-explanatory"
     }
     */
     function getLongShort(bytes32 longShortHash) public view onlyOwner returns (bytes32 currencyPair, uint256 startingPrice, uint8 leverage) {
@@ -133,14 +140,13 @@ contract LongShortController is Ownable, Debuggable, Validatable {
 
     /**
     @dev Calculates reward for a single position with given parameters
-
-    @param isLong boolean { true: "LONG", false: "SHORT" }
-    @param balance the original stake of the user (uint256)
-    @param leverage the leverage of the LongShort (uint8)
-    @param startingPrice (uint256)
-    @param closingPrice (uint256)
+    @param isLong {true: "LONG", false: "SHORT"}
+    @param balance the balance to calculate a reward for
+    @param leverage leverage of the LongShort
+    @param startingPrice price fetched from the Oracle on creation
+    @param closingPrice price fetched from the Oracle when this function was called
     @return {
-        "reward": "uint256"
+        "reward": "Reward that is added to a payment pool"
     }
     */
     function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) public pure returns (uint256 reward) {
@@ -188,7 +194,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     /**
     @dev Get the length of all queued rewards
     @return {
-        "rewardsLength": "uint"
+        "rewardsLength": "number of rewards in queue"
     }
     */
     function getRewardsLength() public view onlyOwner returns (uint rewardsLength) {
@@ -197,6 +203,8 @@ contract LongShortController is Ownable, Debuggable, Validatable {
 
     /**
     @dev Removes longshorts from storage
+    @param longShortHash identifier of the LongShort to be removed
+    @param closingDate the latest date the LongShort should close
     */
     function unlinkLongShortFromClosingDate(bytes32 longShortHash, uint closingDate) internal {
         for (uint8 i = 0; i < activeClosingDates.length; i++) {
@@ -220,19 +228,43 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         }
     }
 
+    /**
+    @dev Function to ping a single LongShort with
+    Checks if the price has increased or decreased enough for a margin call.
+    Exercises the option when it's closing date is over expiry.
+    @param longShortHash the unique identifier of a LongShort
+    */
+    function ping(bytes32 longShortHash) public {
+        LongShort memory longShort = longShorts[longShortHash];
+        uint256 latestPrice = oracle.price(longShort.currencyPair);
+
+        uint256 diffThreshold = longShort.startingPrice.div(longShort.leverage);
+        uint256 priceDiff = 0;
+        
+        if (longShort.startingPrice > latestPrice) {
+            priceDiff = longShort.startingPrice.sub(latestPrice);
+        } else {
+            priceDiff = latestPrice.sub(longShort.startingPrice);
+        }
+
+        /// Margin call
+        if (priceDiff >= diffThreshold) {
+            closeLongShort(longShortHash);
+        }
+
+        /// Option has expired
+        if (longShort.closingDate <= block.timestamp) {
+            closeLongShort(longShortHash);
+        }
+    }
 
     /**
-    @dev A function that exercises an option on it's expiry,
-    effectively calculating rewards and closing positions
-
-    @param longShortHash the unique ID for a single LongShort
+    @dev Internal function to be called, when a ping causes expiry or a margin call
+    @param longShortHash the unique identifier of a LongShort
     */
-    function exercise(bytes32 longShortHash) public {
+    function closeLongShort(bytes32 longShortHash) internal {
         LongShort memory longShort = longShorts[longShortHash];
-
-        require(longShort.closingDate <= block.timestamp);
-        debugString("Given closingDate is over it's expiry.");
-
+        
         uint positionsLength = positions[longShortHash].length;
 
         debugString("Calculating rewards...");
@@ -248,7 +280,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
                         positionsForHash[j].balance,
                         longShort.leverage,
                         longShort.startingPrice,
-                        oracle.latestPrice()
+                        oracle.price(longShort.currencyPair)
                     )
                 )
             );

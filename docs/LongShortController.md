@@ -11,16 +11,16 @@
   * [requireZeroSum](#function-requirezerosum)
   * [activeClosingDates](#function-activeclosingdates)
   * [getActiveClosingDates](#function-getactiveclosingdates)
+  * [ping](#function-ping)
   * [debugWithValue](#function-debugwithvalue)
   * [linkOracle](#function-linkoracle)
   * [payRewards](#function-payrewards)
-  * [openLongShort](#function-openlongshort)
   * [oracle](#function-oracle)
   * [owner](#function-owner)
+  * [openLongShort](#function-openlongshort)
   * [calculateReward](#function-calculatereward)
   * [oracleAddress](#function-oracleaddress)
   * [debugString](#function-debugstring)
-  * [exercise](#function-exercise)
   * [getLongShortHashes](#function-getlongshorthashes)
   * [getLongShort](#function-getlongshort)
   * [LEVERAGES](#function-leverages)
@@ -32,15 +32,15 @@
   * [DebugWithValue](#event-debugwithvalue)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [Oracle](#oracle)
+  * [price](#function-price)
+  * [setLatestPrices](#function-setlatestprices)
   * [debugWithValue](#function-debugwithvalue)
   * [owner](#function-owner)
-  * [latestPrice](#function-latestprice)
   * [debugString](#function-debugstring)
   * [timesUpdated](#function-timesupdated)
+  * [pricesByTime](#function-pricesbytime)
   * [toggleDebug](#function-toggledebug)
   * [transferOwnership](#function-transferownership)
-  * [priceByTime](#function-pricebytime)
-  * [setLatestPrice](#function-setlatestprice)
   * [DebugString](#event-debugstring)
   * [DebugWithValue](#event-debugwithvalue)
   * [OwnershipTransferred](#event-ownershiptransferred)
@@ -190,7 +190,20 @@ Outputs
 
 | | | |
 |-|-|-|
-| *uint256[]* | closingDates | uint[] |
+| *uint256[]* | closingDates | List of seconds from 1970. |
+
+## *function* ping
+
+LongShortController.ping(longShortHash) `nonpayable` `33d425c4`
+
+> Function to ping a single LongShort with Checks if the price has increased or decreased enough for a margin call. Exercises the option when it's closing date is over expiry.
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes32* | longShortHash | the unique identifier of a LongShort |
+
 
 ## *function* debugWithValue
 
@@ -216,7 +229,7 @@ Inputs
 
 | | | |
 |-|-|-|
-| *address* | _oracleAddress | undefined |
+| *address* | _oracleAddress | The address of the deployed oracle contract |
 
 
 ## *function* payRewards
@@ -226,26 +239,6 @@ LongShortController.payRewards() `nonpayable` `7288e961`
 > Pays all queued rewards to their corresponding addresses
 
 
-
-
-## *function* openLongShort
-
-LongShortController.openLongShort(parameterHash, currencyPair, duration, leverage, ownerSignatures, paymentAddresses, balances, isLongs) `payable` `750614c7`
-
-> LongShort opener function. Can only be called by the owner.
-
-Inputs
-
-| | | |
-|-|-|-|
-| *bytes32* | parameterHash | undefined |
-| *bytes32* | currencyPair | undefined |
-| *uint256* | duration | undefined |
-| *uint8* | leverage | undefined |
-| *bytes32[]* | ownerSignatures | undefined |
-| *address[]* | paymentAddresses | undefined |
-| *uint256[]* | balances | undefined |
-| *bool[]* | isLongs | undefined |
 
 
 ## *function* oracle
@@ -264,6 +257,26 @@ LongShortController.owner() `view` `8da5cb5b`
 
 
 
+## *function* openLongShort
+
+LongShortController.openLongShort(parameterHash, currencyPair, duration, leverage, ownerSignatures, paymentAddresses, balances, isLongs) `payable` `914bcee9`
+
+> LongShort opener function. Can only be called by the owner.
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes32* | parameterHash | Hash of the parameters, used in creating the unique LongShortHash |
+| *bytes7* | currencyPair | A 7-character representation of a currency pair |
+| *uint256* | duration | seconds to closing date from block.timestamp |
+| *uint8* | leverage | A modifier which defines the rewards and the allowed price jump |
+| *bytes32[]* | ownerSignatures | A list of bytes32 signatures for position owners |
+| *address[]* | paymentAddresses | A list of addresses to be rewarded |
+| *uint256[]* | balances | A list of original bet amounts |
+| *bool[]* | isLongs | A list of position types {true: "LONG", false: "SHORT"} |
+
+
 ## *function* calculateReward
 
 LongShortController.calculateReward(isLong, balance, leverage, startingPrice, closingPrice) `pure` `a3cfb754`
@@ -274,17 +287,17 @@ Inputs
 
 | | | |
 |-|-|-|
-| *bool* | isLong | boolean { true: "LONG", false: "SHORT" } |
-| *uint256* | balance | the original stake of the user (uint256) |
-| *uint8* | leverage | the leverage of the LongShort (uint8) |
-| *uint256* | startingPrice | (uint256) |
-| *uint256* | closingPrice | (uint256) |
+| *bool* | isLong | {true: "LONG", false: "SHORT"} |
+| *uint256* | balance | the balance to calculate a reward for |
+| *uint8* | leverage | leverage of the LongShort |
+| *uint256* | startingPrice | price fetched from the Oracle on creation |
+| *uint256* | closingPrice | price fetched from the Oracle when this function was called |
 
 Outputs
 
 | | | |
 |-|-|-|
-| *uint256* | reward | uint256 |
+| *uint256* | reward | Reward that is added to a payment pool |
 
 ## *function* oracleAddress
 
@@ -307,19 +320,6 @@ Inputs
 | *string* | message | undefined |
 
 
-## *function* exercise
-
-LongShortController.exercise(longShortHash) `nonpayable` `c6daf4eb`
-
-> A function that exercises an option on it's expiry, effectively calculating rewards and closing positions
-
-Inputs
-
-| | | |
-|-|-|-|
-| *bytes32* | longShortHash | the unique ID for a single LongShort |
-
-
 ## *function* getLongShortHashes
 
 LongShortController.getLongShortHashes(closingDate) `view` `c83e2d4d`
@@ -330,13 +330,13 @@ Inputs
 
 | | | |
 |-|-|-|
-| *uint256* | closingDate | (uint) |
+| *uint256* | closingDate | closing date to get LongShorts for |
 
 Outputs
 
 | | | |
 |-|-|-|
-| *bytes32[]* | hashes | bytes32[] |
+| *bytes32[]* | hashes | Unique identifiers for the LongShorts expiring on the closingDate. |
 
 ## *function* getLongShort
 
@@ -348,15 +348,15 @@ Inputs
 
 | | | |
 |-|-|-|
-| *bytes32* | longShortHash | (bytes32) |
+| *bytes32* | longShortHash | unique identifier for a LongShort |
 
 Outputs
 
 | | | |
 |-|-|-|
-| *bytes32* | currencyPair | bytes32[] |
-| *uint256* | startingPrice | uint256 |
-| *uint8* | leverage | uint8 |
+| *bytes32* | currencyPair | 7-character representation of a currency pair. For example, ETH-USD |
+| *uint256* | startingPrice | self-explanatory |
+| *uint8* | leverage | self-explanatory |
 
 ## *function* LEVERAGES
 
@@ -382,7 +382,7 @@ Outputs
 
 | | | |
 |-|-|-|
-| *uint256* | rewardsLength | uint |
+| *uint256* | rewardsLength | number of rewards in queue |
 
 ## *function* validateLeverage
 
@@ -456,6 +456,32 @@ Arguments
 
 Convoluted Labs
 
+## *function* price
+
+Oracle.price() `view` `37612293`
+
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes7* |  | undefined |
+
+
+## *function* setLatestPrices
+
+Oracle.setLatestPrices(_currencyPairs, _prices) `nonpayable` `5411e86b`
+
+> Endpoint for the Oracle owner to update prices
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes7[]* | _currencyPairs | undefined |
+| *uint256[]* | _prices | undefined |
+
+
 ## *function* debugWithValue
 
 Oracle.debugWithValue(message, value) `nonpayable` `5a47e57c`
@@ -473,14 +499,6 @@ Inputs
 ## *function* owner
 
 Oracle.owner() `view` `8da5cb5b`
-
-
-
-
-
-## *function* latestPrice
-
-Oracle.latestPrice() `view` `a3e6ba94`
 
 
 
@@ -511,6 +529,19 @@ Inputs
 | *uint256* |  | undefined |
 
 
+## *function* pricesByTime
+
+Oracle.pricesByTime(, ) `view` `e82d9a3e`
+
+
+Inputs
+
+| | | |
+|-|-|-|
+| *uint256* |  | undefined |
+| *uint256* |  | undefined |
+
+
 ## *function* toggleDebug
 
 Oracle.toggleDebug() `nonpayable` `ed998065`
@@ -531,32 +562,6 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | newOwner | The address to transfer ownership to. |
-
-
-## *function* priceByTime
-
-Oracle.priceByTime() `view` `f3b4c89a`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
-
-
-## *function* setLatestPrice
-
-Oracle.setLatestPrice(_latestPrice) `nonpayable` `fc9bb7fe`
-
-> Endpoint for the Oracle owner to update prices
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* | _latestPrice | The latest price from Vanilla API |
-
 
 ## *event* DebugString
 

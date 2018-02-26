@@ -10,33 +10,31 @@ import "./Debuggable.sol";
 */
 contract Oracle is Ownable, Debuggable {
 
-  /// Array that contains the timestamps that the prices were updated
-  uint[] public timesUpdated;
+    // Struct to use in pricesByTime
+    struct Price {
+        bytes7 currencyPair;
+        uint256 price;
+    }
 
-  /// Mapping that maps timestamps to a price
-  mapping(uint => uint) public priceByTime;
+    /// Array that contains the timestamps that the prices were updated
+    uint[] public timesUpdated;
 
-  /// Single value, the latest price
-  uint public latestPrice;
+    /// Mapping that maps timestamps to a price
+    mapping(uint => Price[]) public pricesByTime;
 
-  /**
-  @dev Oracle constructor.
-  @param _startingPrice The genesis price for the instrument
-  */
-  function Oracle(uint _startingPrice) public {
-    timesUpdated.push(block.timestamp);
-    priceByTime[block.timestamp] = _startingPrice;
-    latestPrice = _startingPrice;
-  }
-  
-  /**
-  @dev Endpoint for the Oracle owner to update prices
-  @param _latestPrice The latest price from Vanilla API
-  */
-  function setLatestPrice(uint _latestPrice) public onlyOwner {
-    timesUpdated.push(block.timestamp);
-    priceByTime[block.timestamp] = _latestPrice;
-    latestPrice = _latestPrice;
-    debugString("Oracle price updated!");
-  }
+    /// Mapping of prices by currency pair
+    mapping(bytes7 => uint256) public price;
+    
+    /**
+    @dev Endpoint for the Oracle owner to update prices
+    */
+    function setLatestPrices(bytes7[] _currencyPairs, uint256[] _prices) public onlyOwner {
+        require(_currencyPairs.length == _prices.length);
+        timesUpdated.push(block.timestamp);
+        for (uint8 i = 0; i < _currencyPairs.length; i++) {
+            price[_currencyPairs[i]] = _prices[i];
+            pricesByTime[block.timestamp].push(Price(_currencyPairs[i], _prices[i]));
+        }
+        debugString("Oracle prices updated!");
+    }
 }

@@ -8,15 +8,15 @@
   * [DebugWithValue](#event-debugwithvalue)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [Oracle](#oracle)
+  * [price](#function-price)
+  * [setLatestPrices](#function-setlatestprices)
   * [debugWithValue](#function-debugwithvalue)
   * [owner](#function-owner)
-  * [latestPrice](#function-latestprice)
   * [debugString](#function-debugstring)
   * [timesUpdated](#function-timesupdated)
+  * [pricesByTime](#function-pricesbytime)
   * [toggleDebug](#function-toggledebug)
   * [transferOwnership](#function-transferownership)
-  * [priceByTime](#function-pricebytime)
-  * [setLatestPrice](#function-setlatestprice)
   * [DebugString](#event-debugstring)
   * [DebugWithValue](#event-debugwithvalue)
   * [OwnershipTransferred](#event-ownershiptransferred)
@@ -123,6 +123,32 @@ Arguments
 
 Convoluted Labs
 
+## *function* price
+
+Oracle.price() `view` `37612293`
+
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes7* |  | undefined |
+
+
+## *function* setLatestPrices
+
+Oracle.setLatestPrices(_currencyPairs, _prices) `nonpayable` `5411e86b`
+
+> Endpoint for the Oracle owner to update prices
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes7[]* | _currencyPairs | undefined |
+| *uint256[]* | _prices | undefined |
+
+
 ## *function* debugWithValue
 
 Oracle.debugWithValue(message, value) `nonpayable` `5a47e57c`
@@ -140,14 +166,6 @@ Inputs
 ## *function* owner
 
 Oracle.owner() `view` `8da5cb5b`
-
-
-
-
-
-## *function* latestPrice
-
-Oracle.latestPrice() `view` `a3e6ba94`
 
 
 
@@ -178,6 +196,19 @@ Inputs
 | *uint256* |  | undefined |
 
 
+## *function* pricesByTime
+
+Oracle.pricesByTime(, ) `view` `e82d9a3e`
+
+
+Inputs
+
+| | | |
+|-|-|-|
+| *uint256* |  | undefined |
+| *uint256* |  | undefined |
+
+
 ## *function* toggleDebug
 
 Oracle.toggleDebug() `nonpayable` `ed998065`
@@ -198,32 +229,6 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | newOwner | The address to transfer ownership to. |
-
-
-## *function* priceByTime
-
-Oracle.priceByTime() `view` `f3b4c89a`
-
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* |  | undefined |
-
-
-## *function* setLatestPrice
-
-Oracle.setLatestPrice(_latestPrice) `nonpayable` `fc9bb7fe`
-
-> Endpoint for the Oracle owner to update prices
-
-Inputs
-
-| | | |
-|-|-|-|
-| *uint256* | _latestPrice | The latest price from Vanilla API |
-
 
 ## *event* DebugString
 

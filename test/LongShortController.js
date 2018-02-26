@@ -52,7 +52,10 @@ contract("LongShortController", ([owner, user]) => {
       await instance.toggleDebug({
         from: owner
       });
-      oracle = await Oracle.new(initialPrice, { from: owner });
+      oracle = await Oracle.new({ from: owner });
+      await oracle.setLatestPrices([currencyPair], [initialPrice], {
+        from: owner
+      });
       await instance.linkOracle(oracle.address, {
         from: owner
       });
@@ -250,7 +253,7 @@ contract("LongShortController", ([owner, user]) => {
       isLongs
     );
 
-    await oracle.setLatestPrice(lowPrice, {
+    await oracle.setLatestPrices([currencyPair], [lowPrice], {
       from: owner
     });
 
@@ -260,7 +263,7 @@ contract("LongShortController", ([owner, user]) => {
       from: owner
     });
 
-    await instance.exercise(longShortHashes[0]);
+    await instance.ping(longShortHashes[0]);
 
     let rewardsLength = await instance.getRewardsLength({
       from: owner
@@ -282,6 +285,192 @@ contract("LongShortController", ([owner, user]) => {
 
     closingDates = await instance.getActiveClosingDates();
     closingDates.should.be.empty;
+  });
+
+  it("Price increase of 50% should cause a margin call", async () => {
+    const numOrders = 12;
+    const availableAddresses = [owner, user];
+
+    const isLongs = [];
+    const ownerSignatures = [];
+    const balances = [];
+    const paymentAddresses = [];
+
+    for (let i = 0; i < numOrders; i++) {
+      const orderIndex = i % 2;
+      isLongs.push(matchedOrders[orderIndex].isLong);
+      ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
+      balances.push(matchedOrders[orderIndex].balance);
+      paymentAddresses.push(availableAddresses[orderIndex]);
+    }
+
+    const totalBalance = balances.reduce((a, b) => a + b);
+
+    await openLongShort(
+      instance,
+      owner,
+      totalBalance,
+      "hg79a8shgufdilhsagf89ds",
+      currencyPair,
+      14,
+      2,
+      ownerSignatures,
+      paymentAddresses,
+      balances,
+      isLongs
+    );
+
+    await oracle.setLatestPrices([currencyPair], [highPrice], {
+      from: owner
+    });
+
+    let closingDates = await instance.getActiveClosingDates();
+
+    const longShortHashes = await instance.getLongShortHashes(closingDates[0], {
+      from: owner
+    });
+
+    await instance.ping(longShortHashes[0]);
+
+    let rewardsLength = await instance.getRewardsLength({
+      from: owner
+    });
+
+    rewardsLength.c[0].should.equal(12);
+
+    await instance.payRewards();
+
+    rewardsLength = await instance.getRewardsLength({
+      from: owner
+    });
+
+    rewardsLength.c[0].should.equal(0);
+
+    const controllerBalance = await web3.eth.getBalance(instance.address);
+
+    controllerBalance.should.be.bignumber.equal(0);
+
+    closingDates = await instance.getActiveClosingDates();
+    closingDates.should.be.empty;
+  });
+
+  it("Price decrease of 50% should cause a margin call", async () => {
+    const numOrders = 12;
+    const availableAddresses = [owner, user];
+
+    const isLongs = [];
+    const ownerSignatures = [];
+    const balances = [];
+    const paymentAddresses = [];
+
+    for (let i = 0; i < numOrders; i++) {
+      const orderIndex = i % 2;
+      isLongs.push(matchedOrders[orderIndex].isLong);
+      ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
+      balances.push(matchedOrders[orderIndex].balance);
+      paymentAddresses.push(availableAddresses[orderIndex]);
+    }
+
+    const totalBalance = balances.reduce((a, b) => a + b);
+
+    await openLongShort(
+      instance,
+      owner,
+      totalBalance,
+      "hg79a8shgufdilhsagf89ds",
+      currencyPair,
+      14,
+      2,
+      ownerSignatures,
+      paymentAddresses,
+      balances,
+      isLongs
+    );
+
+    await oracle.setLatestPrices([currencyPair], [lowPrice], {
+      from: owner
+    });
+
+    let closingDates = await instance.getActiveClosingDates();
+
+    const longShortHashes = await instance.getLongShortHashes(closingDates[0], {
+      from: owner
+    });
+
+    await instance.ping(longShortHashes[0]);
+
+    let rewardsLength = await instance.getRewardsLength({
+      from: owner
+    });
+
+    rewardsLength.c[0].should.equal(12);
+
+    await instance.payRewards();
+
+    rewardsLength = await instance.getRewardsLength({
+      from: owner
+    });
+
+    rewardsLength.c[0].should.equal(0);
+
+    const controllerBalance = await web3.eth.getBalance(instance.address);
+
+    controllerBalance.should.be.bignumber.equal(0);
+
+    closingDates = await instance.getActiveClosingDates();
+    closingDates.should.be.empty;
+  });
+
+  it("Should not close LongShorts when pinged", async () => {
+    const numOrders = 12;
+    const availableAddresses = [owner, user];
+
+    const isLongs = [];
+    const ownerSignatures = [];
+    const balances = [];
+    const paymentAddresses = [];
+
+    for (let i = 0; i < numOrders; i++) {
+      const orderIndex = i % 2;
+      isLongs.push(matchedOrders[orderIndex].isLong);
+      ownerSignatures.push(matchedOrders[orderIndex].ownerSignature);
+      balances.push(matchedOrders[orderIndex].balance);
+      paymentAddresses.push(availableAddresses[orderIndex]);
+    }
+
+    const totalBalance = balances.reduce((a, b) => a + b);
+
+    await openLongShort(
+      instance,
+      owner,
+      totalBalance,
+      "hg79a8shgufdilhsagf89ds",
+      currencyPair,
+      14,
+      2,
+      ownerSignatures,
+      paymentAddresses,
+      balances,
+      isLongs
+    );
+
+    await oracle.setLatestPrices([currencyPair], [increasedPrice], {
+      from: owner
+    });
+
+    let closingDates = await instance.getActiveClosingDates();
+
+    const longShortHashes = await instance.getLongShortHashes(closingDates[0], {
+      from: owner
+    });
+
+    await instance.ping(longShortHashes[0]);
+
+    let rewardsLength = await instance.getRewardsLength({
+      from: owner
+    });
+
+    rewardsLength.c[0].should.equal(0);
   });
 
   it("Should calculate rewards correctly for long positions on maximum price decrease", async () => {
