@@ -511,10 +511,10 @@ contract("LongShortController", ([owner, user]) => {
     );
     const priceDiff = initialPrice.sub(decreasedPrice);
     const diffPercentage = priceDiff
-      .mul("100")
+      .mul("10000")
       .mul("2")
       .div(initialPrice);
-    const balanceDiff = balance.mul(diffPercentage).div("100");
+    const balanceDiff = balance.mul(diffPercentage).div("10000");
     const expectedReward = balance.add(balanceDiff);
     reward.should.be.bignumber.equal(expectedReward);
   });
@@ -531,10 +531,10 @@ contract("LongShortController", ([owner, user]) => {
     );
     const priceDiff = increasedPrice.sub(initialPrice);
     const diffPercentage = priceDiff
-      .mul("100")
+      .mul("10000")
       .mul("2")
       .div(initialPrice);
-    const balanceDiff = balance.mul(diffPercentage).div("100");
+    const balanceDiff = balance.mul(diffPercentage).div("10000");
     const expectedReward = balance.sub(balanceDiff);
     reward.should.be.bignumber.equal(expectedReward);
   });

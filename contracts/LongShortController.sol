@@ -90,7 +90,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         bytes32 longShortHash = keccak256(this, parameterHash, block.timestamp);
         uint closingDate = block.timestamp.add(duration);
 
-        for (uint8 i = 0; i < isLongs.length; i++) {
+        for (uint i = 0; i < isLongs.length; i++) {
             positions[longShortHash].push(Position(isLongs[i], ownerSignatures[i], paymentAddresses[i], balances[i]));
         }
 
@@ -157,8 +157,8 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         if (startingPrice > closingPrice) {
 
             priceDiff = startingPrice.sub(closingPrice);
-            diffPercentage = priceDiff.mul(100).mul(leverage).div(startingPrice);
-            balanceDiff = balance.mul(diffPercentage).div(100);
+            diffPercentage = priceDiff.mul(10000).mul(leverage).div(startingPrice);
+            balanceDiff = balance.mul(diffPercentage).div(10000);
 
             if (balanceDiff > balance) {
                 balanceDiff = balance;
@@ -173,8 +173,8 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         } else {
 
             priceDiff = closingPrice.sub(startingPrice);
-            diffPercentage = priceDiff.mul(100).mul(leverage).div(startingPrice);
-            balanceDiff = balance.mul(diffPercentage).div(100);
+            diffPercentage = priceDiff.mul(10000).mul(leverage).div(startingPrice);
+            balanceDiff = balance.mul(diffPercentage).div(10000);
 
             if (balanceDiff > balance) {
                 balanceDiff = balance;
@@ -207,10 +207,10 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @param closingDate the latest date the LongShort should close
     */
     function unlinkLongShortFromClosingDate(bytes32 longShortHash, uint closingDate) internal {
-        for (uint8 i = 0; i < activeClosingDates.length; i++) {
+        for (uint i = 0; i < activeClosingDates.length; i++) {
             if (activeClosingDates[i] == closingDate) {
                 bytes32[] storage hashes = longShortHashes[closingDate];
-                for (uint8 j = 0; j < hashes.length; j++) {
+                for (uint j = 0; j < hashes.length; j++) {
                     if (hashes[j] == longShortHash) {
                         delete hashes[j];
                         hashes.length--;
@@ -271,7 +271,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
 
         Position[] memory positionsForHash = positions[longShortHash];
 
-        for (uint8 j = 0; j < positionsLength; j++) {
+        for (uint j = 0; j < positionsLength; j++) {
             rewards.push(
                 Reward(
                     positionsForHash[j].paymentAddress,
@@ -296,7 +296,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @dev Pays all queued rewards to their corresponding addresses
     */
     function payRewards() public {
-        for (uint8 paymentNum = 0; paymentNum < rewards.length; paymentNum++) {
+        for (uint paymentNum = 0; paymentNum < rewards.length; paymentNum++) {
             rewards[paymentNum].paymentAddress.transfer(rewards[paymentNum].balance);
             delete rewards[paymentNum];
             debugString("Reward paid!");
