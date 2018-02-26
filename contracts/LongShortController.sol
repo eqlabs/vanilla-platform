@@ -50,10 +50,10 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     mapping(bytes32 => LongShort) private longShorts;
     mapping(bytes32 => Position[]) private positions;
 
-    // Queued rewards
+    /// Queued rewards
     Reward[] private rewards;
 
-    // Price oracle contract and address
+    /// Price oracle contract and address
     Oracle public oracle;
     address public oracleAddress;
 
