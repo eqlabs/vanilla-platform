@@ -23,7 +23,7 @@ start-rpc:
 	docker start vanilla-rpc \
 	|| docker run -d -p 8545:8545 \
       --name vanilla-rpc \
-      trufflesuite/ganache-cli:latest
+      trufflesuite/ganache-cli:latest -m "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat"
 
 stop-rpc:
 	docker stop vanilla-rpc
