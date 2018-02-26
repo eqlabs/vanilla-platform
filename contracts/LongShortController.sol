@@ -205,6 +205,9 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         /// Get the latest price from the oracle
         uint256 latestPrice = oracle.price(longShort.currencyPair);
 
+        /// Require that the Oracle has price information of the currency pair
+        require(latestPrice > 0);
+
         /// Calculate the threshold for a margin call by
         /// dividing the starting price with the leverage
         uint256 diffThreshold = longShort.startingPrice.div(longShort.leverage);
@@ -220,20 +223,21 @@ contract LongShortController is Ownable, Debuggable, Validatable {
 
         /// Margin call
         if (priceDiff >= diffThreshold) {
-            closeLongShort(longShortHash);
+            closeLongShort(longShortHash, latestPrice);
         }
 
         /// Option has expired
         if (longShort.closingDate <= block.timestamp) {
-            closeLongShort(longShortHash);
+            closeLongShort(longShortHash, latestPrice);
         }
     }
 
     /**
     @dev Internal function to be called, when a ping causes expiry or a margin call
     @param longShortHash the unique identifier of a LongShort
+    @param latestPrice the closing price of the LongShort
     */
-    function closeLongShort(bytes32 longShortHash) internal {
+    function closeLongShort(bytes32 longShortHash, uint256 latestPrice) internal {
         /// Load the LongShort into memory
         LongShort memory longShort = longShorts[longShortHash];
         
@@ -256,7 +260,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
                         positionsForHash[j].balance,
                         longShort.leverage,
                         longShort.startingPrice,
-                        oracle.price(longShort.currencyPair)
+                        latestPrice
                     )
                 )
             );
