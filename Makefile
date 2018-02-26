@@ -16,6 +16,8 @@ test: start-test-rpc run-tests stop-test-rpc rm-test-rpc
 
 coverage: start-test-rpc run-coverage stop-test-rpc rm-test-rpc
 
+rpc-logs:
+	docker logs vanilla-rpc
 
 start-rpc:
 	docker start vanilla-rpc \
