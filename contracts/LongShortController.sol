@@ -195,6 +195,9 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         return rewards.length;
     }
 
+    /**
+    @dev Removes longshorts from storage
+    */
     function unlinkLongShortFromClosingDate(bytes32 longShortHash, uint closingDate) internal {
         for (uint8 i = 0; i < activeClosingDates.length; i++) {
             if (activeClosingDates[i] == closingDate) {
