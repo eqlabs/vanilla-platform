@@ -1,4 +1,5 @@
 pragma solidity ^0.4.18;
+import "./Ownable.sol";
 
 /**
 @title Debuggable
@@ -8,36 +9,43 @@ and then in the SampleContract, writing debug("event") will write an event in th
 
 @author Convoluted Labs
 */
-contract Debuggable {
+contract Debuggable is Ownable {
+
+  bool enabled = false;
 
   /**
   @dev String debugger
-  @param message string that's written in the blockchain
   */
   event DebugString(string message);
 
   /**
   @dev String with value debugger
-  @param message string that's written in the blockchain
-  @param value uint that's written in the blockchain
   */
   event DebugWithValue(string message, uint value);
 
   /**
   @dev Debug a string
-  @param message
   */
   function debugString(string message) public {
-    DebugString(message);
+    if (enabled) {
+      DebugString(message);
+    }
   }
 
   /**
   @dev Debug a string with a value
-  @param message
-  @param value
   */
   function debugWithValue(string message, uint value) public {
-    DebugWithValue(message, value);
+    if (enabled) {
+      DebugWithValue(message, value);
+    }
+  }
+
+  /**
+  @dev activates or deactivates the debug functionality.
+  */
+  function toggleDebug() public onlyOwner {
+    enabled = !enabled;
   }
 
 }

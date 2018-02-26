@@ -143,20 +143,31 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         "reward": "uint256"
     }
     */
-    function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) public pure returns (uint256 reward) {
+    function calculateReward(bool isLong, uint256 balance, uint8 leverage, uint256 startingPrice, uint256 closingPrice) public returns (uint256 reward) {
         uint256 priceDiff;
         uint256 balanceDiff;
         uint256 diffPercentage;
 
+        debugWithValue("Input balance:", balance);
+        debugWithValue("Starting price:", startingPrice);
+        debugWithValue("Closing price:", closingPrice);
+
         if (startingPrice > closingPrice) {
 
             priceDiff = startingPrice.sub(closingPrice);
-            diffPercentage = priceDiff.div(startingPrice).mul(leverage);
+            diffPercentage = priceDiff.mul(leverage).div(startingPrice);
+
+            debugWithValue("diffPercentage", diffPercentage);
+
             balanceDiff = balance.mul(diffPercentage);
             
+            debugWithValue("priceDiff", priceDiff);
+
             if (balanceDiff > balance) {
                 balanceDiff = balance;
             }
+            
+            debugWithValue("balanceDiff", balanceDiff);
 
             if (isLong) {
                 reward = balance.sub(balanceDiff);
@@ -167,12 +178,16 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         } else {
 
             priceDiff = closingPrice.sub(startingPrice);
-            diffPercentage = priceDiff.div(startingPrice).mul(leverage);
+            diffPercentage = priceDiff.mul(leverage).div(startingPrice);
             balanceDiff = balance.mul(diffPercentage);
             
+            debugWithValue("priceDiff", priceDiff);
+
             if (balanceDiff > balance) {
                 balanceDiff = balance;
             }
+
+            debugWithValue("balanceDiff", balanceDiff);
 
             if (isLong) {
                 reward = balance.add(balanceDiff);
@@ -181,6 +196,8 @@ contract LongShortController is Ownable, Debuggable, Validatable {
             }
 
         }
+
+        debugWithValue("reward calculated!", reward);
 
         return reward;
     }
@@ -196,7 +213,25 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     }
 
     function unlinkLongShortFromClosingDate(bytes32 longShortHash, uint closingDate) internal {
-        for (uint8 i = 0;)
+        for (uint8 i = 0; i < activeClosingDates.length; i++) {
+            if (activeClosingDates[i] == closingDate) {
+                bytes32[] storage hashes = longShortHashes[closingDate];
+                for (uint8 j = 0; j < hashes.length; j++) {
+                    if (hashes[j] == longShortHash) {
+                        delete hashes[j];
+                        hashes.length--;
+                        if (hashes.length == 0) {
+                            delete activeClosingDates[i];
+                            activeClosingDates.length--;
+                        } else {
+                            longShortHashes[closingDate] = hashes;
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
     }
 
 
@@ -236,6 +271,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         }
 
         delete longShorts[longShortHash];
+        unlinkLongShortFromClosingDate(longShortHash, longShort.closingDate);
     }
 
     /**
