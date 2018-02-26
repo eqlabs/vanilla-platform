@@ -36,14 +36,6 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         uint8 leverage;
     }
 
-    /**
-    @dev Reward struct for calculated rewards
-    */
-    struct Reward {
-        address paymentAddress;
-        uint256 balance;
-    }
-
     /// List of active closing dates
     uint[] public activeClosingDates;
     mapping(uint => bytes32[]) private longShortHashes;
@@ -51,7 +43,8 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     mapping(bytes32 => Position[]) private positions;
 
     /// Queued rewards
-    Reward[] private rewards;
+    address[] private rewardableAddresses;
+    mapping(address => uint256) private rewards;
 
     /// Price oracle contract and address
     Oracle public oracle;
@@ -252,18 +245,14 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         /// Calculate and queue the rewards for each position,
         /// and remove the positions from the LongShort
         for (uint j = 0; j < positionsLength; j++) {
-            rewards.push(
-                Reward(
-                    positionsForHash[j].paymentAddress,
-                    calculateReward(
+            rewardableAddresses.push(positionsForHash[j].paymentAddress);
+            rewards[positionsForHash[j].paymentAddress] = rewards[positionsForHash[j].paymentAddress].add(calculateReward(
                         positionsForHash[j].isLong,
                         positionsForHash[j].balance,
                         longShort.leverage,
                         longShort.startingPrice,
                         latestPrice
-                    )
-                )
-            );
+                    ));
             delete positions[longShortHash];
             debugString("New reward calculated, position ended");
         }
@@ -276,28 +265,31 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     }
 
     /**
-    @dev Pays all queued rewards to their corresponding addresses
+    @dev Pays a reward to an address
     */
-    function payRewards() public {
-        for (uint paymentNum = 0; paymentNum < rewards.length; paymentNum++) {
-            rewards[paymentNum].paymentAddress.transfer(rewards[paymentNum].balance);
-            delete rewards[paymentNum];
-            debugString("Reward paid!");
+    function withdrawReward(address _paymentAddress) public {
+        _paymentAddress.transfer(rewards[_paymentAddress]);
+        delete rewards[_paymentAddress];
+        for (uint i = 0; i < rewardableAddresses.length; i++) {
+            if (rewardableAddresses[i]==_paymentAddress) {
+                delete rewardableAddresses[i];
+                break;
+            }
         }
-        rewards.length = 0;
+        rewardableAddresses.length--;
     }
 
 
     // GETTERS
 
     /**
-    @dev Get the length of all queued rewards
+    @dev Get all queued rewardable addresses
     @return {
-        "rewardsLength": "number of rewards in queue"
+        "_rewardableAddresses": "rewardable addresses in queue"
     }
     */
-    function getRewardsLength() public view onlyOwner returns (uint rewardsLength) {
-        return rewards.length;
+    function getRewardableAddresses() public view onlyOwner returns (address[] _rewardableAddresses) {
+        return rewardableAddresses;
     }
 
     /**

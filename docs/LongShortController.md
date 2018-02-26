@@ -14,17 +14,17 @@
   * [ping](#function-ping)
   * [debugWithValue](#function-debugwithvalue)
   * [linkOracle](#function-linkoracle)
-  * [payRewards](#function-payrewards)
   * [oracle](#function-oracle)
   * [owner](#function-owner)
   * [openLongShort](#function-openlongshort)
   * [calculateReward](#function-calculatereward)
   * [oracleAddress](#function-oracleaddress)
+  * [getRewardableAddresses](#function-getrewardableaddresses)
   * [debugString](#function-debugstring)
+  * [withdrawReward](#function-withdrawreward)
   * [getLongShortHashes](#function-getlongshorthashes)
   * [getLongShort](#function-getlongshort)
   * [LEVERAGES](#function-leverages)
-  * [getRewardsLength](#function-getrewardslength)
   * [validateLeverage](#function-validateleverage)
   * [toggleDebug](#function-toggledebug)
   * [transferOwnership](#function-transferownership)
@@ -232,15 +232,6 @@ Inputs
 | *address* | _oracleAddress | The address of the deployed oracle contract |
 
 
-## *function* payRewards
-
-LongShortController.payRewards() `nonpayable` `7288e961`
-
-> Pays all queued rewards to their corresponding addresses
-
-
-
-
 ## *function* oracle
 
 LongShortController.oracle() `view` `7dc0d1d0`
@@ -307,6 +298,20 @@ LongShortController.oracleAddress() `view` `a89ae4ba`
 
 
 
+## *function* getRewardableAddresses
+
+LongShortController.getRewardableAddresses() `view` `ac62b986`
+
+> Get all queued rewardable addresses
+
+
+
+Outputs
+
+| | | |
+|-|-|-|
+| *address[]* | _rewardableAddresses | rewardable addresses in queue |
+
 ## *function* debugString
 
 LongShortController.debugString(message) `nonpayable` `b6d929cf`
@@ -318,6 +323,19 @@ Inputs
 | | | |
 |-|-|-|
 | *string* | message | undefined |
+
+
+## *function* withdrawReward
+
+LongShortController.withdrawReward(_paymentAddress) `nonpayable` `b86e321c`
+
+> Pays a reward to an address
+
+Inputs
+
+| | | |
+|-|-|-|
+| *address* | _paymentAddress | undefined |
 
 
 ## *function* getLongShortHashes
@@ -369,20 +387,6 @@ Inputs
 |-|-|-|
 | *uint256* |  | undefined |
 
-
-## *function* getRewardsLength
-
-LongShortController.getRewardsLength() `view` `d7da1dee`
-
-> Get the length of all queued rewards
-
-
-
-Outputs
-
-| | | |
-|-|-|-|
-| *uint256* | rewardsLength | number of rewards in queue |
 
 ## *function* validateLeverage
 

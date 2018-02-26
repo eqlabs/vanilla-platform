@@ -265,19 +265,21 @@ contract("LongShortController", ([owner, user]) => {
 
     await instance.ping(longShortHashes[0]);
 
-    let rewardsLength = await instance.getRewardsLength({
+    let rewardableAddresses = await instance.getRewardableAddresses({
       from: owner
     });
 
-    rewardsLength.c[0].should.equal(12);
+    rewardableAddresses.length.should.equal(12);
 
-    await instance.payRewards();
+    rewardableAddresses.map(
+      async address => await instance.withdrawReward(address)
+    );
 
-    rewardsLength = await instance.getRewardsLength({
+    rewardableAddresses = await instance.getRewardableAddresses({
       from: owner
     });
 
-    rewardsLength.c[0].should.equal(0);
+    rewardableAddresses.length.should.equal(0);
 
     const controllerBalance = await web3.eth.getBalance(instance.address);
 
@@ -332,19 +334,21 @@ contract("LongShortController", ([owner, user]) => {
 
     await instance.ping(longShortHashes[0]);
 
-    let rewardsLength = await instance.getRewardsLength({
+    let rewardableAddresses = await instance.getRewardableAddresses({
       from: owner
     });
 
-    rewardsLength.c[0].should.equal(12);
+    rewardableAddresses.length.should.equal(12);
 
-    await instance.payRewards();
+    rewardableAddresses.map(
+      async address => await instance.withdrawReward(address)
+    );
 
-    rewardsLength = await instance.getRewardsLength({
+    rewardableAddresses = await instance.getRewardableAddresses({
       from: owner
     });
 
-    rewardsLength.c[0].should.equal(0);
+    rewardableAddresses.length.should.equal(0);
 
     const controllerBalance = await web3.eth.getBalance(instance.address);
 
@@ -399,19 +403,21 @@ contract("LongShortController", ([owner, user]) => {
 
     await instance.ping(longShortHashes[0]);
 
-    let rewardsLength = await instance.getRewardsLength({
+    let rewardableAddresses = await instance.getRewardableAddresses({
       from: owner
     });
 
-    rewardsLength.c[0].should.equal(12);
+    rewardableAddresses.length.should.equal(12);
 
-    await instance.payRewards();
+    rewardableAddresses.map(
+      async address => await instance.withdrawReward(address)
+    );
 
-    rewardsLength = await instance.getRewardsLength({
+    rewardableAddresses = await instance.getRewardableAddresses({
       from: owner
     });
 
-    rewardsLength.c[0].should.equal(0);
+    rewardableAddresses.length.should.equal(0);
 
     const controllerBalance = await web3.eth.getBalance(instance.address);
 
@@ -466,11 +472,11 @@ contract("LongShortController", ([owner, user]) => {
 
     await instance.ping(longShortHashes[0]);
 
-    let rewardsLength = await instance.getRewardsLength({
+    const rewardableAddresses = await instance.getRewardableAddresses({
       from: owner
     });
 
-    rewardsLength.c[0].should.equal(0);
+    rewardableAddresses.length.should.equal(0);
   });
 
   it("Should calculate rewards correctly for long positions on maximum price decrease", async () => {
