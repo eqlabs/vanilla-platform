@@ -287,7 +287,7 @@ contract("LongShortController", ([owner, user]) => {
     closingDates.should.be.empty;
   });
 
-  it("Price increase of 50% should cause a margin call", async () => {
+  it("Price increase of 50% with a leverage of 2 should cause a margin call", async () => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
@@ -354,7 +354,7 @@ contract("LongShortController", ([owner, user]) => {
     closingDates.should.be.empty;
   });
 
-  it("Price decrease of 50% should cause a margin call", async () => {
+  it("Price decrease of 50% with a leverage of 2 should cause a margin call", async () => {
     const numOrders = 12;
     const availableAddresses = [owner, user];
 
