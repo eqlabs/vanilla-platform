@@ -86,56 +86,30 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         requireZeroSum(isLongs, balances);
         validateLeverage(leverage);
 
+        /// Get latest price for the currency pair from the Oracle
         uint256 startingPrice = oracle.price(currencyPair);
+
+        /// Require that the Oracle has price information of the currency pair
+        require(startingPrice > 0);
+
+        /// Make a unique identifier for the LongShort in question
         bytes32 longShortHash = keccak256(this, parameterHash, block.timestamp);
+
+        /// Add the duration to the current block timestamp to create a closing date
         uint closingDate = block.timestamp.add(duration);
 
+        /// Add positions to the LongShort
         for (uint i = 0; i < isLongs.length; i++) {
             positions[longShortHash].push(Position(isLongs[i], ownerSignatures[i], paymentAddresses[i], balances[i]));
         }
 
+        /// Add knowledge of the new LongShort to the blockchain
         activeClosingDates.push(closingDate);
         longShortHashes[closingDate].push(longShortHash);
         longShorts[longShortHash] = LongShort(currencyPair, startingPrice, closingDate, leverage);
 
+        /// Events
         debugString("New LongShort activated.");
-    }
-
-    /**
-    @dev Gets all active closing dates from the contract
-
-    @return {
-        "closingDates": "List of seconds from 1970."
-    }
-    */
-    function getActiveClosingDates() public view returns (uint[] closingDates) {
-        return activeClosingDates;
-    }
-
-    /**
-    @dev Get LongShort identifiers/hashes by closing date.
-    Only callable by the owner.
-    @param closingDate closing date to get LongShorts for
-    @return {
-        "hashes": "Unique identifiers for the LongShorts expiring on the closingDate."
-    }
-    */
-    function getLongShortHashes(uint closingDate) public view onlyOwner returns (bytes32[] hashes) {
-        return longShortHashes[closingDate];
-    }
-
-    /**
-    @dev Get a single LongShort with its identifier
-    Only callable by the owner.
-    @param longShortHash unique identifier for a LongShort
-    @return {
-        "currencyPair": "7-character representation of a currency pair. For example, ETH-USD",
-        "startingPrice": "self-explanatory",
-        "leverage": "self-explanatory"
-    }
-    */
-    function getLongShort(bytes32 longShortHash) public view onlyOwner returns (bytes32 currencyPair, uint256 startingPrice, uint8 leverage) {
-        return (longShorts[longShortHash].currencyPair, longShorts[longShortHash].startingPrice, longShorts[longShortHash].leverage);
     }
 
     /**
@@ -192,16 +166,6 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     }
 
     /**
-    @dev Get the length of all queued rewards
-    @return {
-        "rewardsLength": "number of rewards in queue"
-    }
-    */
-    function getRewardsLength() public view onlyOwner returns (uint rewardsLength) {
-        return rewards.length;
-    }
-
-    /**
     @dev Removes longshorts from storage
     @param longShortHash identifier of the LongShort to be removed
     @param closingDate the latest date the LongShort should close
@@ -235,12 +199,19 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @param longShortHash the unique identifier of a LongShort
     */
     function ping(bytes32 longShortHash) public {
+        /// Load the LongShort into memory
         LongShort memory longShort = longShorts[longShortHash];
+
+        /// Get the latest price from the oracle
         uint256 latestPrice = oracle.price(longShort.currencyPair);
 
+        /// Calculate the threshold for a margin call by
+        /// dividing the starting price with the leverage
         uint256 diffThreshold = longShort.startingPrice.div(longShort.leverage);
-        uint256 priceDiff = 0;
         
+        /// Calculate the price difference between latest price
+        /// from the Oracle and the starting price of the LongShort
+        uint256 priceDiff = 0;
         if (longShort.startingPrice > latestPrice) {
             priceDiff = longShort.startingPrice.sub(latestPrice);
         } else {
@@ -263,14 +234,19 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @param longShortHash the unique identifier of a LongShort
     */
     function closeLongShort(bytes32 longShortHash) internal {
+        /// Load the LongShort into memory
         LongShort memory longShort = longShorts[longShortHash];
         
+        /// Get the amount of positions in the LongShort for looping
         uint positionsLength = positions[longShortHash].length;
 
         debugString("Calculating rewards...");
 
+        /// Load the positions into memory
         Position[] memory positionsForHash = positions[longShortHash];
 
+        /// Calculate and queue the rewards for each position,
+        /// and remove the positions from the LongShort
         for (uint j = 0; j < positionsLength; j++) {
             rewards.push(
                 Reward(
@@ -288,7 +264,10 @@ contract LongShortController is Ownable, Debuggable, Validatable {
             debugString("New reward calculated, position ended");
         }
 
+        /// Delete the LongShort from the blockchain
         delete longShorts[longShortHash];
+
+        /// Unlink the LongShort from the closing date
         unlinkLongShortFromClosingDate(longShortHash, longShort.closingDate);
     }
 
@@ -302,5 +281,55 @@ contract LongShortController is Ownable, Debuggable, Validatable {
             debugString("Reward paid!");
         }
         rewards.length = 0;
+    }
+
+
+    // GETTERS
+
+    /**
+    @dev Get the length of all queued rewards
+    @return {
+        "rewardsLength": "number of rewards in queue"
+    }
+    */
+    function getRewardsLength() public view onlyOwner returns (uint rewardsLength) {
+        return rewards.length;
+    }
+
+    /**
+    @dev Gets all active closing dates from the contract
+
+    @return {
+        "closingDates": "List of seconds from 1970."
+    }
+    */
+    function getActiveClosingDates() public view returns (uint[] closingDates) {
+        return activeClosingDates;
+    }
+
+    /**
+    @dev Get LongShort identifiers/hashes by closing date.
+    Only callable by the owner.
+    @param closingDate closing date to get LongShorts for
+    @return {
+        "hashes": "Unique identifiers for the LongShorts expiring on the closingDate."
+    }
+    */
+    function getLongShortHashes(uint closingDate) public view onlyOwner returns (bytes32[] hashes) {
+        return longShortHashes[closingDate];
+    }
+
+    /**
+    @dev Get a single LongShort with its identifier
+    Only callable by the owner.
+    @param longShortHash unique identifier for a LongShort
+    @return {
+        "currencyPair": "7-character representation of a currency pair. For example, ETH-USD",
+        "startingPrice": "self-explanatory",
+        "leverage": "self-explanatory"
+    }
+    */
+    function getLongShort(bytes32 longShortHash) public view onlyOwner returns (bytes32 currencyPair, uint256 startingPrice, uint8 leverage) {
+        return (longShorts[longShortHash].currencyPair, longShorts[longShortHash].startingPrice, longShorts[longShortHash].leverage);
     }
 }
