@@ -13,6 +13,7 @@
   * [getOpenOrderIDs](#function-getopenorderids)
   * [getOrder](#function-getorder)
   * [debugWithValue](#function-debugwithvalue)
+  * [refund](#function-refund)
   * [MINIMUM_POSITION](#function-minimum_position)
   * [setSignature](#function-setsignature)
   * [deleteOrder](#function-deleteorder)
@@ -219,6 +220,19 @@ Inputs
 |-|-|-|
 | *string* | message | undefined |
 | *uint256* | value | undefined |
+
+
+## *function* refund
+
+OrdersManager.refund(orderID) `nonpayable` `7249fbb6`
+
+> Refunds an order by hash after its expiry
+
+Inputs
+
+| | | |
+|-|-|-|
+| *bytes32* | orderID | The unique hash of the deletable order. |
 
 
 ## *function* MINIMUM_POSITION
