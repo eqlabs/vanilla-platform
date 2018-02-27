@@ -16,6 +16,9 @@ test: start-test-rpc run-tests stop-test-rpc rm-test-rpc
 
 coverage: start-test-rpc run-coverage stop-test-rpc rm-test-rpc
 
+analysis:
+	docker-compose run --rm analysis
+
 rpc-logs:
 	docker logs vanilla-rpc
 
