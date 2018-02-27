@@ -1,18 +1,8 @@
-* [Debuggable](#debuggable)
-  * [debugWithValue](#function-debugwithvalue)
-  * [owner](#function-owner)
-  * [debugString](#function-debugstring)
-  * [toggleDebug](#function-toggledebug)
-  * [transferOwnership](#function-transferownership)
-  * [DebugString](#event-debugstring)
-  * [DebugWithValue](#event-debugwithvalue)
-  * [OwnershipTransferred](#event-ownershiptransferred)
 * [OrdersManager](#ordersmanager)
   * [getOpenParameterHashes](#function-getopenparameterhashes)
   * [requireZeroSum](#function-requirezerosum)
   * [getOpenOrderIDs](#function-getopenorderids)
   * [getOrder](#function-getorder)
-  * [debugWithValue](#function-debugwithvalue)
   * [refund](#function-refund)
   * [MINIMUM_POSITION](#function-minimum_position)
   * [setSignature](#function-setsignature)
@@ -21,15 +11,11 @@
   * [updateOrderBalance](#function-updateorderbalance)
   * [setFeeWallet](#function-setfeewallet)
   * [createOrder](#function-createorder)
-  * [debugString](#function-debugstring)
   * [LEVERAGES](#function-leverages)
   * [validateLeverage](#function-validateleverage)
   * [withdrawFee](#function-withdrawfee)
   * [MAXIMUM_POSITION](#function-maximum_position)
-  * [toggleDebug](#function-toggledebug)
   * [transferOwnership](#function-transferownership)
-  * [DebugString](#event-debugstring)
-  * [DebugWithValue](#event-debugwithvalue)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [Ownable](#ownable)
   * [owner](#function-owner)
@@ -41,100 +27,6 @@
   * [LEVERAGES](#function-leverages)
   * [validateLeverage](#function-validateleverage)
 
-# Debuggable
-
-Convoluted Labs
-
-## *function* debugWithValue
-
-Debuggable.debugWithValue(message, value) `nonpayable` `5a47e57c`
-
-> Debug a string with a value
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-| *uint256* | value | undefined |
-
-
-## *function* owner
-
-Debuggable.owner() `view` `8da5cb5b`
-
-
-
-
-
-## *function* debugString
-
-Debuggable.debugString(message) `nonpayable` `b6d929cf`
-
-> Debug a string
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-
-
-## *function* toggleDebug
-
-Debuggable.toggleDebug() `nonpayable` `ed998065`
-
-> activates or deactivates the debug functionality.
-
-
-
-
-## *function* transferOwnership
-
-Debuggable.transferOwnership(newOwner) `nonpayable` `f2fde38b`
-
-> Allows the current owner to transfer control of the contract to a newOwner.
-
-Inputs
-
-| | | |
-|-|-|-|
-| *address* | newOwner | The address to transfer ownership to. |
-
-## *event* DebugString
-
-Debuggable.DebugString(message) `20670ef4`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-
-## *event* DebugWithValue
-
-Debuggable.DebugWithValue(message, value) `6e90aba1`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-| *uint256* | value | not indexed |
-
-## *event* OwnershipTransferred
-
-Debuggable.OwnershipTransferred(previousOwner, newOwner) `8be0079c`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *address* | previousOwner | indexed |
-| *address* | newOwner | indexed |
-
-
----
 # OrdersManager
 
 Convoluted Labs
@@ -207,20 +99,6 @@ Outputs
 | *uint256* |  | undefined |
 | *address* |  | undefined |
 | *uint256* |  | undefined |
-
-## *function* debugWithValue
-
-OrdersManager.debugWithValue(message, value) `nonpayable` `5a47e57c`
-
-> Debug a string with a value
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-| *uint256* | value | undefined |
-
 
 ## *function* refund
 
@@ -322,19 +200,6 @@ Inputs
 | *address* | paymentAddress | address, to which the user wants the funds back whether he/she won or not |
 
 
-## *function* debugString
-
-OrdersManager.debugString(message) `nonpayable` `b6d929cf`
-
-> Debug a string
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-
-
 ## *function* LEVERAGES
 
 OrdersManager.LEVERAGES() `view` `cf90f950`
@@ -377,15 +242,6 @@ OrdersManager.MAXIMUM_POSITION() `view` `e9593ef4`
 
 
 
-## *function* toggleDebug
-
-OrdersManager.toggleDebug() `nonpayable` `ed998065`
-
-> activates or deactivates the debug functionality.
-
-
-
-
 ## *function* transferOwnership
 
 OrdersManager.transferOwnership(newOwner) `nonpayable` `f2fde38b`
@@ -397,27 +253,6 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | newOwner | The address to transfer ownership to. |
-
-## *event* DebugString
-
-OrdersManager.DebugString(message) `20670ef4`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-
-## *event* DebugWithValue
-
-OrdersManager.DebugWithValue(message, value) `6e90aba1`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-| *uint256* | value | not indexed |
 
 ## *event* OwnershipTransferred
 

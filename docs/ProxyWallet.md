@@ -3,9 +3,7 @@
   * [transferOwnership](#function-transferownership)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [ProxyWallet](#proxywallet)
-  * [destroy](#function-destroy)
   * [owner](#function-owner)
-  * [balance](#function-balance)
   * [transferOwnership](#function-transferownership)
   * [refund](#function-refund)
   * [PaymentReceived](#event-paymentreceived)
@@ -54,26 +52,9 @@ Arguments
 
 Convoluted Labs
 
-## *function* destroy
-
-ProxyWallet.destroy() `nonpayable` `83197ef0`
-
-> Destroys the proxy wallet, calling Solidity's selfdestruct(). Requires the contract balance to be 0 before destruction, so no user funds are transfered to us.
-
-
-
-
 ## *function* owner
 
 ProxyWallet.owner() `view` `8da5cb5b`
-
-
-
-
-
-## *function* balance
-
-ProxyWallet.balance() `view` `b69ef8a8`
 
 
 

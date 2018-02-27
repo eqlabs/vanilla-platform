@@ -1,18 +1,8 @@
-* [Debuggable](#debuggable)
-  * [debugWithValue](#function-debugwithvalue)
-  * [owner](#function-owner)
-  * [debugString](#function-debugstring)
-  * [toggleDebug](#function-toggledebug)
-  * [transferOwnership](#function-transferownership)
-  * [DebugString](#event-debugstring)
-  * [DebugWithValue](#event-debugwithvalue)
-  * [OwnershipTransferred](#event-ownershiptransferred)
 * [LongShortController](#longshortcontroller)
   * [requireZeroSum](#function-requirezerosum)
   * [activeClosingDates](#function-activeclosingdates)
   * [getActiveClosingDates](#function-getactiveclosingdates)
   * [ping](#function-ping)
-  * [debugWithValue](#function-debugwithvalue)
   * [linkOracle](#function-linkoracle)
   * [oracle](#function-oracle)
   * [owner](#function-owner)
@@ -20,29 +10,20 @@
   * [calculateReward](#function-calculatereward)
   * [oracleAddress](#function-oracleaddress)
   * [getRewardableAddresses](#function-getrewardableaddresses)
-  * [debugString](#function-debugstring)
   * [withdrawReward](#function-withdrawreward)
   * [getLongShortHashes](#function-getlongshorthashes)
   * [getLongShort](#function-getlongshort)
   * [LEVERAGES](#function-leverages)
   * [validateLeverage](#function-validateleverage)
-  * [toggleDebug](#function-toggledebug)
   * [transferOwnership](#function-transferownership)
-  * [DebugString](#event-debugstring)
-  * [DebugWithValue](#event-debugwithvalue)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [Oracle](#oracle)
   * [price](#function-price)
   * [setLatestPrices](#function-setlatestprices)
-  * [debugWithValue](#function-debugwithvalue)
   * [owner](#function-owner)
-  * [debugString](#function-debugstring)
   * [timesUpdated](#function-timesupdated)
   * [pricesByTime](#function-pricesbytime)
-  * [toggleDebug](#function-toggledebug)
   * [transferOwnership](#function-transferownership)
-  * [DebugString](#event-debugstring)
-  * [DebugWithValue](#event-debugwithvalue)
   * [OwnershipTransferred](#event-ownershiptransferred)
 * [Ownable](#ownable)
   * [owner](#function-owner)
@@ -54,100 +35,6 @@
   * [LEVERAGES](#function-leverages)
   * [validateLeverage](#function-validateleverage)
 
-# Debuggable
-
-Convoluted Labs
-
-## *function* debugWithValue
-
-Debuggable.debugWithValue(message, value) `nonpayable` `5a47e57c`
-
-> Debug a string with a value
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-| *uint256* | value | undefined |
-
-
-## *function* owner
-
-Debuggable.owner() `view` `8da5cb5b`
-
-
-
-
-
-## *function* debugString
-
-Debuggable.debugString(message) `nonpayable` `b6d929cf`
-
-> Debug a string
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-
-
-## *function* toggleDebug
-
-Debuggable.toggleDebug() `nonpayable` `ed998065`
-
-> activates or deactivates the debug functionality.
-
-
-
-
-## *function* transferOwnership
-
-Debuggable.transferOwnership(newOwner) `nonpayable` `f2fde38b`
-
-> Allows the current owner to transfer control of the contract to a newOwner.
-
-Inputs
-
-| | | |
-|-|-|-|
-| *address* | newOwner | The address to transfer ownership to. |
-
-## *event* DebugString
-
-Debuggable.DebugString(message) `20670ef4`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-
-## *event* DebugWithValue
-
-Debuggable.DebugWithValue(message, value) `6e90aba1`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-| *uint256* | value | not indexed |
-
-## *event* OwnershipTransferred
-
-Debuggable.OwnershipTransferred(previousOwner, newOwner) `8be0079c`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *address* | previousOwner | indexed |
-| *address* | newOwner | indexed |
-
-
----
 # LongShortController
 
 Convoluted Labs
@@ -203,20 +90,6 @@ Inputs
 | | | |
 |-|-|-|
 | *bytes32* | longShortHash | the unique identifier of a LongShort |
-
-
-## *function* debugWithValue
-
-LongShortController.debugWithValue(message, value) `nonpayable` `5a47e57c`
-
-> Debug a string with a value
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-| *uint256* | value | undefined |
 
 
 ## *function* linkOracle
@@ -312,19 +185,6 @@ Outputs
 |-|-|-|
 | *address[]* | _rewardableAddresses | rewardable addresses in queue |
 
-## *function* debugString
-
-LongShortController.debugString(message) `nonpayable` `b6d929cf`
-
-> Debug a string
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-
-
 ## *function* withdrawReward
 
 LongShortController.withdrawReward(_paymentAddress) `nonpayable` `b86e321c`
@@ -401,15 +261,6 @@ Inputs
 | *uint8* | leverage | an uint8 number |
 
 
-## *function* toggleDebug
-
-LongShortController.toggleDebug() `nonpayable` `ed998065`
-
-> activates or deactivates the debug functionality.
-
-
-
-
 ## *function* transferOwnership
 
 LongShortController.transferOwnership(newOwner) `nonpayable` `f2fde38b`
@@ -421,27 +272,6 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | newOwner | The address to transfer ownership to. |
-
-## *event* DebugString
-
-LongShortController.DebugString(message) `20670ef4`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-
-## *event* DebugWithValue
-
-LongShortController.DebugWithValue(message, value) `6e90aba1`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-| *uint256* | value | not indexed |
 
 ## *event* OwnershipTransferred
 
@@ -486,39 +316,12 @@ Inputs
 | *uint256[]* | _prices | undefined |
 
 
-## *function* debugWithValue
-
-Oracle.debugWithValue(message, value) `nonpayable` `5a47e57c`
-
-> Debug a string with a value
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
-| *uint256* | value | undefined |
-
-
 ## *function* owner
 
 Oracle.owner() `view` `8da5cb5b`
 
 
 
-
-
-## *function* debugString
-
-Oracle.debugString(message) `nonpayable` `b6d929cf`
-
-> Debug a string
-
-Inputs
-
-| | | |
-|-|-|-|
-| *string* | message | undefined |
 
 
 ## *function* timesUpdated
@@ -546,15 +349,6 @@ Inputs
 | *uint256* |  | undefined |
 
 
-## *function* toggleDebug
-
-Oracle.toggleDebug() `nonpayable` `ed998065`
-
-> activates or deactivates the debug functionality.
-
-
-
-
 ## *function* transferOwnership
 
 Oracle.transferOwnership(newOwner) `nonpayable` `f2fde38b`
@@ -566,27 +360,6 @@ Inputs
 | | | |
 |-|-|-|
 | *address* | newOwner | The address to transfer ownership to. |
-
-## *event* DebugString
-
-Oracle.DebugString(message) `20670ef4`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-
-## *event* DebugWithValue
-
-Oracle.DebugWithValue(message, value) `6e90aba1`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *string* | message | not indexed |
-| *uint256* | value | not indexed |
 
 ## *event* OwnershipTransferred
 
