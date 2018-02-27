@@ -17,16 +17,15 @@ contract ProxyWallet is Ownable {
   @dev Watchable events for the backend server to
   keep taps of things happening in the proxy wallets.
   */
-  event PaymentReceived(address proxyWalletAddress, uint updatedBalance);
-  event UserRefunded(address proxyWalletAddress, address userAddress);
-  event ContractDestroyed(address proxyWalletAddress);
+  event PaymentReceived(uint updatedBalance);
+  event UserRefunded(address userAddress);
 
   /**
   @dev Simple payment endpoint, that
   accumulates funds in the contract
   */
   function() public payable {
-    PaymentReceived(this, msg.value);
+    PaymentReceived(msg.value);
   }
 
   /**
@@ -36,7 +35,7 @@ contract ProxyWallet is Ownable {
   function refund(address paymentAddress) public onlyOwner {
     require(paymentAddress!=owner);
     paymentAddress.transfer(this.balance);
-    UserRefunded(this, paymentAddress);
+    UserRefunded(paymentAddress);
   }
 
 }
