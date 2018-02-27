@@ -172,7 +172,7 @@ contract OrdersManager is Ownable, Validatable {
         require(msg.value >= MINIMUM_POSITION && msg.value <= MAXIMUM_POSITION);
 
         // Calculate a hash of the parameters for matching
-        bytes32 parameterHash = keccak256(duration, leverage, signature);
+        bytes32 parameterHash = keccak256(currencyPair, duration, leverage, signature);
 
         validateLeverage(leverage);
 
