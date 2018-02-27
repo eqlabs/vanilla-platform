@@ -19,22 +19,22 @@ contract("ProxyWallet", accounts => {
 
   it("Should put 5 wei in the contract", async () => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
-    const balance = await instance.balance.call();
+    const balance = await web3.eth.getBalance(instance.address);
     balance.should.be.bignumber.equal(5);
   });
 
   it("Should refund the user", async () => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
-    const initialBalance = await instance.balance.call();
+    const initialBalance = await web3.eth.getBalance(instance.address);
     initialBalance.should.be.bignumber.equal(5);
     await instance.refund(accounts[1], { from: accounts[0] });
-    const updatedBalance = await instance.balance.call();
+    const updatedBalance = await web3.eth.getBalance(instance.address);
     updatedBalance.should.be.bignumber.equal(0);
   });
 
   it("Should refuse to refund the owner", async () => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
-    const initialBalance = await instance.balance.call();
+    const initialBalance = await web3.eth.getBalance(instance.address);
     initialBalance.should.be.bignumber.equal(5);
     await instance
       .refund(accounts[0], { from: accounts[0] })
@@ -44,32 +44,10 @@ contract("ProxyWallet", accounts => {
 
   it("Should refuse to refund when called by anyone else but the owner", async () => {
     await instance.sendTransaction({ value: 5, from: accounts[1] });
-    const initialBalance = await instance.balance.call();
+    const initialBalance = await web3.eth.getBalance(instance.address);
     initialBalance.should.be.bignumber.equal(5);
     await instance
       .refund(accounts[1], { from: accounts[1] })
-      .then(r => r.tx.should.not.exist)
-      .catch(e => e.toString().should.include("revert"));
-  });
-
-  it("Should be able to destroy when balance is 0", async () => {
-    await instance.destroy({ from: accounts[0] });
-    await instance.sendTransaction({ value: 5, from: accounts[1] });
-    const balance = await instance.balance.call();
-    balance.should.be.bignumber.equal(0);
-  });
-
-  it("Should refuse to destroy when balance is over 0", async () => {
-    await instance.sendTransaction({ value: 5, from: accounts[1] });
-    await instance
-      .destroy({ from: accounts[0] })
-      .then(r => r.tx.should.not.exist)
-      .catch(e => e.toString().should.include("revert"));
-  });
-
-  it("Should refuse to destroy when called by anyone else but the owner", async () => {
-    await instance
-      .destroy({ from: accounts[1] })
       .then(r => r.tx.should.not.exist)
       .catch(e => e.toString().should.include("revert"));
   });

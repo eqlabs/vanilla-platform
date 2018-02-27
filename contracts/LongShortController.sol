@@ -1,6 +1,5 @@
 pragma solidity ^0.4.18;
 import "./Ownable.sol";
-import "./Debuggable.sol";
 import "./Validatable.sol";
 import "./SafeMath.sol";
 import "./Oracle.sol";
@@ -11,7 +10,7 @@ on the Ethereum blockchain.
 
 @author Convoluted Labs
 */
-contract LongShortController is Ownable, Debuggable, Validatable {
+contract LongShortController is Ownable, Validatable {
 
     // Use Zeppelin's SafeMath library for calculations
     using SafeMath for uint256;
@@ -57,7 +56,6 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     function linkOracle(address _oracleAddress) public onlyOwner {
         oracleAddress = _oracleAddress;
         oracle = Oracle(oracleAddress);
-        debugString("Oracle linked");
     }
 
     /**
@@ -100,9 +98,6 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         activeClosingDates.push(closingDate);
         longShortHashes[closingDate].push(longShortHash);
         longShorts[longShortHash] = LongShort(currencyPair, startingPrice, closingDate, leverage);
-
-        /// Events
-        debugString("New LongShort activated.");
     }
 
     /**
@@ -205,8 +200,6 @@ contract LongShortController is Ownable, Debuggable, Validatable {
         /// Get the amount of positions in the LongShort for looping
         uint positionsLength = positions[longShortHash].length;
 
-        debugString("Calculating rewards...");
-
         /// Load the positions into memory
         Position[] memory positionsForHash = positions[longShortHash];
 
@@ -222,7 +215,6 @@ contract LongShortController is Ownable, Debuggable, Validatable {
                         latestPrice
                     ));
             delete positions[longShortHash];
-            debugString("New reward calculated, position ended");
         }
 
         /// Delete the LongShort from the blockchain
@@ -236,7 +228,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
     @dev Pays a reward to an address
     */
     function withdrawReward(address _paymentAddress) public {
-        _paymentAddress.transfer(rewards[_paymentAddress]);
+        uint256 rewardBalance = rewards[_paymentAddress];
         delete rewards[_paymentAddress];
         for (uint i = 0; i < rewardableAddresses.length; i++) {
             if (rewardableAddresses[i]==_paymentAddress) {
@@ -245,6 +237,7 @@ contract LongShortController is Ownable, Debuggable, Validatable {
             }
         }
         rewardableAddresses.length--;
+        _paymentAddress.transfer(rewardBalance);
     }
 
 

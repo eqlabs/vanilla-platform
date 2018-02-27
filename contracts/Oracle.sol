@@ -1,6 +1,5 @@
 pragma solidity ^0.4.18;
 import "./Ownable.sol";
-import "./Debuggable.sol";
 
 /**
 @title Oracle
@@ -8,7 +7,7 @@ import "./Debuggable.sol";
 
 @author Convoluted Labs
 */
-contract Oracle is Ownable, Debuggable {
+contract Oracle is Ownable {
 
     // Struct to use in pricesByTime
     struct Price {
@@ -35,6 +34,5 @@ contract Oracle is Ownable, Debuggable {
             price[_currencyPairs[i]] = _prices[i];
             pricesByTime[block.timestamp].push(Price(_currencyPairs[i], _prices[i]));
         }
-        debugString("Oracle prices updated!");
     }
 }

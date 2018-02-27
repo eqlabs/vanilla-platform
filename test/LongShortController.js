@@ -49,9 +49,9 @@ contract("LongShortController", ([owner, user]) => {
     "Start a new instance of the contract for each test",
     async function() {
       instance = await LongShortController.new(owner);
-      await instance.toggleDebug({
+      /* await instance.toggleDebug({
         from: owner
-      });
+      }); */
       oracle = await Oracle.new({ from: owner });
       await oracle.setLatestPrices([currencyPair], [initialPrice], {
         from: owner

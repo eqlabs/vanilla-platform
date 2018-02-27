@@ -1,6 +1,5 @@
 pragma solidity ^0.4.18;
 import "./Ownable.sol";
-import "./Debuggable.sol";
 import "./Validatable.sol";
 import "./SafeMath.sol";
 //import "./Verify.sol";
@@ -12,7 +11,7 @@ with which a matchMaker function bundles open orders and closes ones that have e
 
 @author Convoluted Labs
 */
-contract OrdersManager is Ownable, Debuggable, Validatable {
+contract OrdersManager is Ownable, Validatable {
 
     // Use Zeppelin's SafeMath library for calculations
     using SafeMath for uint256;
@@ -61,7 +60,6 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
         feeWallet = feeWalletAddress;
-        debugString("Fee wallet set.");
     }
 
     /**
@@ -72,7 +70,6 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     */
     function setSignature(bytes32 signingSecret) public onlyOwner {
         signature = signingSecret;
-        debugString("Signature set.");
     }
 
     /**
@@ -90,10 +87,10 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     Only callable by the owner.
     */
     function withdrawFee() public onlyOwner {
-        require(cumulatedFee > 0 wei);
-        feeWallet.transfer(cumulatedFee);
+        uint256 fee = cumulatedFee;
         cumulatedFee = 0;
-        debugString("Fees withdrawn.");
+        require(fee > 0 wei);
+        feeWallet.transfer(fee);
     }
 
     /**
@@ -147,13 +144,8 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
     @param parameterHash Hash of duration, leverage and signature.
     @return bool
     */
-    function parameterHashExists(bytes32 parameterHash) private returns (bool) {
-        if (orderIDs[parameterHash].length > 0) {
-            debugString("Parameter hash exists.");
-            return true;
-        }
-        debugString("Parameter hash doesn't exist.");
-        return false;
+    function parameterHashExists(bytes32 parameterHash) private view returns (bool) {
+        return orderIDs[parameterHash].length > 0;
     }
 
     /**
@@ -200,8 +192,6 @@ contract OrdersManager is Ownable, Debuggable, Validatable {
         orderIDs[parameterHash].push(orderID);
         // Map the order to the orderID
         orders[orderID] = Order(currencyPair, positionType, duration, block.timestamp.add(12 hours), leverage, paymentAddress, balance, keccak256(msg.sender));
-
-        debugString("New order received and saved.");
     }
 
     /**
