@@ -33,11 +33,3 @@ services:
     command: yarn servedocs
     ports:
       - "3000:3000"
-
-  analysis:
-    image: luongnguyen/oyente
-    tty: true
-    volumes:
-      - ./contracts:/oyente/oyente/contracts
-    working_dir: /oyente/oyente
-    command: python oyente.py -s contracts/LongShortController.sol
