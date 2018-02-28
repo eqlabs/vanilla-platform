@@ -214,8 +214,11 @@ contract OrdersManager is Ownable, Validatable {
     */
     function refund(bytes32 orderID) public {
         require(orders[orderID].expiryTime < block.timestamp);
-        orders[orderID].paymentAddress.transfer(orders[orderID].balance);
+        require(orders[orderID].balance > 0);
+        address paymentAddress = orders[orderID].paymentAddress;
+        uint256 balance = orders[orderID].balance;
         delete orders[orderID];
+        paymentAddress.transfer(balance);
     }
 
     /**
