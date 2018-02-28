@@ -8,7 +8,6 @@
   * [refund](#function-refund)
   * [PaymentReceived](#event-paymentreceived)
   * [UserRefunded](#event-userrefunded)
-  * [ContractDestroyed](#event-contractdestroyed)
   * [OwnershipTransferred](#event-ownershiptransferred)
 
 # Ownable
@@ -88,35 +87,23 @@ Inputs
 
 ## *event* PaymentReceived
 
-ProxyWallet.PaymentReceived(proxyWalletAddress, updatedBalance) `6ef95f06`
+ProxyWallet.PaymentReceived(updatedBalance) `1a07f76e`
 
 Arguments
 
 | | | |
 |-|-|-|
-| *address* | proxyWalletAddress | not indexed |
 | *uint256* | updatedBalance | not indexed |
 
 ## *event* UserRefunded
 
-ProxyWallet.UserRefunded(proxyWalletAddress, userAddress) `0561c3fb`
+ProxyWallet.UserRefunded(userAddress) `64a19944`
 
 Arguments
 
 | | | |
 |-|-|-|
-| *address* | proxyWalletAddress | not indexed |
 | *address* | userAddress | not indexed |
-
-## *event* ContractDestroyed
-
-ProxyWallet.ContractDestroyed(proxyWalletAddress) `3ab1d791`
-
-Arguments
-
-| | | |
-|-|-|-|
-| *address* | proxyWalletAddress | not indexed |
 
 ## *event* OwnershipTransferred
 
