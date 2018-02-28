@@ -228,7 +228,6 @@ contract LongShortController is Ownable, Validatable {
     @dev Pays a reward to an address
     */
     function withdrawReward(address _paymentAddress) public {
-        require(rewards[_paymentAddress] > 0);
         uint256 rewardBalance = rewards[_paymentAddress];
         delete rewards[_paymentAddress];
         for (uint i = 0; i < rewardableAddresses.length; i++) {
