@@ -5,23 +5,21 @@
   "author": "",
   "private": true,
   "lint-staged": {
-    "{,!(node_modules)/}**/*.{json,css}": [
-      "prettier-eslint --write"
-    ],
-    "{,!(node_modules)/}**/*.js": [
-      "prettier-eslint --write",
-      "eslint"
-    ]
+    "{,!(node_modules)/}**/*.{json,css}": ["prettier-eslint --write"],
+    "{,!(node_modules)/}**/*.js": ["prettier-eslint --write", "eslint"]
   },
   "scripts": {
     "compile": "./node_modules/truffle/build/cli.bundled.js compile",
-    "console": "./node_modules/truffle/build/cli.bundled.js console --network development",
+    "console":
+      "./node_modules/truffle/build/cli.bundled.js console --network development",
     "coverage": "./node_modules/solidity-coverage/bin/exec.js",
     "develop": "./node_modules/truffle/build/cli.bundled.js develop",
     "docs": "./scripts/docs.sh",
     "servedocs": "./node_modules/docsify-cli/bin/docsify serve ./docs",
-    "migrate": "./node_modules/truffle/build/cli.bundled.js migrate --network development",
-    "migrate-reset": "./node_modules/truffle/build/cli.bundled.js migrate --reset --network development",
+    "migrate":
+      "./node_modules/truffle/build/cli.bundled.js migrate --network development",
+    "migrate-reset":
+      "./node_modules/truffle/build/cli.bundled.js migrate --reset --network development",
     "test": "./node_modules/truffle/build/cli.bundled.js test --network test",
     "precommit": "./node_modules/lint-staged/index.js"
   },
