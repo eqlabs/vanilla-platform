@@ -1,6 +1,7 @@
+![Vanilla Logo](vanilla.png)
 # Vanilla-Platform
 
-A bunch of Solidity smart contracts handling trustless derivatives on the Ethereum blockchain.
+Solidity smart contracts handling trustless derivatives on the Ethereum blockchain.
 
 ## Local ethereum network with explorer
 
