@@ -3,6 +3,8 @@
 
 Solidity smart contracts handling trustless derivatives on the Ethereum blockchain.
 
+We recently published [a blog post](https://medium.com/equilibrium-labs/introducing-vanilla-6f86a8de9a25) describing Vanilla on a higher level. Or, if you're more into deep dives, just check the code & documentation.
+
 ## Local ethereum network with explorer
 
     make install
