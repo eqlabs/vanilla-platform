@@ -3,7 +3,7 @@ version: '2'
 services:
 
   base-dev:
-    image: tislaamo/node:8
+    image: tislaamo/node:10
     tty: true
     volumes:
       - .:/home/node/app

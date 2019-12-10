@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.26;
 import "./Ownable.sol";
 import "./Validatable.sol";
 import "./SafeMath.sol";
@@ -71,9 +71,9 @@ contract LongShortController is Ownable, Validatable {
     */
     function openLongShort(bytes32 parameterHash, bytes7 currencyPair, uint duration, uint8 leverage, bytes32[] ownerSignatures, address[] paymentAddresses, uint256[] balances, bool[] isLongs) public payable onlyOwner {
         /// Input validation
-        require(ownerSignatures.length == paymentAddresses.length);
-        require(paymentAddresses.length == balances.length);
-        require(balances.length == isLongs.length);
+        require(ownerSignatures.length == paymentAddresses.length, "Signature and address amounts don't match!");
+        require(paymentAddresses.length == balances.length, "Address and balance amounts don't match!");
+        require(balances.length == isLongs.length, "Balance and position type amounts don't match!");
         requireZeroSum(isLongs, balances);
         validateLeverage(leverage);
 
@@ -81,10 +81,10 @@ contract LongShortController is Ownable, Validatable {
         uint256 startingPrice = oracle.price(currencyPair);
 
         /// Require that the Oracle has price information of the currency pair
-        require(startingPrice > 0);
+        require(startingPrice > 0, "Oracle doesn't have a price for this currency pair!");
 
         /// Make a unique identifier for the LongShort in question
-        bytes32 longShortHash = keccak256(this, parameterHash, block.timestamp);
+        bytes32 longShortHash = keccak256(abi.encodePacked(this, parameterHash, block.timestamp));
 
         /// Add the duration to the current block timestamp to create a closing date
         uint closingDate = block.timestamp.add(duration);
@@ -167,12 +167,12 @@ contract LongShortController is Ownable, Validatable {
         uint256 latestPrice = oracle.price(longShort.currencyPair);
 
         /// Require that the Oracle has price information of the currency pair
-        require(latestPrice > 0);
+        require(latestPrice > 0, "Oracle doesn't have a price for this currency pair!");
 
         /// Calculate the threshold for a margin call by
         /// dividing the starting price with the leverage
         uint256 diffThreshold = longShort.startingPrice.div(longShort.leverage);
-        
+
         /// Calculate the price difference between latest price
         /// from the Oracle and the starting price of the LongShort
         uint256 priceDiff = longShort.startingPrice > latestPrice ? longShort.startingPrice.sub(latestPrice) : latestPrice.sub(longShort.startingPrice);
@@ -196,7 +196,7 @@ contract LongShortController is Ownable, Validatable {
     function closeLongShort(bytes32 longShortHash, uint256 latestPrice) internal {
         /// Load the LongShort into memory
         LongShort memory longShort = longShorts[longShortHash];
-        
+
         /// Get the amount of positions in the LongShort for looping
         uint positionsLength = positions[longShortHash].length;
 

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.26;
 import "./Ownable.sol";
 
 /**
@@ -28,7 +28,7 @@ contract Debuggable is Ownable {
   */
   function debugString(string message) public {
     if (enabled) {
-      DebugString(message);
+      emit DebugString(message);
     }
   }
 
@@ -37,7 +37,7 @@ contract Debuggable is Ownable {
   */
   function debugWithValue(string message, uint value) public {
     if (enabled) {
-      DebugWithValue(message, value);
+      emit DebugWithValue(message, value);
     }
   }
 

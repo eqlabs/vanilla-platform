@@ -117,28 +117,30 @@
       "type": "function"
     }
   ],
-  "bytecode":
-    "0x606060405260008060146101000a81548160ff021916908315150217905550336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506105788061006d6000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c146100725780638da5cb5b146100d8578063b6d929cf1461012d578063ed9980651461018a578063f2fde38b1461019f575b600080fd5b341561007d57600080fd5b6100d6600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506101d8565b005b34156100e357600080fd5b6100eb610296565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561013857600080fd5b610188600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506102bb565b005b341561019557600080fd5b61019d610370565b005b34156101aa57600080fd5b6101d6600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103f7565b005b600060149054906101000a900460ff1615610292577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561025657808201518184015260208101905061023b565b50505050905090810190601f1680156102835780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600060149054906101000a900460ff161561036d577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b83811015610332578082015181840152602081019050610317565b50505050905090810190601f16801561035f5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156103cb57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561045257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561048e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a7230582069270b4f104230331b4fc9362e0c1c8f7b05cc53208abf9cf2c5f5698f3020920029",
-  "deployedBytecode":
-    "0x60606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c146100725780638da5cb5b146100d8578063b6d929cf1461012d578063ed9980651461018a578063f2fde38b1461019f575b600080fd5b341561007d57600080fd5b6100d6600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506101d8565b005b34156100e357600080fd5b6100eb610296565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561013857600080fd5b610188600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506102bb565b005b341561019557600080fd5b61019d610370565b005b34156101aa57600080fd5b6101d6600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103f7565b005b600060149054906101000a900460ff1615610292577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561025657808201518184015260208101905061023b565b50505050905090810190601f1680156102835780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600060149054906101000a900460ff161561036d577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b83811015610332578082015181840152602081019050610317565b50505050905090810190601f16801561035f5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156103cb57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561045257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561048e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a7230582069270b4f104230331b4fc9362e0c1c8f7b05cc53208abf9cf2c5f5698f3020920029",
-  "sourceMap":
-    "349:687:0:-;;;400:5;385:20;;;;;;;;;;;;;;;;;;;;509:10:5;501:5;;:18;;;;;;;;;;;;;;;;;;349:687:0;;;;;;",
-  "deployedSourceMap":
-    "349:687:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;765:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;238:20:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;613:102:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;964:69;;;;;;;;;;;;;;832:169:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;765:127:0;834:7;;;;;;;;;;;830:58;;;851:30;866:7;875:5;851:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;830:58:0;765:127;;:::o;238:20:5:-;;;;;;;;;;;;;:::o;613:102:0:-;667:7;;;;;;;;;;;663:48;;;684:20;696:7;684:20;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;663:48:0;613:102;:::o;964:69::-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1021:7:0;;;;;;;;;;;1020:8;1010:7;;:18;;;;;;;;;;;;;;;;;;964:69::o;832:169:5:-;653:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;928:1;908:22;;:8;:22;;;;900:31;;;;;;;;965:8;937:37;;958:5;;;;;;;;;;;937:37;;;;;;;;;;;;988:8;980:5;;:16;;;;;;;;;;;;;;;;;;832:169;:::o",
-  "source":
-    "pragma solidity ^0.4.18;\nimport \"./Ownable.sol\";\n\n/**\n@title Debuggable\n@dev Contract that's meant to be extended in other contracts to give them\na debug event to test the code with. Just import, \"SampleContract is Debuggable\"\nand then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.\n\n@author Convoluted Labs\n*/\ncontract Debuggable is Ownable {\n\n  bool enabled = false;\n\n  /**\n  @dev String debugger\n  */\n  event DebugString(string message);\n\n  /**\n  @dev String with value debugger\n  */\n  event DebugWithValue(string message, uint value);\n\n  /**\n  @dev Debug a string\n  */\n  function debugString(string message) public {\n    if (enabled) {\n      DebugString(message);\n    }\n  }\n\n  /**\n  @dev Debug a string with a value\n  */\n  function debugWithValue(string message, uint value) public {\n    if (enabled) {\n      DebugWithValue(message, value);\n    }\n  }\n\n  /**\n  @dev activates or deactivates the debug functionality.\n  */\n  function toggleDebug() public onlyOwner {\n    enabled = !enabled;\n  }\n\n}\n",
+  "bytecode": "0x606060405260008060146101000a81548160ff021916908315150217905550336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506105788061006d6000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c146100725780638da5cb5b146100d8578063b6d929cf1461012d578063ed9980651461018a578063f2fde38b1461019f575b600080fd5b341561007d57600080fd5b6100d6600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506101d8565b005b34156100e357600080fd5b6100eb610296565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561013857600080fd5b610188600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506102bb565b005b341561019557600080fd5b61019d610370565b005b34156101aa57600080fd5b6101d6600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103f7565b005b600060149054906101000a900460ff1615610292577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561025657808201518184015260208101905061023b565b50505050905090810190601f1680156102835780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600060149054906101000a900460ff161561036d577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b83811015610332578082015181840152602081019050610317565b50505050905090810190601f16801561035f5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156103cb57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561045257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561048e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a7230582069270b4f104230331b4fc9362e0c1c8f7b05cc53208abf9cf2c5f5698f3020920029",
+  "deployedBytecode": "0x60606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c146100725780638da5cb5b146100d8578063b6d929cf1461012d578063ed9980651461018a578063f2fde38b1461019f575b600080fd5b341561007d57600080fd5b6100d6600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506101d8565b005b34156100e357600080fd5b6100eb610296565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561013857600080fd5b610188600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506102bb565b005b341561019557600080fd5b61019d610370565b005b34156101aa57600080fd5b6101d6600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103f7565b005b600060149054906101000a900460ff1615610292577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561025657808201518184015260208101905061023b565b50505050905090810190601f1680156102835780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600060149054906101000a900460ff161561036d577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b83811015610332578082015181840152602081019050610317565b50505050905090810190601f16801561035f5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156103cb57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561045257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561048e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a7230582069270b4f104230331b4fc9362e0c1c8f7b05cc53208abf9cf2c5f5698f3020920029",
+  "sourceMap": "349:687:0:-;;;400:5;385:20;;;;;;;;;;;;;;;;;;;;509:10:5;501:5;;:18;;;;;;;;;;;;;;;;;;349:687:0;;;;;;",
+  "deployedSourceMap": "349:687:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;765:127;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;238:20:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;613:102:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;964:69;;;;;;;;;;;;;;832:169:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;765:127:0;834:7;;;;;;;;;;;830:58;;;851:30;866:7;875:5;851:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;830:58:0;765:127;;:::o;238:20:5:-;;;;;;;;;;;;;:::o;613:102:0:-;667:7;;;;;;;;;;;663:48;;;684:20;696:7;684:20;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;663:48:0;613:102;:::o;964:69::-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1021:7:0;;;;;;;;;;;1020:8;1010:7;;:18;;;;;;;;;;;;;;;;;;964:69::o;832:169:5:-;653:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;928:1;908:22;;:8;:22;;;;900:31;;;;;;;;965:8;937:37;;958:5;;;;;;;;;;;937:37;;;;;;;;;;;;988:8;980:5;;:16;;;;;;;;;;;;;;;;;;832:169;:::o",
+  "source": "pragma solidity ^0.4.26;\nimport \"./Ownable.sol\";\n\n/**\n@title Debuggable\n@dev Contract that's meant to be extended in other contracts to give them\na debug event to test the code with. Just import, \"SampleContract is Debuggable\"\nand then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.\n\n@author Convoluted Labs\n*/\ncontract Debuggable is Ownable {\n\n  bool enabled = false;\n\n  /**\n  @dev String debugger\n  */\n  event DebugString(string message);\n\n  /**\n  @dev String with value debugger\n  */\n  event DebugWithValue(string message, uint value);\n\n  /**\n  @dev Debug a string\n  */\n  function debugString(string message) public {\n    if (enabled) {\n      DebugString(message);\n    }\n  }\n\n  /**\n  @dev Debug a string with a value\n  */\n  function debugWithValue(string message, uint value) public {\n    if (enabled) {\n      DebugWithValue(message, value);\n    }\n  }\n\n  /**\n  @dev activates or deactivates the debug functionality.\n  */\n  function toggleDebug() public onlyOwner {\n    enabled = !enabled;\n  }\n\n}\n",
   "sourcePath": "/home/node/app/contracts/Debuggable.sol",
   "ast": {
     "attributes": {
       "absolutePath": "/home/node/app/contracts/Debuggable.sol",
       "exportedSymbols": {
-        "Debuggable": [58]
+        "Debuggable": [
+          58
+        ]
       }
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", "^", "0.4", ".18"]
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".18"
+          ]
         },
         "id": 1,
         "name": "PragmaDirective",
@@ -150,7 +152,9 @@
           "absolutePath": "/home/node/app/contracts/Ownable.sol",
           "file": "./Ownable.sol",
           "scope": 59,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 2,
@@ -159,19 +163,25 @@
       },
       {
         "attributes": {
-          "contractDependencies": [1303],
+          "contractDependencies": [
+            1303
+          ],
           "contractKind": "contract",
-          "documentation":
-            "@title Debuggable\n@dev Contract that's meant to be extended in other contracts to give them\na debug event to test the code with. Just import, \"SampleContract is Debuggable\"\nand then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.\n@author Convoluted Labs",
+          "documentation": "@title Debuggable\n@dev Contract that's meant to be extended in other contracts to give them\na debug event to test the code with. Just import, \"SampleContract is Debuggable\"\nand then in the SampleContract, writing debug(\"event\") will write an event in the blockchain.\n@author Convoluted Labs",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [58, 1303],
+          "linearizedBaseContracts": [
+            58,
+            1303
+          ],
           "name": "Debuggable",
           "scope": 59
         },
         "children": [
           {
             "attributes": {
-              "arguments": [null]
+              "arguments": [
+                null
+              ]
             },
             "children": [
               {
@@ -354,7 +364,9 @@
               "constant": false,
               "implemented": true,
               "isConstructor": false,
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "debugString",
               "payable": false,
               "scope": 58,
@@ -398,7 +410,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 21,
@@ -415,7 +429,9 @@
                       {
                         "attributes": {
                           "argumentTypes": null,
-                          "overloadedDeclarations": [null],
+                          "overloadedDeclarations": [
+                            null
+                          ],
                           "referencedDeclaration": 7,
                           "type": "bool",
                           "value": "enabled"
@@ -436,7 +452,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "type": "tuple()",
                                   "type_conversion": false
                                 },
@@ -445,12 +463,13 @@
                                     "attributes": {
                                       "argumentTypes": [
                                         {
-                                          "typeIdentifier":
-                                            "t_string_memory_ptr",
+                                          "typeIdentifier": "t_string_memory_ptr",
                                           "typeString": "string memory"
                                         }
                                       ],
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 11,
                                       "type": "function (string memory)",
                                       "value": "DebugString"
@@ -462,7 +481,9 @@
                                   {
                                     "attributes": {
                                       "argumentTypes": null,
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 19,
                                       "type": "string memory",
                                       "value": "message"
@@ -506,7 +527,9 @@
               "constant": false,
               "implemented": true,
               "isConstructor": false,
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "debugWithValue",
               "payable": false,
               "scope": 58,
@@ -576,7 +599,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 36,
@@ -593,7 +618,9 @@
                       {
                         "attributes": {
                           "argumentTypes": null,
-                          "overloadedDeclarations": [null],
+                          "overloadedDeclarations": [
+                            null
+                          ],
                           "referencedDeclaration": 7,
                           "type": "bool",
                           "value": "enabled"
@@ -614,7 +641,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "type": "tuple()",
                                   "type_conversion": false
                                 },
@@ -623,8 +652,7 @@
                                     "attributes": {
                                       "argumentTypes": [
                                         {
-                                          "typeIdentifier":
-                                            "t_string_memory_ptr",
+                                          "typeIdentifier": "t_string_memory_ptr",
                                           "typeString": "string memory"
                                         },
                                         {
@@ -632,10 +660,11 @@
                                           "typeString": "uint256"
                                         }
                                       ],
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 17,
-                                      "type":
-                                        "function (string memory,uint256)",
+                                      "type": "function (string memory,uint256)",
                                       "value": "DebugWithValue"
                                     },
                                     "id": 38,
@@ -645,7 +674,9 @@
                                   {
                                     "attributes": {
                                       "argumentTypes": null,
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 32,
                                       "type": "string memory",
                                       "value": "message"
@@ -657,7 +688,9 @@
                                   {
                                     "attributes": {
                                       "argumentTypes": null,
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 34,
                                       "type": "uint256",
                                       "value": "value"
@@ -711,7 +744,9 @@
             "children": [
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 47,
@@ -720,7 +755,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 50,
@@ -729,13 +766,17 @@
               },
               {
                 "attributes": {
-                  "arguments": [null]
+                  "arguments": [
+                    null
+                  ]
                 },
                 "children": [
                   {
                     "attributes": {
                       "argumentTypes": null,
-                      "overloadedDeclarations": [null],
+                      "overloadedDeclarations": [
+                        null
+                      ],
                       "referencedDeclaration": 1277,
                       "type": "modifier ()",
                       "value": "onlyOwner"
@@ -767,7 +808,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 7,
                               "type": "bool",
                               "value": "enabled"
@@ -791,7 +834,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 7,
                                   "type": "bool",
                                   "value": "enabled"
