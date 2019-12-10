@@ -5,21 +5,23 @@
   "author": "",
   "private": true,
   "lint-staged": {
-    "{,!(node_modules)/}**/*.{json,css}": ["prettier-eslint --write"],
-    "{,!(node_modules)/}**/*.js": ["prettier-eslint --write", "eslint"]
+    "{,!(node_modules)/}**/*.{json,css}": [
+      "prettier-eslint --write"
+    ],
+    "{,!(node_modules)/}**/*.js": [
+      "prettier-eslint --write",
+      "eslint"
+    ]
   },
   "scripts": {
     "compile": "./node_modules/truffle/build/cli.bundled.js compile",
-    "console":
-      "./node_modules/truffle/build/cli.bundled.js console --network development",
+    "console": "./node_modules/truffle/build/cli.bundled.js console --network development",
     "coverage": "./node_modules/solidity-coverage/bin/exec.js",
     "develop": "./node_modules/truffle/build/cli.bundled.js develop",
     "docs": "./scripts/docs.sh",
     "servedocs": "./node_modules/docsify-cli/bin/docsify serve ./docs",
-    "migrate":
-      "./node_modules/truffle/build/cli.bundled.js migrate --network development",
-    "migrate-reset":
-      "./node_modules/truffle/build/cli.bundled.js migrate --reset --network development",
+    "migrate": "./node_modules/truffle/build/cli.bundled.js migrate --network development",
+    "migrate-reset": "./node_modules/truffle/build/cli.bundled.js migrate --reset --network development",
     "test": "./node_modules/truffle/build/cli.bundled.js test --network test",
     "precommit": "./node_modules/lint-staged/index.js"
   },
@@ -28,16 +30,17 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
-    "docsify-cli": "^4.3.0",
+    "docsify-cli": "^4.4.0",
     "eslint": "^4.16.0",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-security": "^1.4.0",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
-    "prettier": "^1.10.2",
-    "prettier-eslint": "^8.8.1",
-    "prettier-eslint-cli": "^4.7.0",
+    "marked": "^0.7.0",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1",
+    "prettier-eslint-cli": "^5.0.0",
     "solidity-coverage": "^0.5.11"
   },
   "dependencies": {

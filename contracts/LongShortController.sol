@@ -172,7 +172,7 @@ contract LongShortController is Ownable, Validatable {
         /// Calculate the threshold for a margin call by
         /// dividing the starting price with the leverage
         uint256 diffThreshold = longShort.startingPrice.div(longShort.leverage);
-        
+
         /// Calculate the price difference between latest price
         /// from the Oracle and the starting price of the LongShort
         uint256 priceDiff = longShort.startingPrice > latestPrice ? longShort.startingPrice.sub(latestPrice) : latestPrice.sub(longShort.startingPrice);
@@ -196,7 +196,7 @@ contract LongShortController is Ownable, Validatable {
     function closeLongShort(bytes32 longShortHash, uint256 latestPrice) internal {
         /// Load the LongShort into memory
         LongShort memory longShort = longShorts[longShortHash];
-        
+
         /// Get the amount of positions in the LongShort for looping
         uint positionsLength = positions[longShortHash].length;
 
