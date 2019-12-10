@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.26;
 import "./Ownable.sol";
 
 /**
@@ -33,8 +33,8 @@ contract ProxyWallet is Ownable {
   @param paymentAddress the address to transfer the funds to
   */
   function refund(address paymentAddress) public onlyOwner {
-    require(paymentAddress!=owner);
-    paymentAddress.transfer(this.balance);
+    require(paymentAddress!=owner, "The owner can't refund itself");
+    paymentAddress.transfer(address(this).balance);
     emit UserRefunded(paymentAddress);
   }
 

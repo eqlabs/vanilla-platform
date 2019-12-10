@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.26;
 import "./SafeMath.sol";
 
 /**
@@ -27,12 +27,12 @@ contract Validatable {
                 break;
             }
         }
-        require(allowedLeverage);
+        require(allowedLeverage, "Given leverage not allowed!");
     }
 
     /**
     @dev Helper function to check if both sides of the bet have same balance
-    
+
     @param isLongs list of position types in boolean [true, false]
     @param balances list of position amounts in wei
     */
@@ -46,6 +46,6 @@ contract Validatable {
                 shortBalance = shortBalance.add(balances[i]);
             }
         }
-        require(shortBalance==longBalance);
+        require(shortBalance==longBalance, "Zero sum requirement not fulfilled!");
     }
 }

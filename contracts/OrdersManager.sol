@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.26;
 import "./Ownable.sol";
 import "./Validatable.sol";
 import "./SafeMath.sol";
@@ -55,7 +55,7 @@ contract OrdersManager is Ownable, Validatable {
     /**
     @dev Setter for Vanilla's fee wallet address
     Only callable by the owner.
-    
+
     @param feeWalletAddress upcoming address that receives the fees
     */
     function setFeeWallet(address feeWalletAddress) public onlyOwner {
@@ -65,7 +65,7 @@ contract OrdersManager is Ownable, Validatable {
     /**
     @dev Setter for the contract signature
     Only callable by the owner.
-    
+
     @param signingSecret a salt used in parameter and order hashing
     */
     function setSignature(bytes32 signingSecret) public onlyOwner {
@@ -74,7 +74,7 @@ contract OrdersManager is Ownable, Validatable {
 
     /**
     @dev Fee calculation function
-    
+
     @param amount the total amount that the fee is calculated from
     */
     function calculateFee(uint256 amount) internal pure returns (uint256) {
@@ -89,14 +89,14 @@ contract OrdersManager is Ownable, Validatable {
     function withdrawFee() public onlyOwner {
         uint256 fee = cumulatedFee;
         cumulatedFee = 0;
-        require(fee > 0 wei);
+        require(fee > 0 wei, "Fee must be larger than 0!");
         feeWallet.transfer(fee);
     }
 
     /**
     @dev Returns open parameter hashes.
     Only callable by the owner.
-    
+
     @return {
         "openParameterHashes": "A bytes32 array of open order types"
     }
@@ -121,7 +121,7 @@ contract OrdersManager is Ownable, Validatable {
     /**
     @dev Returns order by orderID.
     Deconstructs the Order struct for returning. Leaves out the ownerSignature.
-     
+
     @param orderID An unique hash that maps to an order
     @return {
         "currencyPair": "describing the currency pair of the order",
@@ -140,7 +140,7 @@ contract OrdersManager is Ownable, Validatable {
     /**
     @dev Function for checking if there are orders
     with the same parameters open already
-    
+
     @param parameterHash Hash of duration, leverage and signature.
     @return bool
     */
@@ -150,12 +150,12 @@ contract OrdersManager is Ownable, Validatable {
 
     /**
     @dev Open order creation, the main endpoint for Vanilla platform.
-    
+
     Mainly called by Vanilla's own backend, but open for
     everyone who knows how to use the smart contract on its own.
-    
+
     Receives a singular payment with parameters to open an order with.
-    
+
     @param orderID A unique bytes32 ID to create the order with.
     @param currencyPair "ETH-USD" || "BTC-USD"
     @param positionType "LONG" || "SHORT"
@@ -166,13 +166,13 @@ contract OrdersManager is Ownable, Validatable {
     function createOrder(bytes32 orderID, bytes7 currencyPair, bytes5 positionType, uint duration, uint8 leverage, address paymentAddress) public payable {
 
         // Require that there isn't an order with this ID yet
-        require(orders[orderID].paymentAddress == 0);
+        require(orders[orderID].paymentAddress == 0, "An order with this ID already exists!");
 
         // Check minimum and maximum bets
-        require(msg.value >= MINIMUM_POSITION && msg.value <= MAXIMUM_POSITION);
+        require(msg.value >= MINIMUM_POSITION && msg.value <= MAXIMUM_POSITION, "Order amount not allowed!");
 
         // Calculate a hash of the parameters for matching
-        bytes32 parameterHash = keccak256(currencyPair, duration, leverage, signature);
+        bytes32 parameterHash = keccak256(abi.encodePacked(currencyPair, duration, leverage, signature));
 
         validateLeverage(leverage);
 
@@ -191,7 +191,7 @@ contract OrdersManager is Ownable, Validatable {
         // Map the orderID to paramHash
         orderIDs[parameterHash].push(orderID);
         // Map the order to the orderID
-        orders[orderID] = Order(currencyPair, positionType, duration, block.timestamp.add(12 hours), leverage, paymentAddress, balance, keccak256(msg.sender));
+        orders[orderID] = Order(currencyPair, positionType, duration, block.timestamp.add(12 hours), leverage, paymentAddress, balance, keccak256(abi.encodePacked(msg.sender)));
     }
 
     /**
@@ -199,22 +199,22 @@ contract OrdersManager is Ownable, Validatable {
     effectively turning all its parameters to 0.
     Used by the backend after an order has been fully matched.
     Only callable by the owner.
-    
+
     @param orderID The unique hash of the deletable order.
     */
     function deleteOrder(bytes32 orderID) public onlyOwner {
-        require(orders[orderID].balance == 0);
+        require(orders[orderID].balance == 0, "Only orders with 0 balance can be deleted!");
         delete orders[orderID];
     }
 
     /**
     @dev Refunds an order by hash after its expiry
-    
+
     @param orderID The unique hash of the deletable order.
     */
     function refund(bytes32 orderID) public {
-        require(orders[orderID].expiryTime < block.timestamp);
-        require(orders[orderID].balance > 0);
+        require(orders[orderID].expiryTime < block.timestamp, "Order must be expired to be refunded.");
+        require(orders[orderID].balance > 0, "Order must have more than 0 balance to be refunded.");
         address paymentAddress = orders[orderID].paymentAddress;
         uint256 balance = orders[orderID].balance;
         delete orders[orderID];
@@ -225,7 +225,7 @@ contract OrdersManager is Ownable, Validatable {
     @dev Updates an order's balance.
     Used by the backend when an order was partially matched.
     Only callable by the owner.
-    
+
     @param orderID The unique hash of the deletable order.
     @param newBalance The new balance of an order.
     */

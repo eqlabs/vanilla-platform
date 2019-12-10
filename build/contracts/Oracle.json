@@ -194,28 +194,30 @@
       "type": "function"
     }
   ],
-  "bytecode":
-    "0x606060405260008060146101000a81548160ff021916908315150217905550341561002957600080fd5b60405160208061090883398101604052808051906020019091905050336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506001805480600101828161009991906100d3565b9160005260206000209001600042909190915055508060026000428152602001908152602001600020819055508060038190555050610124565b8154818355818115116100fa578183600052602060002091820191016100f991906100ff565b5b505050565b61012191905b8082111561011d576000816000905550600101610105565b5090565b90565b6107d5806101336000396000f300606060405260043610610099576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c1461009e5780638da5cb5b14610104578063a3e6ba9414610159578063b6d929cf14610182578063dd0f8d2d146101df578063ed99806514610216578063f2fde38b1461022b578063f3b4c89a14610264578063fc9bb7fe1461029b575b600080fd5b34156100a957600080fd5b610102600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506102be565b005b341561010f57600080fd5b61011761037c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016457600080fd5b61016c6103a1565b6040518082815260200191505060405180910390f35b341561018d57600080fd5b6101dd600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506103a7565b005b34156101ea57600080fd5b610200600480803590602001909190505061045c565b6040518082815260200191505060405180910390f35b341561022157600080fd5b610229610480565b005b341561023657600080fd5b610262600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610507565b005b341561026f57600080fd5b610285600480803590602001909190505061065c565b6040518082815260200191505060405180910390f35b34156102a657600080fd5b6102bc6004808035906020019091905050610674565b005b600060149054906101000a900460ff1615610378577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561033c578082015181840152602081019050610321565b50505050905090810190601f1680156103695780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60035481565b600060149054906101000a900460ff1615610459577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b8381101561041e578082015181840152602081019050610403565b50505050905090810190601f16801561044b5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b60018181548110151561046b57fe5b90600052602060002090016000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104db57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561056257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561059e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60026020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156106cf57600080fd5b600180548060010182816106e39190610758565b916000526020600020900160004290919091505550806002600042815260200190815260200160002081905550806003819055506107556040805190810160405280601581526020017f4f7261636c6520707269636520757064617465642100000000000000000000008152506103a7565b50565b81548183558181151161077f5781836000526020600020918201910161077e9190610784565b5b505050565b6107a691905b808211156107a257600081600090555060010161078a565b5090565b905600a165627a7a72305820aa9a614cdb475a2e5b0c2ea631d638a0c2bff7b5066f6cbb25eb2db8f07c6c740029",
-  "deployedBytecode":
-    "0x606060405260043610610099576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c1461009e5780638da5cb5b14610104578063a3e6ba9414610159578063b6d929cf14610182578063dd0f8d2d146101df578063ed99806514610216578063f2fde38b1461022b578063f3b4c89a14610264578063fc9bb7fe1461029b575b600080fd5b34156100a957600080fd5b610102600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506102be565b005b341561010f57600080fd5b61011761037c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016457600080fd5b61016c6103a1565b6040518082815260200191505060405180910390f35b341561018d57600080fd5b6101dd600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506103a7565b005b34156101ea57600080fd5b610200600480803590602001909190505061045c565b6040518082815260200191505060405180910390f35b341561022157600080fd5b610229610480565b005b341561023657600080fd5b610262600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610507565b005b341561026f57600080fd5b610285600480803590602001909190505061065c565b6040518082815260200191505060405180910390f35b34156102a657600080fd5b6102bc6004808035906020019091905050610674565b005b600060149054906101000a900460ff1615610378577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561033c578082015181840152602081019050610321565b50505050905090810190601f1680156103695780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60035481565b600060149054906101000a900460ff1615610459577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b8381101561041e578082015181840152602081019050610403565b50505050905090810190601f16801561044b5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b60018181548110151561046b57fe5b90600052602060002090016000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104db57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561056257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561059e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60026020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156106cf57600080fd5b600180548060010182816106e39190610758565b916000526020600020900160004290919091505550806002600042815260200190815260200160002081905550806003819055506107556040805190810160405280601581526020017f4f7261636c6520707269636520757064617465642100000000000000000000008152506103a7565b50565b81548183558181151161077f5781836000526020600020918201910161077e9190610784565b5b505050565b6107a691905b808211156107a257600081600090555060010161078a565b5090565b905600a165627a7a72305820aa9a614cdb475a2e5b0c2ea631d638a0c2bff7b5066f6cbb25eb2db8f07c6c740029",
-  "sourceMap":
-    "193:931:3:-;;;400:5:0;385:20;;;;;;;;;;;;;;;;;;;;593:174:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;509:10:5;501:5;;:18;;;;;;;;;;;;;;;;;;643:12:3;:34;;;;;;;;;;;:::i;:::-;;;;;;;;;;661:15;643:34;;;;;;;714:14;683:11;:28;695:15;683:28;;;;;;;;;;;:45;;;;748:14;734:11;:28;;;;593:174;193:931;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
-  "deployedSourceMap":
-    "193:931:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;765:127:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;238:20:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;466:23:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;613:102:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;307:26:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;964:69:0;;;;;;;;;;;;;;832:169:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;384:40:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;894:228;;;;;;;;;;;;;;;;;;;;;;;;;;765:127:0;834:7;;;;;;;;;;;830:58;;;851:30;866:7;875:5;851:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;830:58:0;765:127;;:::o;238:20:5:-;;;;;;;;;;;;;:::o;466:23:3:-;;;;:::o;613:102:0:-;667:7;;;;;;;;;;;663:48;;;684:20;696:7;684:20;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;663:48:0;613:102;:::o;307:26:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;964:69:0:-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1021:7:0;;;;;;;;;;;1020:8;1010:7;;:18;;;;;;;;;;;;;;;;;;964:69::o;832:169:5:-;653:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;928:1;908:22;;:8;:22;;;;900:31;;;;;;;;965:8;937:37;;958:5;;;;;;;;;;;937:37;;;;;;;;;;;;988:8;980:5;;:16;;;;;;;;;;;;;;;;;;832:169;:::o;384:40:3:-;;;;;;;;;;;;;;;;;:::o;894:228::-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;960:12:3;:34;;;;;;;;;;;:::i;:::-;;;;;;;;;;978:15;960:34;;;;;;;1031:12;1000:11;:28;1012:15;1000:28;;;;;;;;;;;:43;;;;1063:12;1049:11;:26;;;;1081:36;;;;;;;;;;;;;;;;;;;:11;:36::i;:::-;894:228;:::o;193:931::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source":
-    "pragma solidity ^0.4.18;\nimport \"./Ownable.sol\";\nimport \"./Debuggable.sol\";\n\n/**\n@title Oracle\n@dev A contract which saves price history to the Ethereum blockchain.\n\n@author Convoluted Labs\n*/\ncontract Oracle is Ownable, Debuggable {\n\n  /// Array that contains the timestamps that the prices were updated\n  uint[] public timesUpdated;\n\n  /// Mapping that maps timestamps to a price\n  mapping(uint => uint) public priceByTime;\n\n  /// Single value, the latest price\n  uint public latestPrice;\n\n  /**\n  @dev Oracle constructor.\n  @param _startingPrice The genesis price for the instrument\n  */\n  function Oracle(uint _startingPrice) public {\n    timesUpdated.push(block.timestamp);\n    priceByTime[block.timestamp] = _startingPrice;\n    latestPrice = _startingPrice;\n  }\n  \n  /**\n  @dev Endpoint for the Oracle owner to update prices\n  @param _latestPrice The latest price from Vanilla API\n  */\n  function setLatestPrice(uint _latestPrice) public onlyOwner {\n    timesUpdated.push(block.timestamp);\n    priceByTime[block.timestamp] = _latestPrice;\n    latestPrice = _latestPrice;\n    debugString(\"Oracle price updated!\");\n  }\n}\n",
+  "bytecode": "0x606060405260008060146101000a81548160ff021916908315150217905550341561002957600080fd5b60405160208061090883398101604052808051906020019091905050336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506001805480600101828161009991906100d3565b9160005260206000209001600042909190915055508060026000428152602001908152602001600020819055508060038190555050610124565b8154818355818115116100fa578183600052602060002091820191016100f991906100ff565b5b505050565b61012191905b8082111561011d576000816000905550600101610105565b5090565b90565b6107d5806101336000396000f300606060405260043610610099576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c1461009e5780638da5cb5b14610104578063a3e6ba9414610159578063b6d929cf14610182578063dd0f8d2d146101df578063ed99806514610216578063f2fde38b1461022b578063f3b4c89a14610264578063fc9bb7fe1461029b575b600080fd5b34156100a957600080fd5b610102600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506102be565b005b341561010f57600080fd5b61011761037c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016457600080fd5b61016c6103a1565b6040518082815260200191505060405180910390f35b341561018d57600080fd5b6101dd600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506103a7565b005b34156101ea57600080fd5b610200600480803590602001909190505061045c565b6040518082815260200191505060405180910390f35b341561022157600080fd5b610229610480565b005b341561023657600080fd5b610262600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610507565b005b341561026f57600080fd5b610285600480803590602001909190505061065c565b6040518082815260200191505060405180910390f35b34156102a657600080fd5b6102bc6004808035906020019091905050610674565b005b600060149054906101000a900460ff1615610378577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561033c578082015181840152602081019050610321565b50505050905090810190601f1680156103695780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60035481565b600060149054906101000a900460ff1615610459577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b8381101561041e578082015181840152602081019050610403565b50505050905090810190601f16801561044b5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b60018181548110151561046b57fe5b90600052602060002090016000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104db57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561056257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561059e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60026020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156106cf57600080fd5b600180548060010182816106e39190610758565b916000526020600020900160004290919091505550806002600042815260200190815260200160002081905550806003819055506107556040805190810160405280601581526020017f4f7261636c6520707269636520757064617465642100000000000000000000008152506103a7565b50565b81548183558181151161077f5781836000526020600020918201910161077e9190610784565b5b505050565b6107a691905b808211156107a257600081600090555060010161078a565b5090565b905600a165627a7a72305820aa9a614cdb475a2e5b0c2ea631d638a0c2bff7b5066f6cbb25eb2db8f07c6c740029",
+  "deployedBytecode": "0x606060405260043610610099576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680635a47e57c1461009e5780638da5cb5b14610104578063a3e6ba9414610159578063b6d929cf14610182578063dd0f8d2d146101df578063ed99806514610216578063f2fde38b1461022b578063f3b4c89a14610264578063fc9bb7fe1461029b575b600080fd5b34156100a957600080fd5b610102600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919080359060200190919050506102be565b005b341561010f57600080fd5b61011761037c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561016457600080fd5b61016c6103a1565b6040518082815260200191505060405180910390f35b341561018d57600080fd5b6101dd600480803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506103a7565b005b34156101ea57600080fd5b610200600480803590602001909190505061045c565b6040518082815260200191505060405180910390f35b341561022157600080fd5b610229610480565b005b341561023657600080fd5b610262600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610507565b005b341561026f57600080fd5b610285600480803590602001909190505061065c565b6040518082815260200191505060405180910390f35b34156102a657600080fd5b6102bc6004808035906020019091905050610674565b005b600060149054906101000a900460ff1615610378577f6e90aba1107b4a018103de2d422091e629a4fb4c015a3cb8ea2e777757f3636582826040518080602001838152602001828103825284818151815260200191508051906020019080838360005b8381101561033c578082015181840152602081019050610321565b50505050905090810190601f1680156103695780820380516001836020036101000a031916815260200191505b50935050505060405180910390a15b5050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60035481565b600060149054906101000a900460ff1615610459577f20670ef4ff6910e98e7c43650896cc0feeab168b4ca974d0748d31c42706a1e9816040518080602001828103825283818151815260200191508051906020019080838360005b8381101561041e578082015181840152602081019050610403565b50505050905090810190601f16801561044b5780820380516001836020036101000a031916815260200191505b509250505060405180910390a15b50565b60018181548110151561046b57fe5b90600052602060002090016000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156104db57600080fd5b600060149054906101000a900460ff1615600060146101000a81548160ff021916908315150217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561056257600080fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415151561059e57600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60026020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156106cf57600080fd5b600180548060010182816106e39190610758565b916000526020600020900160004290919091505550806002600042815260200190815260200160002081905550806003819055506107556040805190810160405280601581526020017f4f7261636c6520707269636520757064617465642100000000000000000000008152506103a7565b50565b81548183558181151161077f5781836000526020600020918201910161077e9190610784565b5b505050565b6107a691905b808211156107a257600081600090555060010161078a565b5090565b905600a165627a7a72305820aa9a614cdb475a2e5b0c2ea631d638a0c2bff7b5066f6cbb25eb2db8f07c6c740029",
+  "sourceMap": "193:931:3:-;;;400:5:0;385:20;;;;;;;;;;;;;;;;;;;;593:174:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;509:10:5;501:5;;:18;;;;;;;;;;;;;;;;;;643:12:3;:34;;;;;;;;;;;:::i;:::-;;;;;;;;;;661:15;643:34;;;;;;;714:14;683:11;:28;695:15;683:28;;;;;;;;;;;:45;;;;748:14;734:11;:28;;;;593:174;193:931;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
+  "deployedSourceMap": "193:931:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;765:127:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;238:20:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;466:23:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;613:102:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;307:26:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;964:69:0;;;;;;;;;;;;;;832:169:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;384:40:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;894:228;;;;;;;;;;;;;;;;;;;;;;;;;;765:127:0;834:7;;;;;;;;;;;830:58;;;851:30;866:7;875:5;851:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;830:58:0;765:127;;:::o;238:20:5:-;;;;;;;;;;;;;:::o;466:23:3:-;;;;:::o;613:102:0:-;667:7;;;;;;;;;;;663:48;;;684:20;696:7;684:20;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;663:48:0;613:102;:::o;307:26:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;964:69:0:-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;1021:7:0;;;;;;;;;;;1020:8;1010:7;;:18;;;;;;;;;;;;;;;;;;964:69::o;832:169:5:-;653:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;928:1;908:22;;:8;:22;;;;900:31;;;;;;;;965:8;937:37;;958:5;;;;;;;;;;;937:37;;;;;;;;;;;;988:8;980:5;;:16;;;;;;;;;;;;;;;;;;832:169;:::o;384:40:3:-;;;;;;;;;;;;;;;;;:::o;894:228::-;653:5:5;;;;;;;;;;;639:19;;:10;:19;;;631:28;;;;;;;;960:12:3;:34;;;;;;;;;;;:::i;:::-;;;;;;;;;;978:15;960:34;;;;;;;1031:12;1000:11;:28;1012:15;1000:28;;;;;;;;;;;:43;;;;1063:12;1049:11;:26;;;;1081:36;;;;;;;;;;;;;;;;;;;:11;:36::i;:::-;894:228;:::o;193:931::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.26;\nimport \"./Ownable.sol\";\nimport \"./Debuggable.sol\";\n\n/**\n@title Oracle\n@dev A contract which saves price history to the Ethereum blockchain.\n\n@author Convoluted Labs\n*/\ncontract Oracle is Ownable, Debuggable {\n\n  /// Array that contains the timestamps that the prices were updated\n  uint[] public timesUpdated;\n\n  /// Mapping that maps timestamps to a price\n  mapping(uint => uint) public priceByTime;\n\n  /// Single value, the latest price\n  uint public latestPrice;\n\n  /**\n  @dev Oracle constructor.\n  @param _startingPrice The genesis price for the instrument\n  */\n  function Oracle(uint _startingPrice) public {\n    timesUpdated.push(block.timestamp);\n    priceByTime[block.timestamp] = _startingPrice;\n    latestPrice = _startingPrice;\n  }\n  \n  /**\n  @dev Endpoint for the Oracle owner to update prices\n  @param _latestPrice The latest price from Vanilla API\n  */\n  function setLatestPrice(uint _latestPrice) public onlyOwner {\n    timesUpdated.push(block.timestamp);\n    priceByTime[block.timestamp] = _latestPrice;\n    latestPrice = _latestPrice;\n    debugString(\"Oracle price updated!\");\n  }\n}\n",
   "sourcePath": "/home/node/app/contracts/Oracle.sol",
   "ast": {
     "attributes": {
       "absolutePath": "/home/node/app/contracts/Oracle.sol",
       "exportedSymbols": {
-        "Oracle": [861]
+        "Oracle": [
+          861
+        ]
       }
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", "^", "0.4", ".18"]
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".18"
+          ]
         },
         "id": 791,
         "name": "PragmaDirective",
@@ -227,7 +229,9 @@
           "absolutePath": "/home/node/app/contracts/Ownable.sol",
           "file": "./Ownable.sol",
           "scope": 862,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 792,
@@ -240,7 +244,9 @@
           "absolutePath": "/home/node/app/contracts/Debuggable.sol",
           "file": "./Debuggable.sol",
           "scope": 862,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 793,
@@ -249,19 +255,27 @@
       },
       {
         "attributes": {
-          "contractDependencies": [58, 1303],
+          "contractDependencies": [
+            58,
+            1303
+          ],
           "contractKind": "contract",
-          "documentation":
-            "@title Oracle\n@dev A contract which saves price history to the Ethereum blockchain.\n@author Convoluted Labs",
+          "documentation": "@title Oracle\n@dev A contract which saves price history to the Ethereum blockchain.\n@author Convoluted Labs",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [861, 58, 1303],
+          "linearizedBaseContracts": [
+            861,
+            58,
+            1303
+          ],
           "name": "Oracle",
           "scope": 862
         },
         "children": [
           {
             "attributes": {
-              "arguments": [null]
+              "arguments": [
+                null
+              ]
             },
             "children": [
               {
@@ -282,7 +296,9 @@
           },
           {
             "attributes": {
-              "arguments": [null]
+              "arguments": [
+                null
+              ]
             },
             "children": [
               {
@@ -414,7 +430,9 @@
               "constant": false,
               "implemented": true,
               "isConstructor": true,
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "Oracle",
               "payable": false,
               "scope": 861,
@@ -458,7 +476,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 810,
@@ -477,7 +497,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "type": "uint256",
                           "type_conversion": false
                         },
@@ -502,7 +524,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 800,
                                   "type": "uint256[] storage ref",
                                   "value": "timesUpdated"
@@ -531,7 +555,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 1652,
                                   "type": "block",
                                   "value": "block"
@@ -581,7 +607,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 804,
                                   "type": "mapping(uint256 => uint256)",
                                   "value": "priceByTime"
@@ -605,7 +633,9 @@
                                   {
                                     "attributes": {
                                       "argumentTypes": null,
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 1652,
                                       "type": "block",
                                       "value": "block"
@@ -627,7 +657,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 808,
                               "type": "uint256",
                               "value": "_startingPrice"
@@ -662,7 +694,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 806,
                               "type": "uint256",
                               "value": "latestPrice"
@@ -674,7 +708,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 808,
                               "type": "uint256",
                               "value": "_startingPrice"
@@ -751,7 +787,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 836,
@@ -760,13 +798,17 @@
               },
               {
                 "attributes": {
-                  "arguments": [null]
+                  "arguments": [
+                    null
+                  ]
                 },
                 "children": [
                   {
                     "attributes": {
                       "argumentTypes": null,
-                      "overloadedDeclarations": [null],
+                      "overloadedDeclarations": [
+                        null
+                      ],
                       "referencedDeclaration": 1277,
                       "type": "modifier ()",
                       "value": "onlyOwner"
@@ -792,7 +834,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "type": "uint256",
                           "type_conversion": false
                         },
@@ -817,7 +861,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 800,
                                   "type": "uint256[] storage ref",
                                   "value": "timesUpdated"
@@ -846,7 +892,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 1652,
                                   "type": "block",
                                   "value": "block"
@@ -896,7 +944,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 804,
                                   "type": "mapping(uint256 => uint256)",
                                   "value": "priceByTime"
@@ -920,7 +970,9 @@
                                   {
                                     "attributes": {
                                       "argumentTypes": null,
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 1652,
                                       "type": "block",
                                       "value": "block"
@@ -942,7 +994,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 832,
                               "type": "uint256",
                               "value": "_latestPrice"
@@ -977,7 +1031,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 806,
                               "type": "uint256",
                               "value": "latestPrice"
@@ -989,7 +1045,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 832,
                               "type": "uint256",
                               "value": "_latestPrice"
@@ -1018,7 +1076,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "type": "tuple()",
                           "type_conversion": false
                         },
@@ -1027,13 +1087,13 @@
                             "attributes": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier":
-                                    "t_stringliteral_15e874d4dbeafafd6ee5c7f944e05b6e03833c96208557851977f789661e51f9",
-                                  "typeString":
-                                    "literal_string \"Oracle price updated!\""
+                                  "typeIdentifier": "t_stringliteral_15e874d4dbeafafd6ee5c7f944e05b6e03833c96208557851977f789661e51f9",
+                                  "typeString": "literal_string \"Oracle price updated!\""
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 30,
                               "type": "function (string memory)",
                               "value": "debugString"
@@ -1045,16 +1105,14 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "hexvalue":
-                                "4f7261636c65207072696365207570646174656421",
+                              "hexvalue": "4f7261636c65207072696365207570646174656421",
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
                               "lValueRequested": false,
                               "subdenomination": null,
                               "token": "string",
-                              "type":
-                                "literal_string \"Oracle price updated!\"",
+                              "type": "literal_string \"Oracle price updated!\"",
                               "value": "Oracle price updated!"
                             },
                             "id": 856,

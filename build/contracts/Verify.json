@@ -68,27 +68,30 @@
       "type": "function"
     }
   ],
-  "bytecode":
-    "0x6060604052341561000f57600080fd5b6102e38061001e6000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680638677ebe814610051578063e5df669f146100d5575b600080fd5b341561005c57600080fd5b6100bb600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610162565b604051808215151515815260200191505060405180910390f35b34156100e057600080fd5b61012060048080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610224565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008573ffffffffffffffffffffffffffffffffffffffff16600186868686604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156101f957600080fd5b50506020604051035173ffffffffffffffffffffffffffffffffffffffff1614905095945050505050565b6000600185858585604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156102a457600080fd5b50506020604051035190509493505050505600a165627a7a72305820357c4737969bab4871f275868591a011652d64be9c6b79da9535f78720eb4c930029",
-  "deployedBytecode":
-    "0x60606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680638677ebe814610051578063e5df669f146100d5575b600080fd5b341561005c57600080fd5b6100bb600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610162565b604051808215151515815260200191505060405180910390f35b34156100e057600080fd5b61012060048080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610224565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008573ffffffffffffffffffffffffffffffffffffffff16600186868686604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156101f957600080fd5b50506020604051035173ffffffffffffffffffffffffffffffffffffffff1614905095945050505050565b6000600185858585604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156102a457600080fd5b50506020604051035190509493505050505600a165627a7a72305820357c4737969bab4871f275868591a011652d64be9c6b79da9535f78720eb4c930029",
+  "bytecode": "0x6060604052341561000f57600080fd5b6102e38061001e6000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680638677ebe814610051578063e5df669f146100d5575b600080fd5b341561005c57600080fd5b6100bb600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610162565b604051808215151515815260200191505060405180910390f35b34156100e057600080fd5b61012060048080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610224565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008573ffffffffffffffffffffffffffffffffffffffff16600186868686604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156101f957600080fd5b50506020604051035173ffffffffffffffffffffffffffffffffffffffff1614905095945050505050565b6000600185858585604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156102a457600080fd5b50506020604051035190509493505050505600a165627a7a72305820357c4737969bab4871f275868591a011652d64be9c6b79da9535f78720eb4c930029",
+  "deployedBytecode": "0x60606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680638677ebe814610051578063e5df669f146100d5575b600080fd5b341561005c57600080fd5b6100bb600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610162565b604051808215151515815260200191505060405180910390f35b34156100e057600080fd5b61012060048080356000191690602001909190803560ff169060200190919080356000191690602001909190803560001916906020019091905050610224565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008573ffffffffffffffffffffffffffffffffffffffff16600186868686604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156101f957600080fd5b50506020604051035173ffffffffffffffffffffffffffffffffffffffff1614905095945050505050565b6000600185858585604051600081526020016040526000604051602001526040518085600019166000191681526020018460ff1660ff16815260200183600019166000191681526020018260001916600019168152602001945050505050602060405160208103908084039060008661646e5a03f115156102a457600080fd5b50506020604051035190509493505050505600a165627a7a72305820357c4737969bab4871f275868591a011652d64be9c6b79da9535f78720eb4c930029",
   "sourceMap": "26:332:9:-;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap":
-    "26:332:9:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;194:162;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;46:144;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;194:162;296:4;346:5;315:36;;:27;325:7;334:1;337;340;315:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:36;;;308:43;;194:162;;;;;;;:::o;46:144::-;136:7;158:27;168:7;177:1;180;183;158:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;151:34;;46:144;;;;;;:::o",
-  "source":
-    "pragma solidity ^0.4.18;\n\ncontract Verify {\n  function recoverAddr(bytes32 msgHash, uint8 v, bytes32 r, bytes32 s) public pure returns (address) {\n    return ecrecover(msgHash, v, r, s);\n  }\n\n  function isSigned(address _addr, bytes32 msgHash, uint8 v, bytes32 r, bytes32 s) public pure returns (bool) {\n    return ecrecover(msgHash, v, r, s) == _addr;\n  }\n}\n",
+  "deployedSourceMap": "26:332:9:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;194:162;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;46:144;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;194:162;296:4;346:5;315:36;;:27;325:7;334:1;337;340;315:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:36;;;308:43;;194:162;;;;;;;:::o;46:144::-;136:7;158:27;168:7;177:1;180;183;158:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;151:34;;46:144;;;;;;:::o",
+  "source": "pragma solidity ^0.4.26;\n\ncontract Verify {\n  function recoverAddr(bytes32 msgHash, uint8 v, bytes32 r, bytes32 s) public pure returns (address) {\n    return ecrecover(msgHash, v, r, s);\n  }\n\n  function isSigned(address _addr, bytes32 msgHash, uint8 v, bytes32 r, bytes32 s) public pure returns (bool) {\n    return ecrecover(msgHash, v, r, s) == _addr;\n  }\n}\n",
   "sourcePath": "/home/node/app/contracts/Verify.sol",
   "ast": {
     "attributes": {
       "absolutePath": "/home/node/app/contracts/Verify.sol",
       "exportedSymbols": {
-        "Verify": [1648]
+        "Verify": [
+          1648
+        ]
       }
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", "^", "0.4", ".18"]
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".18"
+          ]
         },
         "id": 1601,
         "name": "PragmaDirective",
@@ -96,12 +99,18 @@
       },
       {
         "attributes": {
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
-          "linearizedBaseContracts": [1648],
+          "linearizedBaseContracts": [
+            1648
+          ],
           "name": "Verify",
           "scope": 1649
         },
@@ -111,7 +120,9 @@
               "constant": true,
               "implemented": true,
               "isConstructor": false,
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "recoverAddr",
               "payable": false,
               "scope": 1648,
@@ -279,7 +290,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "type": "address",
                           "type_conversion": false
                         },
@@ -304,10 +317,11 @@
                                   "typeString": "bytes32"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 1653,
-                              "type":
-                                "function (bytes32,uint8,bytes32,bytes32) pure returns (address)",
+                              "type": "function (bytes32,uint8,bytes32,bytes32) pure returns (address)",
                               "value": "ecrecover"
                             },
                             "id": 1614,
@@ -317,7 +331,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 1603,
                               "type": "bytes32",
                               "value": "msgHash"
@@ -329,7 +345,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 1605,
                               "type": "uint8",
                               "value": "v"
@@ -341,7 +359,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 1607,
                               "type": "bytes32",
                               "value": "r"
@@ -353,7 +373,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 1609,
                               "type": "bytes32",
                               "value": "s"
@@ -387,7 +409,9 @@
               "constant": true,
               "implemented": true,
               "isConstructor": false,
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "isSigned",
               "payable": false,
               "scope": 1648,
@@ -596,7 +620,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "type": "address",
                               "type_conversion": false
                             },
@@ -621,10 +647,11 @@
                                       "typeString": "bytes32"
                                     }
                                   ],
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 1653,
-                                  "type":
-                                    "function (bytes32,uint8,bytes32,bytes32) pure returns (address)",
+                                  "type": "function (bytes32,uint8,bytes32,bytes32) pure returns (address)",
                                   "value": "ecrecover"
                                 },
                                 "id": 1637,
@@ -634,7 +661,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 1626,
                                   "type": "bytes32",
                                   "value": "msgHash"
@@ -646,7 +675,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 1628,
                                   "type": "uint8",
                                   "value": "v"
@@ -658,7 +689,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 1630,
                                   "type": "bytes32",
                                   "value": "r"
@@ -670,7 +703,9 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 1632,
                                   "type": "bytes32",
                                   "value": "s"
@@ -687,7 +722,9 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 1624,
                               "type": "address",
                               "value": "_addr"

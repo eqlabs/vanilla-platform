@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.26;
 import "./Ownable.sol";
 
 /**
@@ -23,7 +23,7 @@ contract Oracle is Ownable {
 
     /// Mapping of prices by currency pair
     mapping(bytes7 => uint256) public price;
-    
+
     /**
     @dev Endpoint for the Oracle owner to update prices
     */
